@@ -220,12 +220,23 @@ function extractQuantity(
   scope: Cheerio<Element>,
   $: CheerioAPI
 ): string | undefined {
+  // Common data attributes
   const attrStock =
     scope.attr("data-stock") ||
     scope.attr("data-qty") ||
     scope.attr("data-quantity") ||
     scope.attr("data-available");
   if (attrStock) return clean(attrStock);
+
+  // Specific table layout: look for an "Estoque" cell and grab its number
+  const estoqueCell = scope
+    .find(".table-cards-body-cell")
+    .filter((_, el) => /estoque/i.test($(el).text()))
+    .first();
+  if (estoqueCell.length) {
+    const match = estoqueCell.text().match(/\d+/);
+    if (match) return match[0];
+  }
 
   const textCandidates = [
     scope.find('[class*="estoque"], [class*="stock"], [class*="quant"], [class*="qtd"]')
