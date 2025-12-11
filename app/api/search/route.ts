@@ -7,8 +7,8 @@ type Store = { storeName: string; url: string };
 type CardResult = {
   title: string;
   url: string;
-  price?: string;
-  quantity?: string;
+  price: string;
+  quantity: string;
   exact?: boolean;
   source: "list" | "page";
 };
@@ -138,8 +138,8 @@ function parseResults(
       results.push({
         title: titleRaw,
         url,
-        price,
-        quantity,
+        price: price ?? "0",
+        quantity: quantity ?? "0",
         exact: tNorm === qNorm,
         source: "list",
       });
@@ -166,8 +166,8 @@ function parseResults(
       results.push({
         title: titleRaw,
         url,
-        price: extractPrice(parent, $),
-        quantity: extractQuantity(parent, $),
+        price: extractPrice(parent, $) ?? "0",
+        quantity: extractQuantity(parent, $) ?? "0",
         exact: tNorm === qNorm,
         source: "list",
       });
@@ -180,8 +180,8 @@ function parseResults(
       results.push({
         title,
         url: searchUrl,
-        price: extractPrice($("body") as Cheerio<Element>, $),
-        quantity: extractQuantity($("body") as Cheerio<Element>, $),
+        price: extractPrice($("body") as Cheerio<Element>, $) ?? "0",
+        quantity: extractQuantity($("body") as Cheerio<Element>, $) ?? "0",
         exact: normalize(title) === qNorm,
         source: "page",
       });
