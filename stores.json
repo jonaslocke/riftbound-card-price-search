@@ -1,16 +1,16 @@
-{
-  "megageek": "https://www.megageek.com.br",
-  "mestre-pokemon": "https://www.mestrepokemon.com.br",
-  "legacy": "https://www.legacytcg.com.br",
-  "tcg-br": "https://www.tcgbr.com",
-  "epic-games": "https://www.epicgame.com.br",
-  "bolovo": "https://www.bolovogames.com.br",
-  "brandao": "https://www.brandaocardgame.com.br",
-  "miragem": "https://www.miragemhobby.com.br",
-  "lostbox": "https://www.lostboxcardshop.com.br",
-  "jogando-tcg": "https://www.jogandotcg.com.br",
-  "kedge": "https://www.kedgecardgames.com.br",
-  "infinity": "https://www.infinityshoptcg.com.br",
-  "turn-zero": "https://www.turnozerotcg.com.br",
-  "bird-games": "https://www.birdgames.com.br"
-}
+[
+  { "storeName": "megageek", "url": "https://www.megageek.com.br" },
+  { "storeName": "mestre-pokemon", "url": "https://www.mestrepokemon.com.br" },
+  { "storeName": "legacy", "url": "https://www.legacytcg.com.br" },
+  { "storeName": "tcg-br", "url": "https://www.tcgbr.com" },
+  { "storeName": "epic-games", "url": "https://www.epicgame.com.br" },
+  { "storeName": "bolovo", "url": "https://www.bolovogames.com.br" },
+  { "storeName": "brandao", "url": "https://www.brandaocardgame.com.br" },
+  { "storeName": "miragem", "url": "https://www.miragemhobby.com.br" },
+  { "storeName": "lostbox", "url": "https://www.lostboxcardshop.com.br" },
+  { "storeName": "jogando-tcg", "url": "https://www.jogandotcg.com.br" },
+  { "storeName": "kedge", "url": "https://www.kedgecardgames.com.br" },
+  { "storeName": "infinity", "url": "https://www.infinityshoptcg.com.br" },
+  { "storeName": "turn-zero", "url": "https://www.turnozerotcg.com.br" },
+  { "storeName": "bird-games", "url": "https://www.birdgames.com.br" }
+]
