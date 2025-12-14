@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import SearchForm from "./components/SearchForm";
 
+const BACKGROUNDS = ["bg1.webp", "bg2.webp", "bg3.webp", "bg4.webp", "bg5.webp", "bg6.webp"];
+
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
@@ -29,6 +31,14 @@ export default function Home() {
       window.localStorage.setItem("rift-theme", theme);
     }
   }, [theme]);
+
+  useEffect(() => {
+    const pick = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+    document.documentElement.style.setProperty(
+      "--bg-image",
+      `url("/assets/backgrounds/${pick}")`
+    );
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
