@@ -174,6 +174,9 @@ export default function SearchForm({
         Search
       </label>
       <div className="search-input-wrapper">
+        <span className="search-icon" aria-hidden="true">
+          🔍
+        </span>
         <input
           id="search-input"
           name={name}
