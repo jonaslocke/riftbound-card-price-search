@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import SearchForm from "./components/SearchForm";
-
-const BACKGROUNDS = ["bg1.webp", "bg2.webp", "bg3.webp", "bg4.webp", "bg5.webp", "bg6.webp"];
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -33,11 +32,35 @@ export default function Home() {
   }, [theme]);
 
   useEffect(() => {
-    const pick = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
-    document.documentElement.style.setProperty(
-      "--bg-image",
-      `url("/assets/backgrounds/${pick}")`
-    );
+    let active = true;
+
+    async function pickBackground() {
+      try {
+        const res = await fetch("/api/backgrounds", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load backgrounds");
+        const data = await res.json();
+        const list: string[] = Array.isArray(data?.items) ? data.items : [];
+        const file =
+          list.length > 0
+            ? list[Math.floor(Math.random() * list.length)]
+            : "bg1.webp";
+        if (!active) return;
+        document.documentElement.style.setProperty(
+          "--bg-image",
+          `url("/assets/backgrounds/${file}")`
+        );
+      } catch {
+        document.documentElement.style.setProperty(
+          "--bg-image",
+          `url("/assets/backgrounds/bg1.webp")`
+        );
+      }
+    }
+
+    pickBackground();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -54,7 +77,7 @@ export default function Home() {
           theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
         }
       >
-        {theme === "dark" ? <IconSun /> : <IconMoon />}
+        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>
 
       <section className="search-copy">
@@ -68,51 +91,5 @@ export default function Home() {
 
       <SearchForm placeholder="Search cards by name" />
     </main>
-  );
-}
-
-function IconSun() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2" />
-      <path d="M12 20v2" />
-      <path d="m4.93 4.93 1.41 1.41" />
-      <path d="m17.66 17.66 1.41 1.41" />
-      <path d="M2 12h2" />
-      <path d="M20 12h2" />
-      <path d="m6.34 17.66-1.41 1.41" />
-      <path d="m19.07 4.93-1.41 1.41" />
-    </svg>
-  );
-}
-
-function IconMoon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </svg>
   );
 }

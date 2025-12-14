@@ -1,6 +1,7 @@
 // "use client" is required because we fetch suggestions as the user types.
 "use client";
 
+import { Image as ImageIcon, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   useEffect,
@@ -84,9 +85,12 @@ export default function SearchForm({
     setError(null);
 
     try {
-      const res = await fetch(`/api/cards/search?q=${encodeURIComponent(value)}`, {
-        signal: controller.signal,
-      });
+      const res = await fetch(
+        `/api/cards/search?q=${encodeURIComponent(value)}`,
+        {
+          signal: controller.signal,
+        }
+      );
 
       if (!res.ok) {
         const body = await res.json().catch(() => null);
@@ -175,7 +179,7 @@ export default function SearchForm({
       </label>
       <div className="search-input-wrapper">
         <span className="search-icon" aria-hidden="true">
-          🔍
+          <Search size={16} strokeWidth={2} />
         </span>
         <input
           id="search-input"
@@ -200,7 +204,9 @@ export default function SearchForm({
           </button>
         ) : null}
         <span
-          className={`search-spinner ${loading ? "search-spinner--visible" : ""}`}
+          className={`search-spinner ${
+            loading ? "search-spinner--visible" : ""
+          }`}
           aria-hidden="true"
         />
       </div>
@@ -240,12 +246,18 @@ export default function SearchForm({
                     {image ? (
                       <img src={image} alt="" loading="lazy" />
                     ) : (
-                      <span aria-hidden>IMG</span>
+                      <span aria-hidden>
+                        <ImageIcon size={18} />
+                      </span>
                     )}
                   </span>
                   <span className="search-suggestion__body">
-                    <span className="search-suggestion__title">{card.name}</span>
-                    {meta ? <span className="search-suggestion__meta">{meta}</span> : null}
+                    <span className="search-suggestion__title">
+                      {card.name}
+                    </span>
+                    {meta ? (
+                      <span className="search-suggestion__meta">{meta}</span>
+                    ) : null}
                   </span>
                   <span className="search-suggestion__code">
                     {card.collector_number ?? card.collectorNumber ?? ""}
