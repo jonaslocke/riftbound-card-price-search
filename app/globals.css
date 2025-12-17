@@ -242,7 +242,7 @@ main {
 .card-portrait__frame img,
 .card-portrait__placeholder {
   width: 100%;
-  aspect-ratio: 3 / 3.7;
+  aspect-ratio: 744 / 1039;
   border-radius: 0.7rem;
   display: block;
   object-fit: cover;
