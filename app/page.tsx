@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import SearchForm from "./components/SearchForm";
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? window.localStorage.getItem("rift-theme") : null;
+    const stored =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("rift-theme")
+        : null;
     if (stored === "light" || stored === "dark") {
       setTheme(stored);
       document.documentElement.setAttribute("data-theme", stored);
@@ -30,38 +33,6 @@ export default function Home() {
       window.localStorage.setItem("rift-theme", theme);
     }
   }, [theme]);
-
-  useEffect(() => {
-    let active = true;
-
-    async function pickBackground() {
-      try {
-        const res = await fetch("/api/backgrounds", { cache: "no-store" });
-        if (!res.ok) throw new Error("Failed to load backgrounds");
-        const data = await res.json();
-        const list: string[] = Array.isArray(data?.items) ? data.items : [];
-        const file =
-          list.length > 0
-            ? list[Math.floor(Math.random() * list.length)]
-            : "bg1.webp";
-        if (!active) return;
-        document.documentElement.style.setProperty(
-          "--bg-image",
-          `url("/assets/backgrounds/${file}")`
-        );
-      } catch {
-        document.documentElement.style.setProperty(
-          "--bg-image",
-          `url("/assets/backgrounds/bg1.webp")`
-        );
-      }
-    }
-
-    pickBackground();
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));

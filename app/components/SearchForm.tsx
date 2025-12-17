@@ -211,9 +211,7 @@ export default function SearchForm({
           aria-label="Card search suggestions"
         >
           {suggestions.map((card, index) => {
-            const meta = [card.set?.set_id ?? card.set?.label, card.public_code]
-              .filter(Boolean)
-              .join(" - ");
+            const meta = card.set?.set_id ?? "";
             const isActive = index === highlightedIndex;
             const image = card.media?.image_url;
 
