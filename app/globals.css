@@ -191,7 +191,7 @@ main {
 .card-hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 2.5rem;
   padding: 2.25rem;
   border-radius: 1.25rem;
@@ -227,7 +227,10 @@ main {
 .card-portrait {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1rem;
+  width: fit-content;
+  --card-art-height: 420px;
 }
 
 .card-portrait__frame {
@@ -237,15 +240,27 @@ main {
   background: linear-gradient(145deg, rgba(240, 195, 106, 0.2), rgba(15, 23, 42, 0.9));
   border: 1px solid rgba(240, 195, 106, 0.35);
   box-shadow: 0 16px 40px rgba(2, 6, 23, 0.55);
+  height: var(--card-art-height);
+  width: auto;
+  align-self: flex-start;
+  flex: 0 0 auto;
 }
 
 .card-portrait__frame img,
 .card-portrait__placeholder {
   width: 100%;
-  aspect-ratio: 744 / 1039;
+  height: 100%;
   border-radius: 0.7rem;
   display: block;
   object-fit: cover;
+}
+
+.card-portrait__frame--portrait {
+  aspect-ratio: 744 / 1039;
+}
+
+.card-portrait__frame--landscape {
+  aspect-ratio: 1039 / 744;
 }
 
 .card-portrait__placeholder {
@@ -286,6 +301,7 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: rgba(226, 232, 240, 0.65);
+  width: 100%;
 }
 
 .card-content {
@@ -451,6 +467,10 @@ main {
 
   .card-hero {
     padding: 1.5rem 1.2rem;
+  }
+
+  .card-portrait {
+    --card-art-height: 320px;
   }
 
   .card-stats {

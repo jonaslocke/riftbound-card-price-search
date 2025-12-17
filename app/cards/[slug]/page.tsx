@@ -22,6 +22,10 @@ export default async function CardPage({
   if (!card) notFound();
 
   const imageUrl = card.media?.image_url;
+  const isLandscape = card.orientation === "landscape";
+  const frameClass = isLandscape
+    ? "card-portrait__frame card-portrait__frame--landscape"
+    : "card-portrait__frame card-portrait__frame--portrait";
   const setLabel = card.set?.label ?? card.set?.set_id ?? setId;
   const cardCode =
     card.public_code ??
@@ -64,7 +68,7 @@ export default async function CardPage({
     <main className="card-shell card-shell--detail">
       <section className="card-hero">
         <div className="card-portrait">
-          <div className="card-portrait__frame">
+          <div className={frameClass}>
             {imageUrl ? (
               <img src={imageUrl} alt={card.name} />
             ) : (
