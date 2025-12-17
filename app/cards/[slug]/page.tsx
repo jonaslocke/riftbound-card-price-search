@@ -1,30 +1,6 @@
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
-
-type Card = {
-  id: string;
-  name: string;
-  riftbound_id?: string;
-  public_code?: string;
-  collector_number?: number;
-  image_url?: string;
-  imageUrl?: string;
-  image?: { url?: string };
-  art?: { url?: string };
-  classification?: {
-    type?: string;
-    supertype?: string | null;
-    rarity?: string;
-    domain?: string[];
-  };
-  set?: { set_id?: string; label?: string };
-  attributes?: {
-    energy?: number | null;
-    might?: number | null;
-    power?: number | null;
-  };
-  text?: { plain?: string };
-};
+import type { Card } from "../../types/card";
 
 export const dynamic = "force-dynamic";
 
@@ -45,10 +21,11 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
 
-  const imageUrl = card.image_url ?? card.imageUrl ?? card.image?.url ?? card.art?.url;
+  const imageUrl = card.media?.image_url;
   const setLabel = card.set?.label ?? card.set?.set_id ?? setId;
   const cardCode =
-    card.public_code ?? (card.collector_number != null ? `#${card.collector_number}` : "Unknown");
+    card.public_code ??
+    (card.collector_number != null ? `#${card.collector_number}` : "Unknown");
   const tags = [
     card.classification?.supertype,
     card.classification?.type,
@@ -62,7 +39,9 @@ export default async function CardPage({
     { label: "Might", value: attrs?.might },
   ];
   const typeLine =
-    [card.classification?.supertype, card.classification?.type].filter(Boolean).join(" ") || "Unknown";
+    [card.classification?.supertype, card.classification?.type]
+      .filter(Boolean)
+      .join(" ") || "Unknown";
   const metaItems: Array<[string, string | number]> = [
     ["Set", setLabel],
     ["Public code", card.public_code ?? "Unknown"],
@@ -82,7 +61,9 @@ export default async function CardPage({
               <img src={imageUrl} alt={card.name} />
             ) : (
               <div className="card-portrait__placeholder">
-                <span className="card-portrait__sigil">{card.name.slice(0, 1)}</span>
+                <span className="card-portrait__sigil">
+                  {card.name.slice(0, 1)}
+                </span>
                 <span className="card-portrait__name">{card.name}</span>
               </div>
             )}
@@ -152,7 +133,9 @@ async function fetchCard(setId: string, collector: number | string) {
   if (!host) return null;
   const protocol = headersList.get("x-forwarded-proto") ?? "http";
   const number = encodeURIComponent(collector.toString());
-  const url = `${protocol}://${host}/api/cards/detail?set=${encodeURIComponent(setId)}&number=${number}`;
+  const url = `${protocol}://${host}/api/cards/detail?set=${encodeURIComponent(
+    setId
+  )}&number=${number}`;
 
   try {
     const res = await fetch(url, { cache: "no-store" });

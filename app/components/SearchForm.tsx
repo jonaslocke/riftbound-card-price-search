@@ -10,26 +10,12 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
-
-type CardSuggestion = {
-  id: string;
-  name: string;
-  setLabel: string | null;
-  setId: string | null;
-  collectorNumber: number | null;
-  publicCode: string | null;
-  riftboundId: string | null;
-  type: string | null;
-  rarity: string | null;
-  media?: { image_url?: string };
-  set?: { set_id?: string; label?: string };
-  collector_number?: number;
-};
+import type { Card } from "../types/card";
 
 type SearchFormProps = {
   placeholder?: string;
   name?: string;
-  onCardSelect?: (card: CardSuggestion) => void;
+  onCardSelect?: (card: Card) => void;
 };
 
 export default function SearchForm({
@@ -39,7 +25,7 @@ export default function SearchForm({
 }: SearchFormProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<CardSuggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<Card[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -111,16 +97,16 @@ export default function SearchForm({
     }
   }
 
-  function navigateToCard(card: CardSuggestion) {
-    const setId = card.set?.set_id ?? card.setId;
-    const collector = card.collector_number ?? card.collectorNumber ?? null;
+  function navigateToCard(card: Card) {
+    const setId = card.set?.set_id;
+    const collector = card.collector_number ?? null;
 
     if (setId && collector !== null) {
       router.push(`/cards/${setId}-${collector}`);
     }
   }
 
-  function handleSelect(card: CardSuggestion) {
+  function handleSelect(card: Card) {
     setSelectedId(card.id);
     setQuery(card.name);
     onCardSelect?.(card);
@@ -225,7 +211,7 @@ export default function SearchForm({
           aria-label="Card search suggestions"
         >
           {suggestions.map((card, index) => {
-            const meta = [card.set?.set_id ?? card.setLabel, card.publicCode]
+            const meta = [card.set?.set_id ?? card.set?.label, card.public_code]
               .filter(Boolean)
               .join(" - ");
             const isActive = index === highlightedIndex;
@@ -260,7 +246,7 @@ export default function SearchForm({
                     ) : null}
                   </span>
                   <span className="search-suggestion__code">
-                    {card.collector_number ?? card.collectorNumber ?? ""}
+                    {card.collector_number ?? ""}
                   </span>
                 </button>
               </li>

@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
-
-type Card = {
-  collector_number?: number;
-  public_code?: string;
-  riftbound_id?: string;
-  set?: { set_id?: string };
-  [key: string]: unknown;
-};
+import type { Card } from "../../../types/card";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

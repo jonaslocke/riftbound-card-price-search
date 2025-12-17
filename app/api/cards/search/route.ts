@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
-
-type Card = {
-  id: string;
-  name: string;
-  set?: { set_id?: string; label?: string };
-  [key: string]: unknown;
-};
+import type { Card } from "../../../types/card";
 
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
 const MIN_SIZE = 10;
