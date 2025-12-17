@@ -1,0 +1,170 @@
+import { notFound } from "next/navigation";
+import path from "path";
+import { promises as fs } from "fs";
+
+type Card = {
+  id: string;
+  name: string;
+  riftbound_id?: string;
+  public_code?: string;
+  collector_number?: number;
+  image_url?: string;
+  imageUrl?: string;
+  image?: { url?: string };
+  art?: { url?: string };
+  classification?: {
+    type?: string;
+    supertype?: string | null;
+    rarity?: string;
+    domain?: string[];
+  };
+  set?: { set_id?: string; label?: string };
+  attributes?: {
+    energy?: number | null;
+    might?: number | null;
+    power?: number | null;
+  };
+  text?: { plain?: string };
+};
+
+export const dynamic = "force-dynamic";
+
+type CardPageParams = { slug?: string };
+
+export default async function CardPage({
+  params,
+}: {
+  params: Promise<CardPageParams> | CardPageParams;
+}) {
+  const resolvedParams = await Promise.resolve(params);
+  const slug = resolvedParams?.slug;
+  const { setId, collector } = parseSlug(slug);
+  if (!setId || !collector) {
+    notFound();
+  }
+
+  const card = await findCard(setId, collector);
+  if (!card) notFound();
+
+  const imageUrl = card.image_url ?? card.imageUrl ?? card.image?.url ?? card.art?.url;
+  const setLabel = card.set?.label ?? card.set?.set_id ?? setId;
+  const cardCode =
+    card.public_code ?? (card.collector_number != null ? `#${card.collector_number}` : "Unknown");
+  const tags = [
+    card.classification?.supertype,
+    card.classification?.type,
+    card.classification?.rarity,
+    ...(card.classification?.domain ?? []),
+  ].filter(Boolean) as string[];
+  const attrs = card.attributes;
+  const stats = [
+    { label: "Energy", value: attrs?.energy },
+    { label: "Power", value: attrs?.power },
+    { label: "Might", value: attrs?.might },
+  ];
+  const typeLine =
+    [card.classification?.supertype, card.classification?.type].filter(Boolean).join(" ") || "Unknown";
+  const metaItems: Array<[string, string | number]> = [
+    ["Set", setLabel],
+    ["Public code", card.public_code ?? "Unknown"],
+    ["Collector #", card.collector_number ?? "Unknown"],
+    ["Riftbound ID", card.riftbound_id ?? "Unknown"],
+    ["Type", typeLine],
+    ["Domain", card.classification?.domain?.join(", ") || "Unknown"],
+  ];
+  const rulesText = card.text?.plain?.trim() || "No rules text available.";
+
+  return (
+    <main className="card-shell card-shell--detail">
+      <section className="card-hero">
+        <div className="card-portrait">
+          <div className="card-portrait__frame">
+            {imageUrl ? (
+              <img src={imageUrl} alt={card.name} />
+            ) : (
+              <div className="card-portrait__placeholder">
+                <span className="card-portrait__sigil">{card.name.slice(0, 1)}</span>
+                <span className="card-portrait__name">{card.name}</span>
+              </div>
+            )}
+          </div>
+          <div className="card-portrait__caption">
+            <span>{setLabel}</span>
+            <span>{cardCode}</span>
+          </div>
+        </div>
+
+        <div className="card-content">
+          <header className="card-header">
+            <h1 className="hero-title">{card.name}</h1>
+          </header>
+
+          {tags.length > 0 ? (
+            <div className="card-tags">
+              {tags.map((tag) => (
+                <span className="card-tag" key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="card-stats">
+            {stats.map((stat) => (
+              <div className="card-stat" key={stat.label}>
+                <span className="card-stat__label">{stat.label}</span>
+                <span className="card-stat__value">{stat.value ?? "n/a"}</span>
+              </div>
+            ))}
+          </div>
+
+          <p className="card-text">{rulesText}</p>
+
+          <dl className="card-meta">
+            {metaItems.map(([label, value]) => (
+              <div className="card-meta__item" key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function parseSlug(slug?: string) {
+  if (typeof slug !== "string" || slug.trim() === "") {
+    return { setId: null, collector: null };
+  }
+  const parts = slug.split("-");
+  if (parts.length < 2) return { setId: null, collector: null };
+  const setId = parts[0]?.toUpperCase();
+  const collectorRaw = parts.slice(1).join("-");
+  const collectorNum = Number(collectorRaw);
+  const collector = Number.isFinite(collectorNum) ? collectorNum : collectorRaw;
+  return { setId, collector };
+}
+
+async function findCard(setId: string, collector: number | string) {
+  const filePath = path.join(process.cwd(), "data", "sets", `${setId.toLowerCase()}.json`);
+  try {
+    const content = await fs.readFile(filePath, "utf8");
+    const cards = JSON.parse(content) as Card[];
+    const target = cards.find((card) => {
+      if (!card) return false;
+      if (card.set?.set_id?.toUpperCase() !== setId) return false;
+      if (typeof collector === "number") {
+        return card.collector_number === collector;
+      }
+      return (
+        card.public_code?.toUpperCase() === collector.toString().toUpperCase() ||
+        card.riftbound_id?.toUpperCase() === collector.toString().toUpperCase()
+      );
+    });
+    return target;
+  } catch {
+    return null;
+  }
+}
