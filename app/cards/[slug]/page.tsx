@@ -33,11 +33,19 @@ export default async function CardPage({
     ...(card.classification?.domain ?? []),
   ].filter(Boolean) as string[];
   const attrs = card.attributes;
-  const stats = [
-    { label: "Energy", value: attrs?.energy },
-    { label: "Power", value: attrs?.power },
-    { label: "Might", value: attrs?.might },
-  ];
+  const typeKey = card.classification?.type?.toLowerCase();
+  const statsByType: Record<string, Array<{ label: string; value: number | null | undefined }>> = {
+    unit: [
+      { label: "Energy", value: attrs?.energy },
+      { label: "Power", value: attrs?.power },
+      { label: "Might", value: attrs?.might },
+    ],
+    spell: [
+      { label: "Energy", value: attrs?.energy },
+      { label: "Power", value: attrs?.power },
+    ],
+  };
+  const stats = statsByType[typeKey ?? ""] ?? [];
   const typeLine =
     [card.classification?.supertype, card.classification?.type]
       .filter(Boolean)
@@ -89,14 +97,16 @@ export default async function CardPage({
             </div>
           ) : null}
 
-          <div className="card-stats">
-            {stats.map((stat) => (
-              <div className="card-stat" key={stat.label}>
-                <span className="card-stat__label">{stat.label}</span>
-                <span className="card-stat__value">{stat.value ?? "n/a"}</span>
-              </div>
-            ))}
-          </div>
+          {stats.length > 0 ? (
+            <div className="card-stats">
+              {stats.map((stat) => (
+                <div className="card-stat" key={stat.label}>
+                  <span className="card-stat__label">{stat.label}</span>
+                  <span className="card-stat__value">{stat.value ?? "n/a"}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
 
           <p className="card-text">{rulesText}</p>
 
