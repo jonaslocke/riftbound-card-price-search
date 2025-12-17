@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import path from "path";
-import { promises as fs } from "fs";
+import { headers } from "next/headers";
 
 type Card = {
   id: string;
@@ -43,7 +42,7 @@ export default async function CardPage({
     notFound();
   }
 
-  const card = await findCard(setId, collector);
+  const card = await fetchCard(setId, collector);
   if (!card) notFound();
 
   const imageUrl = card.image_url ?? card.imageUrl ?? card.image?.url ?? card.art?.url;
@@ -147,23 +146,19 @@ function parseSlug(slug?: string) {
   return { setId, collector };
 }
 
-async function findCard(setId: string, collector: number | string) {
-  const filePath = path.join(process.cwd(), "data", "sets", `${setId.toLowerCase()}.json`);
+async function fetchCard(setId: string, collector: number | string) {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  if (!host) return null;
+  const protocol = headersList.get("x-forwarded-proto") ?? "http";
+  const number = encodeURIComponent(collector.toString());
+  const url = `${protocol}://${host}/api/cards/detail?set=${encodeURIComponent(setId)}&number=${number}`;
+
   try {
-    const content = await fs.readFile(filePath, "utf8");
-    const cards = JSON.parse(content) as Card[];
-    const target = cards.find((card) => {
-      if (!card) return false;
-      if (card.set?.set_id?.toUpperCase() !== setId) return false;
-      if (typeof collector === "number") {
-        return card.collector_number === collector;
-      }
-      return (
-        card.public_code?.toUpperCase() === collector.toString().toUpperCase() ||
-        card.riftbound_id?.toUpperCase() === collector.toString().toUpperCase()
-      );
-    });
-    return target;
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return null;
+    const card = (await res.json()) as Card;
+    return card ?? null;
   } catch {
     return null;
   }
