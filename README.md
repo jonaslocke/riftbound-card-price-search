@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Riftbound Card Price Search
 
-## Getting Started
+A Next.js app for searching Riftbound cards, viewing card details, and jumping to card pages directly from typeahead suggestions. The app supports light/dark themes, keyboard navigation for search suggestions, and a global header search. Tailwind (v4) and shadcn/ui are set up for rapid styling.
 
-First, run the development server:
+## Features
+- Card search with debounced suggestions, keyboard navigation, and click/outside-to-close behavior
+- Card detail pages per set/collector number
+- Theme toggle (light/dark) with persisted preference
+- Shared search bar in the global header and home page
+- Tailwind CSS v4 with custom design tokens, plus shadcn/ui (neutral base) ready for components
 
+## Stack
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS v4
+- shadcn/ui with class-variance-authority, radix slot, tailwind-merge
+- TypeScript
+
+## Scripts
+- `npm run dev` – start the dev server
+- `npm run build` – production build
+- `npm start` – start the production server
+- `npm run lint` – lint the project
+
+## Setup
+1) Install dependencies:
+```bash
+npm install
+```
+2) Run the dev server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+3) Open http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure (high level)
+- `app/` – routes and UI
+  - `page.tsx` – home search page
+  - `cards/[slug]/page.tsx` – card detail page
+  - `components/` – shared UI (search form, header, etc.)
+- `components/ui/` – shadcn/ui components (e.g., `button.tsx`)
+- `lib/utils.ts` – `cn` helper for class merging
+- `app/globals.css` – Tailwind + design tokens, background styles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Styling & Theming
+- Tailwind v4 with custom CSS variables (`--bg`, `--panel`, etc.) for light/dark themes
+- shadcn/ui initialized with neutral base color; uses updated tokens in `globals.css`
+- Use `cn` from `lib/utils` to merge class names
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Using shadcn/ui
+- Example button: `import { Button } from "@/components/ui/button";`
+- Generate components: `npx shadcn@latest add <component>` (see `components.json` for config)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Search suggestions close on selection and on outside click
+- Selecting a card navigates to `/cards/{set}-{collector}` and clears the search box
+- Background imagery and gradients come from `globals.css`
