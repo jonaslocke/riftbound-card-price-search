@@ -4,6 +4,7 @@
 import { Image as ImageIcon, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -32,6 +33,18 @@ export default function SearchForm({
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const clearTimers = useCallback(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    abortRef.current?.abort();
+  }, []);
+
+  const closeSuggestions = useCallback(() => {
+    clearTimers();
+    setSuggestions([]);
+    setHighlightedIndex(-1);
+  }, [clearTimers]);
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -56,11 +69,6 @@ export default function SearchForm({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-
-  function clearTimers() {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    abortRef.current?.abort();
-  }
 
   async function fetchSuggestions(value: string) {
     abortRef.current?.abort();
@@ -108,7 +116,8 @@ export default function SearchForm({
 
   function handleSelect(card: Card) {
     setSelectedId(card.id);
-    setQuery(card.name);
+    setQuery("");
+    closeSuggestions();
     onCardSelect?.(card);
     navigateToCard(card);
   }
@@ -150,6 +159,24 @@ export default function SearchForm({
     clearTimers();
   }
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      const target = event.target as Node | null;
+      if (!target || !formRef.current) return;
+      if (!formRef.current.contains(target)) {
+        closeSuggestions();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [closeSuggestions]);
+
   return (
     <form
       className="search-form"
@@ -159,6 +186,7 @@ export default function SearchForm({
       onSubmit={handleSubmit}
       autoComplete="off"
       aria-busy={loading}
+      ref={formRef}
     >
       <label className="visually-hidden" htmlFor="search-input">
         Search
