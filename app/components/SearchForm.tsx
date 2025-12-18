@@ -17,12 +17,14 @@ type SearchFormProps = {
   placeholder?: string;
   name?: string;
   onCardSelect?: (card: Card) => void;
+  variant?: "default" | "header";
 };
 
 export default function SearchForm({
   placeholder = "Search cards",
   name = "query",
   onCardSelect,
+  variant = "default",
 }: SearchFormProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -34,6 +36,7 @@ export default function SearchForm({
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
+  const isHeader = variant === "header";
 
   const clearTimers = useCallback(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -177,9 +180,15 @@ export default function SearchForm({
     };
   }, [closeSuggestions]);
 
+  const suggestionsClassName = `list-none rounded-lg border border-(--border) bg-(--panel) p-2 shadow-(--shadow) ${
+    isHeader
+      ? "absolute left-0 right-0 top-full z-50 mt-2 flex flex-col gap-1"
+      : "mt-3 flex flex-col gap-1"
+  }`;
+
   return (
     <form
-      className="search-form"
+      className="relative w-full"
       role="search"
       action="#"
       method="get"
@@ -191,8 +200,17 @@ export default function SearchForm({
       <label className="visually-hidden" htmlFor="search-input">
         Search
       </label>
-      <div className="search-input-wrapper">
-        <span className="search-icon" aria-hidden="true">
+      <div
+        className={`relative flex items-center rounded-full border shadow-(--shadow) transition ${
+          isHeader
+            ? "border-[rgba(148,163,184,0.35)] bg-[rgba(15,23,42,0.8)] px-2.5 py-1"
+            : "border-(--border) bg-(--pill) px-3 py-1"
+        }`}
+      >
+        <span
+          className="pointer-events-none absolute left-3 inline-flex items-center justify-center text-(--text-muted)"
+          aria-hidden="true"
+        >
           <Search size={16} strokeWidth={2} />
         </span>
         <input
@@ -200,7 +218,11 @@ export default function SearchForm({
           name={name}
           type="search"
           placeholder={placeholder}
-          className="search-input"
+          className={`w-full border-0 bg-transparent text-(--text-primary) placeholder:text-slate-400 focus:outline-none ${
+            isHeader
+              ? "py-2 pl-8 pr-11 text-[0.98rem]"
+              : "py-[0.65rem] pl-9 pr-12 text-[1.05rem]"
+          }`}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           aria-controls="card-suggestions"
@@ -210,7 +232,7 @@ export default function SearchForm({
         {query.length > 0 ? (
           <button
             type="button"
-            className="search-clear"
+            className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-(--border) bg-transparent text-(--text-primary) transition hover:border-(--accent) hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0"
             aria-label="Clear search"
             onClick={handleClear}
           >
@@ -218,15 +240,15 @@ export default function SearchForm({
           </button>
         ) : null}
         <span
-          className={`search-spinner ${
-            loading ? "search-spinner--visible" : ""
+          className={`absolute right-11 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-(--border) border-t-(--accent) transition-opacity duration-100 ${
+            loading ? "opacity-100 animate-spin" : "opacity-0"
           }`}
           aria-hidden="true"
         />
       </div>
 
       {error ? (
-        <p className="search-hint" role="status">
+        <p className="mt-2 text-sm text-(--text-muted)" role="status">
           {error}
         </p>
       ) : null}
@@ -234,7 +256,7 @@ export default function SearchForm({
       {showSuggestions && (
         <ul
           id="card-suggestions"
-          className="search-suggestions"
+          className={suggestionsClassName}
           role="listbox"
           aria-label="Card search suggestions"
         >
@@ -251,10 +273,14 @@ export default function SearchForm({
               >
                 <button
                   type="button"
-                  className={`search-suggestion ${isActive ? "is-active" : ""}`}
+                  className={`grid w-full grid-cols-[auto_1fr_auto] items-center gap-2 rounded-md px-2 py-2 text-left transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0 ${
+                    isActive
+                      ? "-translate-y-px bg-[rgba(37,99,235,0.12)]"
+                      : "hover:-translate-y-px hover:bg-white/5"
+                  }`}
                   onClick={() => handleSelect(card)}
                 >
-                  <span className="search-suggestion__thumb">
+                  <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
                     {image ? (
                       <img src={image} alt="" loading="lazy" />
                     ) : (
@@ -263,15 +289,17 @@ export default function SearchForm({
                       </span>
                     )}
                   </span>
-                  <span className="search-suggestion__body">
-                    <span className="search-suggestion__title">
+                  <span className="flex flex-col gap-0.5">
+                    <span className="font-semibold text-(--text-primary)">
                       {card.name}
                     </span>
                     {meta ? (
-                      <span className="search-suggestion__meta">{meta}</span>
+                      <span className="text-sm text-(--text-muted)">
+                        {meta}
+                      </span>
                     ) : null}
                   </span>
-                  <span className="search-suggestion__code">
+                  <span className="text-sm text-(--text-muted) tabular-nums">
                     {card.collector_number ?? ""}
                   </span>
                 </button>

@@ -39,9 +39,9 @@ export default function Home() {
   };
 
   return (
-    <main className="search-shell">
+    <main className="mx-auto flex w-full max-w-160 flex-col gap-6 px-3 sm:px-4">
       <button
-        className="theme-toggle theme-toggle--floating"
+        className="fixed right-4 top-4 z-20 rounded-full border border-(--border) bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-(--accent) hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0"
         type="button"
         onClick={toggleTheme}
         aria-label={
@@ -51,10 +51,14 @@ export default function Home() {
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>
 
-      <section className="search-copy">
-        <p className="eyebrow">Rift Search</p>
-        <h1 className="hero-title">Card search</h1>
-        <p className="hero-subtitle">
+      <section className="flex flex-col gap-2">
+        <p className="text-sm uppercase tracking-[0.12em] text-(--text-muted)">
+          Rift Search
+        </p>
+        <h1 className="text-4xl font-bold leading-tight text-(--text-primary) sm:text-5xl">
+          Card search
+        </h1>
+        <p className="text-base leading-relaxed text-(--text-muted)">
           Find any Riftbound card by name and track it across your favorite
           shops.
         </p>
