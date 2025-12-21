@@ -180,10 +180,10 @@ export default function SearchForm({
     };
   }, [closeSuggestions]);
 
-  const suggestionsClassName = `list-none rounded-lg border border-(--border) bg-(--panel) p-2 shadow-(--shadow) ${
+  const suggestionsClassName = `list-none w-full rounded-lg border border-(--border) bg-(--panel) p-2 shadow-(--shadow) ${
     isHeader
       ? "absolute left-0 right-0 top-full z-50 mt-2 flex flex-col gap-1"
-      : "mt-3 flex flex-col gap-1"
+      : "mt-2 flex flex-col gap-1"
   }`;
 
   return (
@@ -203,12 +203,14 @@ export default function SearchForm({
       <div
         className={`relative flex items-center rounded-full border shadow-(--shadow) transition ${
           isHeader
-            ? "border-[rgba(148,163,184,0.35)] bg-[rgba(15,23,42,0.8)] px-2.5 py-1"
-            : "border-(--border) bg-(--pill) px-3 py-1"
+            ? "h-10 border-slate-400/40 bg-slate-900/80 px-3"
+            : "h-12 border-(--border) bg-(--pill) px-4"
         }`}
       >
         <span
-          className="pointer-events-none absolute left-3 inline-flex items-center justify-center text-(--text-muted)"
+          className={`pointer-events-none absolute inline-flex items-center justify-center text-(--text-muted) ${
+            isHeader ? "left-3" : "left-4"
+          }`}
           aria-hidden="true"
         >
           <Search size={16} strokeWidth={2} />
@@ -218,10 +220,8 @@ export default function SearchForm({
           name={name}
           type="search"
           placeholder={placeholder}
-          className={`w-full border-0 bg-transparent text-(--text-primary) placeholder:text-slate-400 focus:outline-none ${
-            isHeader
-              ? "py-2 pl-8 pr-11 text-[0.98rem]"
-              : "py-[0.65rem] pl-9 pr-12 text-[1.05rem]"
+          className={`h-full w-full border-0 bg-transparent text-(--text-primary) placeholder:text-slate-400 focus:outline-none ${
+            isHeader ? "pl-8 pr-11 text-sm" : "pl-10 pr-12 text-base"
           }`}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -273,9 +273,9 @@ export default function SearchForm({
               >
                 <button
                   type="button"
-                  className={`grid w-full grid-cols-[auto_1fr_auto] items-center gap-2 rounded-md px-2 py-2 text-left transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0 ${
+                  className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0 ${
                     isActive
-                      ? "-translate-y-px bg-[rgba(37,99,235,0.12)]"
+                      ? "-translate-y-px bg-blue-500/10"
                       : "hover:-translate-y-px hover:bg-white/5"
                   }`}
                   onClick={() => handleSelect(card)}
@@ -289,7 +289,7 @@ export default function SearchForm({
                       </span>
                     )}
                   </span>
-                  <span className="flex flex-col gap-0.5">
+                  <span className="flex flex-1 flex-col gap-0.5">
                     <span className="font-semibold text-(--text-primary)">
                       {card.name}
                     </span>
