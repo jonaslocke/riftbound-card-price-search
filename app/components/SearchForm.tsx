@@ -1,7 +1,7 @@
 // "use client" is required because we fetch suggestions as the user types.
 "use client";
 
-import { Image as ImageIcon, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   useCallback,
@@ -12,6 +12,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import type { Card } from "../types/card";
+import CardSuggestionItem from "./CardSuggestionItem";
 
 type SearchFormProps = {
   placeholder?: string;
@@ -261,9 +262,7 @@ export default function SearchForm({
           aria-label="Card search suggestions"
         >
           {suggestions.map((card, index) => {
-            const meta = card.set?.set_id ?? "";
             const isActive = index === highlightedIndex;
-            const image = card.media?.image_url;
 
             return (
               <li
@@ -271,38 +270,11 @@ export default function SearchForm({
                 role="option"
                 aria-selected={isActive || card.id === selectedId}
               >
-                <button
-                  type="button"
-                  className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-0 ${
-                    isActive
-                      ? "-translate-y-px bg-blue-500/10"
-                      : "hover:-translate-y-px hover:bg-white/5"
-                  }`}
-                  onClick={() => handleSelect(card)}
-                >
-                  <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
-                    {image ? (
-                      <img src={image} alt="" loading="lazy" />
-                    ) : (
-                      <span aria-hidden>
-                        <ImageIcon size={18} />
-                      </span>
-                    )}
-                  </span>
-                  <span className="flex flex-1 flex-col gap-0.5">
-                    <span className="font-semibold text-(--text-primary)">
-                      {card.name}
-                    </span>
-                    {meta ? (
-                      <span className="text-sm text-(--text-muted)">
-                        {meta}
-                      </span>
-                    ) : null}
-                  </span>
-                  <span className="text-sm text-(--text-muted) tabular-nums">
-                    {card.collector_number ?? ""}
-                  </span>
-                </button>
+                <CardSuggestionItem
+                  card={card}
+                  isActive={isActive}
+                  onSelect={handleSelect}
+                />
               </li>
             );
           })}
