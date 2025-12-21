@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 
 type CardSuggestionItemProps = {
   card: Card;
-  isActive?: boolean;
   onSelect?: (card: Card) => void;
+  className?: string;
 };
 
 export default function CardSuggestionItem({
   card,
-  isActive = false,
   onSelect,
+  className,
 }: CardSuggestionItemProps) {
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
@@ -24,9 +24,8 @@ export default function CardSuggestionItem({
       onClick={() => onSelect?.(card)}
       className={cn(
         "h-auto w-full justify-start gap-3 rounded-md px-3 py-2 text-left text-sm font-normal text-(--text-primary) transition-colors",
-        isActive
-          ? "-translate-y-px bg-(--panel-strong)"
-          : "hover:-translate-y-px hover:bg-(--panel-strong)"
+        "hover:bg-(--panel-strong) data-[selected=true]:bg-(--panel-strong)",
+        className
       )}
     >
       <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
