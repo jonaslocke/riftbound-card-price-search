@@ -1,25 +1,8 @@
 import type { CardDisplayData } from "@/lib/card-display-dto";
+import { getDomainImage } from "@/lib/getDomainIconSrc";
 
 interface Props extends CardDisplayData {
   size: "sm" | "md" | "lg";
-}
-
-export function getDomainIconSrc(
-  domains: CardDisplayData["domains"],
-  size: Props["size"]
-) {
-  const domain = domains[0];
-  if (!domain) {
-    return undefined;
-  }
-
-  const sizeMap: Record<Props["size"], number> = {
-    sm: 16,
-    md: 32,
-    lg: 64,
-  };
-
-  return `/assets/domains/${domain}-${sizeMap[size]}.webp`;
 }
 
 export default function CardCost({
@@ -28,7 +11,9 @@ export default function CardCost({
   domains,
   size = "sm",
 }: Props) {
-  const domainImg = getDomainIconSrc(domains, size);
+  const domainImg = domains[0]
+    ? getDomainImage({ domain: domains[0], size })
+    : undefined;
 
   return (
     <div className="flex items-center h-6 gap-1">

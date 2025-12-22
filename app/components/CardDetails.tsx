@@ -4,6 +4,7 @@ import type { Card, CardDomain } from "../types/card";
 import CardImage from "./CardImage";
 import CardTitle from "./CardTitle";
 import UnitCardMight from "./UnitCardMight";
+import CardDomainEl from "./CardDomain";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -32,6 +33,11 @@ export default function CardDetails(card: Card) {
         )}
       >
         <CardTitle {...cardDetails} />
+        <div className="flex gap-1">
+          {domains.map((domain, index) => (
+            <CardDomainEl key={index} domain={domain} />
+          ))}
+        </div>
         {might && <UnitCardMight {...cardDetails} />}
       </div>
     </div>
