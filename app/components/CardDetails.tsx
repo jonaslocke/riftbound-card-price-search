@@ -33,11 +33,14 @@ export default function CardDetails(card: Card) {
         )}
       >
         <CardTitle {...cardDetails} />
-        <div className="flex gap-1">
-          {domains.map((domain, index) => (
-            <CardDomainEl key={index} domain={domain} />
-          ))}
-        </div>
+        {domains.length > 0 && (
+          <div className="flex gap-1">
+            {domains.map((domain, index) => (
+              <CardDomainEl key={index} domain={domain} />
+            ))}
+          </div>
+        )}
+
         {might && <UnitCardMight {...cardDetails} />}
       </div>
     </div>
