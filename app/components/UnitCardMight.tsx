@@ -5,11 +5,11 @@ export default function UnitCardMight({ might }: CardDisplayData) {
 
   return (
     <div className="absolute  p-0! right-0 bottom-0 translate-y-[50%] translate-x-[20%] select-none">
-      <div className="flex items-center gap-2 bg-might p-2 rounded">
+      <div className="flex items-center gap-2 bg-might py-1 px-2 rounded">
         <div className="">
           <img src={src.src} alt="might symbol" className="invert" />
         </div>
-        <div className="text-2xl">{might}</div>
+        <div className="text-xl">{might}</div>
       </div>
     </div>
   );
