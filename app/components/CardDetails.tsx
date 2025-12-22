@@ -6,6 +6,7 @@ import CardMainInfo from "./CardMainInfo";
 import CardTitle from "./CardTitle";
 import CardTypes from "./CardTypes";
 import UnitCardMight from "./UnitCardMight";
+import CardDescription from "./CardDescription";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -20,7 +21,7 @@ const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
 
 export default function CardDetails(card: Card) {
   const cardDetails = toCardDisplayData(card);
-  const { domains, might, tags } = cardDetails;
+  const { domains, might, tags, descriptionPlain } = cardDetails;
 
   return (
     <div className="flex relative">
@@ -36,6 +37,7 @@ export default function CardDetails(card: Card) {
         <CardTitle {...cardDetails} />
         <CardMainInfo {...cardDetails} />
         {tags.length > 0 && <CardTypes {...cardDetails} />}
+        {descriptionPlain && <CardDescription {...cardDetails} />}
         {might && <UnitCardMight {...cardDetails} />}
       </div>
     </div>

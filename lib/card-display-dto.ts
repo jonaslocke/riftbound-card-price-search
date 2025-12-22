@@ -30,6 +30,7 @@ export type CardDisplayData = {
   might: number | null;
   type: string;
   rarity: string;
+  descriptionPlain: string;
   rulesText: string;
   artistLabel: string;
   setLabel: string;
@@ -70,7 +71,8 @@ export function toCardDisplayData(card: Card): CardDisplayData {
     typeKey === "battlefield" ? [] : card.classification?.domain ?? []
   );
   const tags = card.tags ?? [];
-  const rulesText = typeKey === "rune" ? "" : card.text?.plain?.trim() ?? "";
+  const descriptionPlain = card.text?.plain?.trim() ?? "";
+  const rulesText = typeKey === "rune" ? "" : descriptionPlain;
   const colors = domainList.reduce<CardDisplayDomainColor[]>((acc, domain) => {
     const color =
       (domainColors as Record<string, string>)[domain.toLowerCase()];
@@ -113,6 +115,7 @@ export function toCardDisplayData(card: Card): CardDisplayData {
     might,
     type: typeLabel,
     rarity: rarityLabel,
+    descriptionPlain,
     rulesText,
     artistLabel: card.media?.artist ?? "Unknown",
     setLabel,
