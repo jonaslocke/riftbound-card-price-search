@@ -19,6 +19,9 @@ import mind64 from "@/assets/domains/mind-64.webp";
 import order16 from "@/assets/domains/order-16.webp";
 import order32 from "@/assets/domains/order-32.webp";
 import order64 from "@/assets/domains/order-64.webp";
+import rainbow16 from "@/assets/domains/rainbow-16.webp";
+import rainbow32 from "@/assets/domains/rainbow-32.webp";
+import rainbow64 from "@/assets/domains/rainbow-64.webp";
 
 import battlefield16 from "@/assets/types/battlefield-16.webp";
 import battlefield24 from "@/assets/types/battlefield-24.webp";
@@ -63,17 +66,18 @@ interface Props extends CardDisplayData {
 }
 
 export const getCardInfoAssets = (card: Props) => {
-  const domainKey = card.domains[0];
+  const domainKey = card.domains[0] as string | undefined;
   const typeKey = card.type.split(" ").slice(-1)[0]?.toLowerCase();
   const rarityKey = card.rarity?.toLowerCase();
 
-  const domainAssets: Record<CardDomain, Record<Size, typeof body16>> = {
+  const domainAssets: Record<string, Record<Size, typeof body16>> = {
     body: { sm: body16, md: body32, lg: body64 },
     calm: { sm: calm16, md: calm32, lg: calm64 },
     chaos: { sm: chaos16, md: chaos32, lg: chaos64 },
     fury: { sm: fury16, md: fury32, lg: fury64 },
     mind: { sm: mind16, md: mind32, lg: mind64 },
     order: { sm: order16, md: order32, lg: order64 },
+    rainbow: { sm: rainbow16, md: rainbow32, lg: rainbow64 },
   };
 
   const typeAssets = {
