@@ -5,7 +5,7 @@ import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 
 export default function CardMainInfo(card: CardDisplayData) {
   const { type, rarity, domains } = card;
-  const { domainImg, rarityImg, typeImg } = getCardInfoAssets({
+  const { rarityImg, typeImg } = getCardInfoAssets({
     ...card,
     size: "sm",
   });
@@ -20,8 +20,8 @@ export default function CardMainInfo(card: CardDisplayData) {
         <span>{type}</span>
       </Badge>
       {domains.length > 0 &&
-        domains.map((domain, index) => (
-          <CardDomainEl key={index} domain={domain} />
+        domains.map((domain) => (
+          <CardDomainEl key={domain} card={card} domain={domain} />
         ))}
     </div>
   );

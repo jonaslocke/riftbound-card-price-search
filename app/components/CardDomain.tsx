@@ -1,15 +1,28 @@
 import { Badge } from "@/components/ui/badge";
-import { getDomainImage } from "@/lib/getDomainImage";
+import type { CardDisplayData } from "@/lib/card-display-dto";
+import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import type { CardDomain } from "../types/card";
 
-export default function CardDomain({ domain }: { domain: CardDomain }) {
-  const domainImgSrc = getDomainImage({
-    domain,
+type Size = "sm" | "md" | "lg";
+
+export default function CardDomain({
+  card,
+  domain,
+  size = "sm",
+}: {
+  card: CardDisplayData;
+  domain: CardDomain;
+  size?: Size;
+}) {
+  const { domainImg } = getCardInfoAssets({
+    ...card,
+    domains: [domain],
+    size,
   });
 
   return (
     <Badge variant="secondary" className="select-none">
-      <img src={domainImgSrc} alt="" />
+      {domainImg ? <img src={domainImg} alt="" /> : null}
       <span className="capitalize">{domain}</span>
     </Badge>
   );
