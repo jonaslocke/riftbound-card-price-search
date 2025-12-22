@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-body: #e07010;
+  --color-calm: #10b070;
+  --color-chaos: #705090;
+  --color-fury: #d02030;
+  --color-mind: #2070a0;
+  --color-order: #d0b000;
+}
 
 :root {
   --bg: #0f172a;
@@ -87,7 +95,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: var(--bg-image, url("/assets/backgrounds/bg1.webp")) center/cover no-repeat;
+  background: var(--bg-image, url("/assets/backgrounds/bg1.webp")) center/cover
+    no-repeat;
   filter: var(--bg-filter);
   opacity: 0.85;
   z-index: -2;
@@ -126,7 +135,12 @@ main {
   padding: 2.25rem;
   border-radius: 1.25rem;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  background: linear-gradient(140deg, rgba(9, 16, 31, 0.92), rgba(9, 16, 31, 0.75) 40%, rgba(15, 23, 42, 0.95));
+  background: linear-gradient(
+    140deg,
+    rgba(9, 16, 31, 0.92),
+    rgba(9, 16, 31, 0.75) 40%,
+    rgba(15, 23, 42, 0.95)
+  );
   box-shadow: var(--card-glow);
   overflow: hidden;
   animation: panelRise 0.6s ease both;
@@ -139,7 +153,11 @@ main {
   right: -10%;
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle, rgba(240, 195, 106, 0.25), transparent 65%);
+  background: radial-gradient(
+    circle,
+    rgba(240, 195, 106, 0.25),
+    transparent 65%
+  );
   filter: blur(10px);
   opacity: 0.9;
   pointer-events: none;
@@ -167,7 +185,11 @@ main {
   position: relative;
   border-radius: 1rem;
   padding: 0.7rem;
-  background: linear-gradient(145deg, rgba(240, 195, 106, 0.2), rgba(15, 23, 42, 0.9));
+  background: linear-gradient(
+    145deg,
+    rgba(240, 195, 106, 0.2),
+    rgba(15, 23, 42, 0.9)
+  );
   border: 1px solid rgba(240, 195, 106, 0.35);
   box-shadow: 0 16px 40px rgba(2, 6, 23, 0.55);
   height: var(--card-art-height);
@@ -194,7 +216,11 @@ main {
 }
 
 .card-portrait__placeholder {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.85));
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.25),
+    rgba(15, 23, 42, 0.85)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;

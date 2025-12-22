@@ -14,7 +14,7 @@ export type Card = {
     type?: string | null;
     supertype?: string | null;
     rarity?: string | null;
-    domain?: string[] | null;
+    domain?: CardDomain[] | null;
   };
   text?: {
     rich?: string;
@@ -38,3 +38,5 @@ export type Card = {
     signature?: boolean;
   };
 };
+
+export type CardDomain = "body" | "calm" | "chaos" | "fury" | "mind" | "order";
