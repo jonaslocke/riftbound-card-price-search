@@ -7,6 +7,7 @@ import CardTitle from "./CardTitle";
 import CardTypes from "./CardTypes";
 import UnitCardMight from "./UnitCardMight";
 import CardDescription from "./CardDescription";
+import { getKeywordImage } from "@/lib/getKeywordImage";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -38,6 +39,7 @@ export default function CardDetails(card: Card) {
         <CardMainInfo {...cardDetails} />
         {tags.length > 0 && <CardTypes {...cardDetails} />}
         {descriptionPlain && <CardDescription {...cardDetails} />}
+
         {might && <UnitCardMight {...cardDetails} />}
       </div>
     </div>

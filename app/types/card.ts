@@ -47,14 +47,25 @@ export type CardType =
   | "rune"
   | "spell"
   | "unit";
-export type CardSupertype =
-  | "champion"
-  | "signature"
-  | "token"
-  | "basic";
-export type CardRarity =
-  | "common"
-  | "epic"
-  | "rare"
-  | "showcase"
-  | "uncommon";
+export type CardSupertype = "champion" | "signature" | "token" | "basic";
+export type CardRarity = "common" | "epic" | "rare" | "showcase" | "uncommon";
+export type CardKeyword =
+  | "accelerate"
+  | "action"
+  | "add"
+  | "assault"
+  | "deathknell"
+  | "deflect"
+  | "equip"
+  | "ganking"
+  | "hidden"
+  | "legion"
+  | "mighty"
+  | "quick-draw"
+  | "reaction"
+  | "repeat"
+  | "shield"
+  | "tank"
+  | "temporary"
+  | "vision"
+  | "weaponmaster";
