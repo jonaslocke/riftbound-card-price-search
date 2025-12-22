@@ -1,13 +1,12 @@
 import { toCardDisplayData } from "@/lib/card-display-dto";
 import { cn } from "@/lib/utils";
 import type { Card, CardDomain } from "../types/card";
+import CardDescription from "./CardDescription";
 import CardImage from "./CardImage";
 import CardMainInfo from "./CardMainInfo";
 import CardTitle from "./CardTitle";
 import CardTypes from "./CardTypes";
 import UnitCardMight from "./UnitCardMight";
-import CardDescription from "./CardDescription";
-import { getKeywordImage } from "@/lib/getKeywordImage";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
