@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { toCardDisplayData } from "@/lib/card-display-dto";
 import type { Card, CardDomain } from "../types/card";
 import { cn } from "@/lib/utils";
@@ -18,11 +21,45 @@ const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
 export default function CardDetails(card: Card) {
   const cardDetails = toCardDisplayData(card);
   const { imageUrl, name, domains } = cardDetails;
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const smoothTiltX = useSpring(tiltX, { stiffness: 180, damping: 18 });
+  const smoothTiltY = useSpring(tiltY, { stiffness: 180, damping: 18 });
+
+  const handleMouseMove = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const maxRotate = 6;
+    tiltY.set((x - 0.5) * maxRotate * 2);
+    tiltX.set((0.5 - y) * maxRotate * 2);
+  };
+
+  const handleMouseLeave = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
 
   return (
     <div className="flex">
-      <div className="z-1 w-[320]">
-        <img src={imageUrl} alt={name} className="w-full" />
+      <div
+        className="z-1 w-[320]"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ perspective: "900px" }}
+      >
+        <motion.img
+          src={imageUrl}
+          alt={name}
+          className="w-full"
+          style={{
+            rotateX: smoothTiltX,
+            rotateY: smoothTiltY,
+            transformStyle: "preserve-3d",
+          }}
+        />
       </div>
       <div
         className={cn(
