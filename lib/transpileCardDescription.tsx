@@ -40,7 +40,7 @@ export function transpileCardDescription(
   { size = "md" }: { size?: Size } = {}
 ) {
   const parts: React.ReactNode[] = [];
-  const normalizedText = text.replace(/\.\)(?=[A-Z])/g, ".)\n");
+  const normalizedText = insertLineBreaks(text);
   const regex = /\[([^\]]+)\]/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
@@ -192,4 +192,59 @@ export function transpileCardDescription(
   }
 
   return parts;
+}
+
+function insertLineBreaks(value: string) {
+  let depth = 0;
+  let result = "";
+
+  for (let i = 0; i < value.length; i += 1) {
+    const char = value[i];
+    if (char === "(") {
+      depth += 1;
+      result += char;
+      continue;
+    }
+
+    if (char === ")") {
+      if (depth > 0) {
+        depth -= 1;
+      }
+      result += char;
+
+      const nextNonSpaceIndex = findNextNonSpace(value, i + 1);
+      const nextChar = nextNonSpaceIndex === -1 ? "" : value[nextNonSpaceIndex];
+      if (depth === 0 && value[i - 1] === "." && isUppercase(nextChar)) {
+        result += "\n";
+        i = nextNonSpaceIndex - 1;
+      }
+      continue;
+    }
+
+    if (char === "." && depth === 0) {
+      result += ".\n";
+      // Skip any spaces right after the period.
+      while (value[i + 1] === " ") {
+        i += 1;
+      }
+      continue;
+    }
+
+    result += char;
+  }
+
+  return result;
+}
+
+function findNextNonSpace(value: string, startIndex: number) {
+  for (let i = startIndex; i < value.length; i += 1) {
+    if (value[i] !== " ") {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function isUppercase(char: string) {
+  return char >= "A" && char <= "Z";
 }
