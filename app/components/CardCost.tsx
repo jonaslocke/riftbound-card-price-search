@@ -36,11 +36,11 @@ export default function CardCost({
         {energy}
       </div>
       {power && domainImg && (
-        <div className="flex">
+        <div className="flex ml-1">
           {Array.from({ length: power }).map((_, index) => (
             <div
               key={index}
-              className="flex justify-center items-center rounded-full bg-white/10"
+              className="flex justify-center items-center rounded-full bg-white/10 border border-white/10 -ml-1.5"
             >
               <img src={domainImg} alt={`${domains[0]} power image`} />
             </div>
