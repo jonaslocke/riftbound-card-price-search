@@ -14,19 +14,24 @@ const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
 };
 
 export default function CardDetails(card: Card) {
-  const { imageUrl, name, colors } = toCardDisplayData(card);
-  const domain = colors.map((c) => c.domain)[0];
+  const { imageUrl, name, domains } = toCardDisplayData(card);
 
   return (
     <div className="flex">
-      <img src={imageUrl} alt={name} width={336} />
+      <div className="z-1 w-[320]">
+        <img src={imageUrl} alt={name} className="w-full" />
+      </div>
       <div
         className={cn(
-          "bg-white/65 w-[336] border border-t-3 border-b-3 border-slate-400",
-          domain && domainBorderColors[domain]
+          "bg-white/75 w-[356] h-[470] text-black -translate-x-5 translate-y-5 pl-8 pr-3 py-2",
+          "border border-t-3 border-b-3 border-slate-400",
+          domains[0] && domainBorderColors[domains[0]]
         )}
       >
-        1
+        <h1 className="flex justify-between">
+          <span>{name}</span>
+          <span>1</span>
+        </h1>
       </div>
     </div>
   );

@@ -25,6 +25,9 @@ export type CardDisplayData = {
   domains: CardDomain[];
   tags: string[];
   stats: CardDisplayStat[];
+  energy: number | null;
+  power: number | null;
+  might: number | null;
   rulesText: string;
   artistLabel: string;
   setLabel: string;
@@ -50,13 +53,14 @@ export function toCardDisplayData(card: Card): CardDisplayData {
 
   const showStats = typeKey !== "battlefield" && typeKey !== "rune";
   const showMight = typeKey === "unit";
+  const energy = showStats ? card.attributes?.energy ?? null : null;
+  const power = showStats ? card.attributes?.power ?? null : null;
+  const might = showMight ? card.attributes?.might ?? null : null;
   const stats: CardDisplayStat[] = showStats
     ? [
-        { label: "Energy", value: card.attributes?.energy },
-        { label: "Power", value: card.attributes?.power },
-        ...(showMight
-          ? [{ label: "Might", value: card.attributes?.might }]
-          : []),
+        { label: "Energy", value: energy },
+        { label: "Power", value: power },
+        ...(showMight ? [{ label: "Might", value: might }] : []),
       ]
     : [];
 
@@ -102,6 +106,9 @@ export function toCardDisplayData(card: Card): CardDisplayData {
     domains: domainList,
     tags,
     stats,
+    energy,
+    power,
+    might,
     rulesText,
     artistLabel: card.media?.artist ?? "Unknown",
     setLabel,
