@@ -11,9 +11,9 @@ export type Card = {
     power?: number | null;
   };
   classification?: {
-    type?: string | null;
-    supertype?: string | null;
-    rarity?: string | null;
+    type?: CardType | null;
+    supertype?: CardSupertype | null;
+    rarity?: CardRarity | null;
     domain?: CardDomain[] | null;
   };
   text?: {
@@ -40,3 +40,21 @@ export type Card = {
 };
 
 export type CardDomain = "body" | "calm" | "chaos" | "fury" | "mind" | "order";
+export type CardType =
+  | "battlefield"
+  | "gear"
+  | "legend"
+  | "rune"
+  | "spell"
+  | "unit";
+export type CardSupertype =
+  | "champion"
+  | "signature"
+  | "token"
+  | "basic";
+export type CardRarity =
+  | "common"
+  | "epic"
+  | "rare"
+  | "showcase"
+  | "uncommon";
