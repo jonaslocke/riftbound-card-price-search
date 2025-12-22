@@ -29,6 +29,7 @@ export type CardDisplayData = {
   power: number | null;
   might: number | null;
   type: string;
+  rarity: string;
   rulesText: string;
   artistLabel: string;
   setLabel: string;
@@ -111,6 +112,7 @@ export function toCardDisplayData(card: Card): CardDisplayData {
     power,
     might,
     type: typeLabel,
+    rarity: rarityLabel,
     rulesText,
     artistLabel: card.media?.artist ?? "Unknown",
     setLabel,

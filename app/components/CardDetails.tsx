@@ -2,10 +2,10 @@ import { toCardDisplayData } from "@/lib/card-display-dto";
 import { cn } from "@/lib/utils";
 import type { Card, CardDomain } from "../types/card";
 import CardImage from "./CardImage";
+import CardMainInfo from "./CardMainInfo";
 import CardTitle from "./CardTitle";
-import UnitCardMight from "./UnitCardMight";
-import CardDomainEl from "./CardDomain";
 import CardTypes from "./CardTypes";
+import UnitCardMight from "./UnitCardMight";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -34,13 +34,7 @@ export default function CardDetails(card: Card) {
         )}
       >
         <CardTitle {...cardDetails} />
-        {domains.length > 0 && (
-          <div className="flex gap-1">
-            {domains.map((domain, index) => (
-              <CardDomainEl key={index} domain={domain} />
-            ))}
-          </div>
-        )}
+        <CardMainInfo {...cardDetails} />
         {tags.length > 0 && <CardTypes {...cardDetails} />}
         {might && <UnitCardMight {...cardDetails} />}
       </div>
