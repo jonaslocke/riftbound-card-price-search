@@ -58,6 +58,7 @@ export default function CardDetails(card: Card) {
             rotateX: smoothTiltX,
             rotateY: smoothTiltY,
             transformStyle: "preserve-3d",
+            filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
           }}
         />
       </div>
