@@ -31,13 +31,26 @@ export function transpileCardDescription(
   { size = "md" }: { size?: Size } = {}
 ) {
   const parts: React.ReactNode[] = [];
+  const normalizedText = text.replace(/\.\)(?=[A-Z])/g, ".)\n");
   const regex = /\[([^\]]+)\]/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
-  while ((match = regex.exec(text)) !== null) {
+  const pushText = (value: string) => {
+    const lines = value.split("\n");
+    lines.forEach((line, index) => {
+      if (index > 0) {
+        parts.push(<br key={`br-${parts.length}-${index}`} />);
+      }
+      if (line) {
+        parts.push(line);
+      }
+    });
+  };
+
+  while ((match = regex.exec(normalizedText)) !== null) {
     if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
+      pushText(normalizedText.slice(lastIndex, match.index));
     }
 
     const content = match[1].trim();
@@ -71,12 +84,12 @@ export function transpileCardDescription(
       }
     }
 
-    parts.push(match[0]);
+    pushText(match[0]);
     lastIndex = regex.lastIndex;
   }
 
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
+  if (lastIndex < normalizedText.length) {
+    pushText(normalizedText.slice(lastIndex));
   }
 
   return parts;

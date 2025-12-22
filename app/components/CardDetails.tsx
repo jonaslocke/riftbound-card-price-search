@@ -23,6 +23,8 @@ export default function CardDetails(card: Card) {
   const cardDetails = toCardDisplayData(card);
   const { domains, might, tags, descriptionPlain } = cardDetails;
 
+  console.log(descriptionPlain)
+
   return (
     <div className="flex relative">
       <CardImage {...cardDetails} />
