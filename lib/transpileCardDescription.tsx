@@ -42,9 +42,27 @@ export function transpileCardDescription(
       if (index > 0) {
         parts.push(<br key={`br-${parts.length}-${index}`} />);
       }
-      if (line) {
-        parts.push(line);
+      if (!line) {
+        return;
       }
+      const segments = line.split(/(\([^)]*\))/g);
+      segments.forEach((segment, segmentIndex) => {
+        if (!segment) {
+          return;
+        }
+        if (segment.startsWith("(") && segment.endsWith(")")) {
+          parts.push(
+            <span
+              className="text-xs italic text-slate-600"
+              key={`paren-${parts.length}-${segmentIndex}`}
+            >
+              {segment}
+            </span>
+          );
+        } else {
+          parts.push(segment);
+        }
+      });
     });
   };
 
