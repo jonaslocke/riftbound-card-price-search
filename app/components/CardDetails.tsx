@@ -2,6 +2,7 @@ import { toCardDisplayData } from "@/lib/card-display-dto";
 import type { Card, CardDomain } from "../types/card";
 import { cn } from "@/lib/utils";
 import CardCost from "./CardCost";
+import CardTitle from "./CardTitle";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -25,15 +26,13 @@ export default function CardDetails(card: Card) {
       </div>
       <div
         className={cn(
-          "bg-white/75 w-[356] h-[470] text-black -translate-x-5 translate-y-5 pl-8 pr-3 py-2",
+          "bg-white/75 w-[356] h-[470] text-black -translate-x-5 translate-y-5",
           "border border-t-3 border-b-3 border-slate-400",
+          "*:pl-8 *:py-2 *:pr-3 *:border-b *:border-b-black/10",
           domains[0] && domainBorderColors[domains[0]]
         )}
       >
-        <h1 className="flex justify-between">
-          <span>{name}</span>
-          <CardCost {...cardDetails} size="sm" />
-        </h1>
+        <CardTitle {...cardDetails} />
       </div>
     </div>
   );
