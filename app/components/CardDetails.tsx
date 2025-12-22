@@ -1,6 +1,7 @@
 import { toCardDisplayData } from "@/lib/card-display-dto";
 import type { Card, CardDomain } from "../types/card";
 import { cn } from "@/lib/utils";
+import CardCost from "./CardCost";
 
 type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
 
@@ -14,7 +15,8 @@ const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
 };
 
 export default function CardDetails(card: Card) {
-  const { imageUrl, name, domains } = toCardDisplayData(card);
+  const cardDetails = toCardDisplayData(card);
+  const { imageUrl, name, domains } = cardDetails;
 
   return (
     <div className="flex">
@@ -30,7 +32,7 @@ export default function CardDetails(card: Card) {
       >
         <h1 className="flex justify-between">
           <span>{name}</span>
-          <span>1</span>
+          <CardCost {...cardDetails} size="sm" />
         </h1>
       </div>
     </div>
