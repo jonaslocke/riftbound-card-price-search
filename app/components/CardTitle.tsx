@@ -3,7 +3,7 @@ import CardCost from "./CardCost";
 
 export default function CardTitle(card: CardDisplayData) {
   return (
-    <h1 className="flex justify-between ">
+    <h1 className="flex justify-between">
       <span>{card.name}</span>
       {card.energy && <CardCost {...card} size="sm" />}
     </h1>

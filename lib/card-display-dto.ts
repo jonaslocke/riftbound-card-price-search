@@ -28,6 +28,7 @@ export type CardDisplayData = {
   energy: number | null;
   power: number | null;
   might: number | null;
+  type: string;
   rulesText: string;
   artistLabel: string;
   setLabel: string;
@@ -109,6 +110,7 @@ export function toCardDisplayData(card: Card): CardDisplayData {
     energy,
     power,
     might,
+    type: typeLabel,
     rulesText,
     artistLabel: card.media?.artist ?? "Unknown",
     setLabel,

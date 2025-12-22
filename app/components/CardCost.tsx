@@ -1,5 +1,5 @@
 import type { CardDisplayData } from "@/lib/card-display-dto";
-import { getDomainImage } from "@/lib/getDomainIconSrc";
+import { getDomainImage } from "@/lib/getDomainImage";
 
 interface Props extends CardDisplayData {
   size: "sm" | "md" | "lg";

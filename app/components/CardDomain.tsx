@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { getDomainImage } from "@/lib/getDomainIconSrc";
+import { getDomainImage } from "@/lib/getDomainImage";
 import type { CardDomain } from "../types/card";
 
 export default function CardDomain({ domain }: { domain: CardDomain }) {
