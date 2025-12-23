@@ -15,6 +15,15 @@ const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
   mind: "border-t-mind border-b-mind",
 };
 
+const domainColorVars: Record<CardDomain, string> = {
+  order: "var(--color-order)",
+  body: "var(--color-body)",
+  calm: "var(--color-calm)",
+  chaos: "var(--color-chaos)",
+  fury: "var(--color-fury)",
+  mind: "var(--color-mind)",
+};
+
 type Props = {
   children: React.ReactNode;
   className?: string;
@@ -22,6 +31,13 @@ type Props = {
 
 export default function CardDetailsPanel({ children, className }: Props) {
   const { domains } = useCardDetails();
+  const primaryDomain = domains[0];
+  const secondaryDomain = domains[1];
+  const hasGradient = Boolean(primaryDomain && secondaryDomain);
+  const borderGradient =
+    hasGradient && primaryDomain && secondaryDomain
+      ? `linear-gradient(90deg, ${domainColorVars[primaryDomain]}, ${domainColorVars[secondaryDomain]})`
+      : null;
 
   return (
     <div
@@ -30,9 +46,17 @@ export default function CardDetailsPanel({ children, className }: Props) {
         "bg-white/75 w-94 h-124 text-black -translate-x-5 translate-y-5",
         "border border-t-3 border-b-0 border-slate-400",
         "*:pl-8 *:py-2 *:pr-3 *:border-b *:border-b-black/10",
-        domains[0] && domainBorderColors[domains[0]],
+        !hasGradient && primaryDomain && domainBorderColors[primaryDomain],
         className
       )}
+      style={
+        borderGradient
+          ? {
+              borderImage: `${borderGradient} 1`,
+              borderImageSlice: 1,
+            }
+          : undefined
+      }
     >
       {children}
     </div>

@@ -14,18 +14,37 @@ const backgroundColorMap: Record<CardDomain, string> = {
   mind: "bg-mind",
 };
 
+const domainColorVars: Record<CardDomain, string> = {
+  order: "var(--color-order)",
+  body: "var(--color-body)",
+  calm: "var(--color-calm)",
+  chaos: "var(--color-chaos)",
+  fury: "var(--color-fury)",
+  mind: "var(--color-mind)",
+};
+
 export default function CardIllustrator() {
   const { artistLabel, domains } = useCardDetails();
-  const domain = domains[0];
-  const backgroundColor = domain ? backgroundColorMap[domain] : "bg-black";
+  const primaryDomain = domains[0];
+  const secondaryDomain = domains[1];
+  const hasGradient = Boolean(primaryDomain && secondaryDomain);
+  const backgroundColor = primaryDomain
+    ? backgroundColorMap[primaryDomain]
+    : "bg-black";
+  const backgroundGradient =
+    hasGradient && primaryDomain && secondaryDomain
+      ? `linear-gradient(90deg, ${domainColorVars[primaryDomain]}, ${domainColorVars[secondaryDomain]})`
+      : null;
+  const useLightText = !(primaryDomain === "order" && !hasGradient);
 
   return (
     <div
       className={cn(
         backgroundColor,
         "-mx-px flex items-center gap-2 pl-3!",
-        domain !== "order" && "text-white"
+        useLightText && "text-white"
       )}
+      style={backgroundGradient ? { backgroundImage: backgroundGradient } : undefined}
     >
       <Brush className="size-4" />
       <span className="text-xs italic">Illustrated by: {artistLabel}</span>
