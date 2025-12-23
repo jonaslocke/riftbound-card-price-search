@@ -44,6 +44,8 @@ export function transpileCardDescription(
   let hasContent = false;
   let lastWasBreak = false;
   let lastNonSpaceChar: string | null = null;
+  let lastWasToken = false;
+  let lastWasTokenSeparator = false;
   const emDash = "\u2014";
 
   const renderToken = (token: string) => {
@@ -52,6 +54,7 @@ export function transpileCardDescription(
       return (
         <span
           className="inline-flex justify-center items-center size-5 rounded-full bg-black/10 text-xs"
+          data-token="rb"
           key={`energy-${parts.length}-${energyMatch[1]}`}
         >
           {energyMatch[1]}
@@ -64,6 +67,7 @@ export function transpileCardDescription(
         <img
           src={exhaustIcon.src}
           alt="exhaust"
+          data-token="rb"
           className="inline-block h-4 w-4 object-contain align-middle invert"
           key={`exhaust-${parts.length}`}
         />
@@ -75,6 +79,7 @@ export function transpileCardDescription(
         <img
           src={mightIcon.src}
           alt="might"
+          data-token="rb"
           className="inline-block h-4 w-4 object-contain align-middle invert"
           key={`might-${parts.length}`}
         />
@@ -98,6 +103,7 @@ export function transpileCardDescription(
           <img
             src={rune.src}
             alt={`${runeMatch[1]} rune`}
+            data-token="rb"
             className="inline-block h-4 w-4 object-contain align-middle"
             key={`rune-${parts.length}-${runeMatch[1]}`}
           />
@@ -126,10 +132,9 @@ export function transpileCardDescription(
   };
 
   const updateLastNonSpaceChar = (value: string) => {
-    for (let i = value.length - 1; i >= 0; i -= 1) {
+    for (let i = 0; i < value.length; i += 1) {
       if (value[i] !== " ") {
         lastNonSpaceChar = value[i];
-        return;
       }
     }
   };
@@ -137,6 +142,9 @@ export function transpileCardDescription(
   const pushPiece = (piece: React.ReactNode) => {
     parts.push(piece);
     if (typeof piece === "string") {
+      lastWasTokenSeparator =
+        lastWasToken && piece.trimStart().startsWith(":");
+      lastWasToken = false;
       if (piece.trim().length > 0) {
         hasContent = true;
         lastWasBreak = false;
@@ -146,6 +154,9 @@ export function transpileCardDescription(
     }
     hasContent = true;
     lastWasBreak = false;
+    lastWasToken =
+      React.isValidElement(piece) && piece.props?.["data-token"] === "rb";
+    lastWasTokenSeparator = false;
   };
 
   const pushRenderedTokens = (value: string) => {
@@ -155,7 +166,12 @@ export function transpileCardDescription(
   };
 
   const pushKeyword = (keyword: CardKeyword, count?: string) => {
-    if (hasContent && !lastWasBreak && isBoundaryChar(lastNonSpaceChar)) {
+    if (
+      hasContent &&
+      !lastWasBreak &&
+      isBoundaryChar(lastNonSpaceChar) &&
+      !(lastNonSpaceChar === ":" && lastWasTokenSeparator)
+    ) {
       pushBreak();
     }
     const src = getKeywordImage({ keyword, size });
@@ -293,6 +309,13 @@ export function transpileCardDescription(
     );
   };
 
+  const isTokenColonBoundary = (value: string, index: number) => {
+    if (value[index] !== ":") {
+      return false;
+    }
+    return /:rb_[a-z0-9_]+::$/.test(value.slice(0, index + 1));
+  };
+
   const shouldBreakBeforeIndex = (value: string, index: number) => {
     if (index <= 0) {
       return false;
@@ -301,7 +324,13 @@ export function transpileCardDescription(
     if (prevIndex === -1) {
       return false;
     }
-    return isBoundaryChar(value[prevIndex]);
+    if (!isBoundaryChar(value[prevIndex])) {
+      return false;
+    }
+    if (isTokenColonBoundary(value, prevIndex)) {
+      return false;
+    }
+    return true;
   };
 
   const splitByCapitalStarts = (value: string) => {

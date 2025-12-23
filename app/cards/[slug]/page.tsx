@@ -1,3 +1,4 @@
+import CardDescriptionTestGrid from "@/app/components/CardDescriptionTestGrid";
 import CardDetails from "@/app/components/CardDetails";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
@@ -20,5 +21,7 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
 
-  return <CardDetails {...card} />;
+  return <CardDescriptionTestGrid />;
+
+  // return <CardDetails {...card} />;
 }
