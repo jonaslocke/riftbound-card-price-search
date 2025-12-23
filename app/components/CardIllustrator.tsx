@@ -17,18 +17,18 @@ export default function CardIllustrator({
   domains,
 }: CardDisplayData) {
   const domain = domains[0];
-  const backgroundColor = backgroundColorMap[domain];
+  const backgroundColor = domain ? backgroundColorMap[domain] : "bg-black";
 
   return (
     <div
       className={cn(
         backgroundColor,
         "-mx-px flex items-center gap-2 pl-3!",
-        !!domain && domain !== "order" && "text-white"
+        domain !== "order" && "text-white"
       )}
     >
       <Brush className="size-4" />
-      <span className="text-xs italic">{artistLabel}</span>
+      <span className="text-xs italic">Illustrated by: {artistLabel}</span>
     </div>
   );
 }
