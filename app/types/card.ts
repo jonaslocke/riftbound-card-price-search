@@ -21,7 +21,7 @@ export type Card = {
     plain?: string;
   };
   set?: {
-    set_id?: string;
+    set_id?: Sets;
     label?: string;
   };
   media?: {
@@ -69,3 +69,21 @@ export type CardKeyword =
   | "temporary"
   | "vision"
   | "weaponmaster";
+
+export type Sets = "OGN" | "OGS" | "SFD";
+
+export interface CardDetailsDto {
+  name: string;
+  imageUrl?: string;
+  domains: CardDomain[];
+  tags: string[];
+  energy: number | null;
+  power: number | null;
+  might: number | null;
+  type: CardType;
+  rarity: CardRarity;
+  descriptionPlain: string;
+  artistLabel: string;
+  setLabel: string;
+  cardNumber: string;
+}
