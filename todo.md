@@ -8,5 +8,5 @@
 [x] might color based on the card rarity
 [x] update card details window spacing
 [ ] create a gradient effect for cards that have 2 domains
-[ ] fix: transpileCardDescription.tsx:79 Encountered two children with the same key, `might-4`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+[x] fix: transpileCardDescription.tsx:79 Encountered two children with the same key, `might-4`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
 [ ] fix transpileCardDescription erro with cards that generate tokens

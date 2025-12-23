@@ -46,7 +46,14 @@ export function transpileCardDescription(
   let lastNonSpaceChar: string | null = null;
   let lastWasToken = false;
   let lastWasTokenSeparator = false;
+  let tokenIndex = 0;
   const emDash = "\u2014";
+
+  const nextTokenKey = (prefix: string, suffix?: string) => {
+    const key = `${prefix}-${tokenIndex}`;
+    tokenIndex += 1;
+    return suffix ? `${key}-${suffix}` : key;
+  };
 
   const renderToken = (token: string) => {
     const energyMatch = token.match(/^:rb_energy_(\d+):$/);
@@ -55,7 +62,7 @@ export function transpileCardDescription(
         <span
           className="inline-flex justify-center items-center size-5 rounded-full bg-black/10 text-xs"
           data-token="rb"
-          key={`energy-${parts.length}-${energyMatch[1]}`}
+          key={nextTokenKey("energy", energyMatch[1])}
         >
           {energyMatch[1]}
         </span>
@@ -69,7 +76,7 @@ export function transpileCardDescription(
           alt="exhaust"
           data-token="rb"
           className="inline-block h-4 w-4 object-contain align-middle invert"
-          key={`exhaust-${parts.length}`}
+          key={nextTokenKey("exhaust")}
         />
       );
     }
@@ -81,7 +88,7 @@ export function transpileCardDescription(
           alt="might"
           data-token="rb"
           className="inline-block h-4 w-4 object-contain align-middle invert"
-          key={`might-${parts.length}`}
+          key={nextTokenKey("might")}
         />
       );
     }
@@ -105,7 +112,7 @@ export function transpileCardDescription(
             alt={`${runeMatch[1]} rune`}
             data-token="rb"
             className="inline-block h-4 w-4 object-contain align-middle"
-            key={`rune-${parts.length}-${runeMatch[1]}`}
+            key={nextTokenKey("rune", runeMatch[1])}
           />
         );
       }
