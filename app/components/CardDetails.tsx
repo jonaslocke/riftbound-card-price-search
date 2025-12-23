@@ -2,6 +2,7 @@ import { toCardDisplayData } from "@/lib/card-display-dto";
 import { cn } from "@/lib/utils";
 import type { Card, CardDomain } from "../types/card";
 import CardDescription from "./CardDescription";
+import CardIllustrator from "./CardIllustrator";
 import CardImage from "./CardImage";
 import CardMainInfo from "./CardMainInfo";
 import CardTitle from "./CardTitle";
@@ -23,15 +24,14 @@ export default function CardDetails(card: Card) {
   const cardDetails = toCardDisplayData(card);
   const { domains, might, tags, descriptionPlain } = cardDetails;
 
-  console.log(descriptionPlain)
-
   return (
     <div className="flex relative">
       <CardImage {...cardDetails} />
       <div
         className={cn(
+          "flex flex-col",
           "bg-white/75 w-[356] h-[470] text-black -translate-x-5 translate-y-5",
-          "border border-t-3 border-b-3 border-slate-400",
+          "border border-t-3 border-b-0 border-slate-400",
           "*:pl-8 *:py-2 *:pr-3 *:border-b *:border-b-black/10",
           domains[0] && domainBorderColors[domains[0]]
         )}
@@ -40,7 +40,7 @@ export default function CardDetails(card: Card) {
         <CardMainInfo {...cardDetails} />
         {tags.length > 0 && <CardTypes {...cardDetails} />}
         {descriptionPlain && <CardDescription {...cardDetails} />}
-
+        <CardIllustrator {...cardDetails} />
         {might && <UnitCardMight {...cardDetails} />}
       </div>
     </div>
