@@ -154,8 +154,12 @@ export function transpileCardDescription(
     }
     hasContent = true;
     lastWasBreak = false;
-    lastWasToken =
-      React.isValidElement(piece) && piece.props?.["data-token"] === "rb";
+    if (React.isValidElement(piece)) {
+      const element = piece as React.ReactElement<{ "data-token"?: string }>;
+      lastWasToken = element.props?.["data-token"] === "rb";
+    } else {
+      lastWasToken = false;
+    }
     lastWasTokenSeparator = false;
   };
 
