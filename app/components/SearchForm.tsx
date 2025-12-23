@@ -22,7 +22,7 @@ type SearchFormProps = {
 };
 
 export default function SearchForm({
-  placeholder = "Search cards",
+  placeholder = "Search by card name (press / to focus)",
   name = "query",
   onCardSelect,
   variant = "default",
@@ -34,9 +34,11 @@ export default function SearchForm({
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const isHeader = variant === "header";
 
   const clearTimers = useCallback(() => {
@@ -44,10 +46,13 @@ export default function SearchForm({
     abortRef.current?.abort();
   }, []);
 
-  const closeSuggestions = useCallback(() => {
+  const closeSuggestions = useCallback((options?: { clear?: boolean }) => {
     clearTimers();
-    setSuggestions([]);
+    if (options?.clear) {
+      setSuggestions([]);
+    }
     setHighlightedIndex(-1);
+    setIsOpen(false);
   }, [clearTimers]);
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export default function SearchForm({
       setSelectedId(null);
       setError(null);
       setLoading(false);
+      setIsOpen(false);
       return;
     }
 
@@ -98,12 +104,15 @@ export default function SearchForm({
 
       const data = await res.json();
       setSuggestions(data.items ?? []);
-      setHighlightedIndex(0);
+      setHighlightedIndex((data.items ?? []).length > 0 ? 0 : -1);
+      setIsOpen(true);
+      setSelectedId(null);
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
       setSuggestions([]);
       setHighlightedIndex(-1);
       setError((err as Error).message);
+      setIsOpen(false);
     } finally {
       setLoading(false);
     }
@@ -121,7 +130,7 @@ export default function SearchForm({
   function handleSelect(card: Card) {
     setSelectedId(card.id);
     setQuery("");
-    closeSuggestions();
+    closeSuggestions({ clear: true });
     onCardSelect?.(card);
     navigateToCard(card);
   }
@@ -133,26 +142,44 @@ export default function SearchForm({
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Escape") {
+      closeSuggestions();
+      return;
+    }
     if (suggestions.length === 0) return;
     if (event.key === "ArrowDown") {
       event.preventDefault();
+      if (!isOpen) {
+        setIsOpen(true);
+        setHighlightedIndex(0);
+        return;
+      }
       setHighlightedIndex((prev) =>
         prev + 1 >= suggestions.length ? 0 : prev + 1
       );
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
+      if (!isOpen) {
+        setIsOpen(true);
+        setHighlightedIndex(suggestions.length - 1);
+        return;
+      }
       setHighlightedIndex((prev) =>
         prev - 1 < 0 ? suggestions.length - 1 : prev - 1
       );
     } else if (event.key === "Enter") {
       event.preventDefault();
-      if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+      if (
+        isOpen &&
+        highlightedIndex >= 0 &&
+        highlightedIndex < suggestions.length
+      ) {
         handleSelect(suggestions[highlightedIndex]);
       }
     }
   }
 
-  const showSuggestions = suggestions.length > 0;
+  const showSuggestions = isOpen && suggestions.length > 0;
 
   function handleClear() {
     setQuery("");
@@ -161,6 +188,7 @@ export default function SearchForm({
     setSelectedId(null);
     setError(null);
     clearTimers();
+    setIsOpen(false);
   }
 
   useEffect(() => {
@@ -180,6 +208,24 @@ export default function SearchForm({
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [closeSuggestions]);
+
+  useEffect(() => {
+    function handleSlashShortcut(event: KeyboardEvent) {
+      if (event.key !== "/") return;
+      const target = event.target as HTMLElement | null;
+      if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA") {
+        return;
+      }
+      if (event.defaultPrevented) return;
+      event.preventDefault();
+      inputRef.current?.focus();
+    }
+
+    document.addEventListener("keydown", handleSlashShortcut);
+    return () => {
+      document.removeEventListener("keydown", handleSlashShortcut);
+    };
+  }, []);
 
   const suggestionsClassName = `list-none w-full rounded-lg border border-(--border) bg-(--panel) p-2 shadow-(--shadow) ${
     isHeader
@@ -225,10 +271,21 @@ export default function SearchForm({
             isHeader ? "pl-8 pr-11 text-sm" : "pl-10 pr-12 text-base"
           }`}
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          ref={inputRef}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            if (event.target.value.trim().length >= 2) {
+              setIsOpen(true);
+            }
+          }}
           aria-controls="card-suggestions"
           aria-expanded={showSuggestions}
           onKeyDown={handleKeyDown}
+          onFocus={() => {
+            if (suggestions.length > 0) {
+              setIsOpen(true);
+            }
+          }}
         />
         {query.length > 0 ? (
           <button
@@ -269,6 +326,7 @@ export default function SearchForm({
                 key={card.id}
                 role="option"
                 aria-selected={isActive || card.id === selectedId}
+                onMouseEnter={() => setHighlightedIndex(index)}
               >
                 <CardSuggestionItem
                   card={card}

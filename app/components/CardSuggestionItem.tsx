@@ -6,12 +6,14 @@ type CardSuggestionItemProps = {
   card: Card;
   onSelect?: (card: Card) => void;
   className?: string;
+  isActive?: boolean;
 };
 
 export default function CardSuggestionItem({
   card,
   onSelect,
   className,
+  isActive = false,
 }: CardSuggestionItemProps) {
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
@@ -22,6 +24,7 @@ export default function CardSuggestionItem({
       type="button"
       variant="ghost"
       onClick={() => onSelect?.(card)}
+      data-selected={isActive}
       className={cn(
         "h-auto w-full justify-start gap-3 rounded-md px-3 py-2 text-left text-sm font-normal text-(--text-primary) transition-colors",
         "hover:bg-(--panel-strong) data-[selected=true]:bg-(--panel-strong)",

@@ -23,7 +23,10 @@ export default function GlobalHeader() {
             <span className="leading-none">Rift Search</span>
           </Link>
           <div className="w-full md:flex-1 md:max-w-xl md:mx-auto">
-            <SearchForm placeholder="Search cards" variant="header" />
+            <SearchForm
+              placeholder="Search by card name (press / to focus)"
+              variant="header"
+            />
           </div>
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-300/60 bg-slate-900/80 text-sm font-bold tracking-wider text-(--gold) transition hover:-translate-y-px hover:border-amber-200 hover:text-white hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-0 md:shrink-0"

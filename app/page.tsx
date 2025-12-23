@@ -64,7 +64,7 @@ export default function Home() {
         </p>
       </section>
 
-      <SearchForm placeholder="Search cards by name" />
+      <SearchForm placeholder="Search by card name (press / to focus)" />
     </main>
   );
 }
