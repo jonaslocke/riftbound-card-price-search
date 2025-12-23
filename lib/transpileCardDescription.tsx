@@ -377,7 +377,11 @@ export function transpileCardDescription(
 
     while (index !== -1) {
       const prevIndex = findPrevNonSpaceIndex(value, index - 1);
-      if (prevIndex !== -1 && isBoundaryChar(value[prevIndex])) {
+      if (
+        prevIndex !== -1 &&
+        isBoundaryChar(value[prevIndex]) &&
+        !isTokenColonBoundary(value, prevIndex)
+      ) {
         if (index > start) {
           pieces.push({ type: "text", value: value.slice(start, index) });
         }
