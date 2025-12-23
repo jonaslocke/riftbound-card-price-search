@@ -41,9 +41,10 @@ export function transpileCardDescription(
 ) {
   const parts: React.ReactNode[] = [];
   const normalizedText = text;
-  const regex = /\[([^\]]+)\]/g;
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
+  let hasContent = false;
+  let lastWasBreak = false;
+  let lastNonSpaceChar: string | null = null;
+  const emDash = "\u2014";
 
   const renderToken = (token: string) => {
     const energyMatch = token.match(/^:rb_energy_(\d+):$/);
@@ -117,6 +118,319 @@ export function transpileCardDescription(
     });
   };
 
+  const pushBreak = () => {
+    if (!lastWasBreak) {
+      parts.push(<br key={`br-${parts.length}`} />);
+      lastWasBreak = true;
+    }
+  };
+
+  const updateLastNonSpaceChar = (value: string) => {
+    for (let i = value.length - 1; i >= 0; i -= 1) {
+      if (value[i] !== " ") {
+        lastNonSpaceChar = value[i];
+        return;
+      }
+    }
+  };
+
+  const pushPiece = (piece: React.ReactNode) => {
+    parts.push(piece);
+    if (typeof piece === "string") {
+      if (piece.trim().length > 0) {
+        hasContent = true;
+        lastWasBreak = false;
+        updateLastNonSpaceChar(piece);
+      }
+      return;
+    }
+    hasContent = true;
+    lastWasBreak = false;
+  };
+
+  const pushRenderedTokens = (value: string) => {
+    renderTokens(value).forEach((piece) => {
+      pushPiece(piece);
+    });
+  };
+
+  const pushKeyword = (keyword: CardKeyword, count?: string) => {
+    if (hasContent && !lastWasBreak && isBoundaryChar(lastNonSpaceChar)) {
+      pushBreak();
+    }
+    const src = getKeywordImage({ keyword, size });
+    parts.push(
+      <span
+        className="inline-flex items-center gap-1 align-middle"
+        key={`${keyword}-${parts.length}`}
+      >
+        <img src={src} alt={keyword} className="h-4 w-auto object-contain" />
+        {count ? (
+          <span className="flex justify-center items-center size-5 rounded-full bg-black/10 text-xs">
+            {count}
+          </span>
+        ) : null}
+      </span>
+    );
+    hasContent = true;
+    lastWasBreak = false;
+  };
+
+  const pushInlineText = (value: string) => {
+    const inlineRegex = /\[([^\]]+)\]/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = inlineRegex.exec(value)) !== null) {
+      if (match.index > lastIndex) {
+        pushRenderedTokens(value.slice(lastIndex, match.index));
+      }
+
+      const content = match[1].trim();
+      const keywordMatch = content.match(/^([A-Za-z-]+)(?:\s+(\d+))?$/);
+
+      if (keywordMatch) {
+        const keyword = keywordMatch[1].toLowerCase() as CardKeyword;
+        const count = keywordMatch[2];
+
+        if (keywordSet.has(keyword)) {
+          pushKeyword(keyword, count);
+          lastIndex = inlineRegex.lastIndex;
+          continue;
+        }
+      }
+
+      pushRenderedTokens(match[0]);
+      lastIndex = inlineRegex.lastIndex;
+    }
+
+    if (lastIndex < value.length) {
+      pushRenderedTokens(value.slice(lastIndex));
+    }
+  };
+
+  const renderInlineNodes = (value: string) => {
+    const inlineRegex = /\[([^\]]+)\]/g;
+    const nodes: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    const pushTextNodes = (text: string) => {
+      renderTokens(text).forEach((piece) => {
+        nodes.push(piece);
+      });
+    };
+
+    while ((match = inlineRegex.exec(value)) !== null) {
+      if (match.index > lastIndex) {
+        pushTextNodes(value.slice(lastIndex, match.index));
+      }
+
+      const content = match[1].trim();
+      const keywordMatch = content.match(/^([A-Za-z-]+)(?:\s+(\d+))?$/);
+
+      if (keywordMatch) {
+        const keyword = keywordMatch[1].toLowerCase() as CardKeyword;
+        const count = keywordMatch[2];
+
+        if (keywordSet.has(keyword)) {
+          const src = getKeywordImage({ keyword, size });
+          nodes.push(
+            <span
+              className="inline-flex items-center gap-1 align-middle"
+              key={`${keyword}-node-${nodes.length}`}
+            >
+              <img src={src} alt={keyword} className="h-4 w-auto object-contain" />
+              {count ? (
+                <span className="flex justify-center items-center size-5 rounded-full bg-black/10 text-xs">
+                  {count}
+                </span>
+              ) : null}
+            </span>
+          );
+          lastIndex = inlineRegex.lastIndex;
+          continue;
+        }
+      }
+
+      pushTextNodes(match[0]);
+      lastIndex = inlineRegex.lastIndex;
+    }
+
+    if (lastIndex < value.length) {
+      pushTextNodes(value.slice(lastIndex));
+    }
+
+    return nodes;
+  };
+
+  const findFirstNonSpaceIndex = (value: string) => {
+    for (let i = 0; i < value.length; i += 1) {
+      if (value[i] !== " ") {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  const findPrevNonSpaceIndex = (value: string, startIndex: number) => {
+    for (let i = startIndex; i >= 0; i -= 1) {
+      if (value[i] !== " ") {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  const isBoundaryChar = (char: string | null) => {
+    return (
+      char === "." ||
+      char === "!" ||
+      char === "?" ||
+      char === ":" ||
+      char === ";" ||
+      char === ")"
+    );
+  };
+
+  const shouldBreakBeforeIndex = (value: string, index: number) => {
+    if (index <= 0) {
+      return false;
+    }
+    const prevIndex = findPrevNonSpaceIndex(value, index - 1);
+    if (prevIndex === -1) {
+      return false;
+    }
+    return isBoundaryChar(value[prevIndex]);
+  };
+
+  const splitByCapitalStarts = (value: string) => {
+    const pieces: Array<{ type: "text" | "break"; value?: string }> = [];
+    let start = 0;
+
+    for (let i = 1; i < value.length; i += 1) {
+      const char = value[i];
+      if (!isUppercase(char)) {
+        continue;
+      }
+      if (!shouldBreakBeforeIndex(value, i)) {
+        continue;
+      }
+      if (i > start) {
+        pieces.push({ type: "text", value: value.slice(start, i) });
+      }
+      pieces.push({ type: "break" });
+      start = i;
+    }
+
+    if (start < value.length) {
+      pieces.push({ type: "text", value: value.slice(start) });
+    }
+
+    return pieces;
+  };
+
+  const splitByTokenStarts = (value: string) => {
+    const pieces: Array<{ type: "text" | "break"; value?: string }> = [];
+    let start = 0;
+    let index = value.indexOf(":rb_", start);
+
+    while (index !== -1) {
+      const prevIndex = findPrevNonSpaceIndex(value, index - 1);
+      if (prevIndex !== -1 && isBoundaryChar(value[prevIndex])) {
+        if (index > start) {
+          pieces.push({ type: "text", value: value.slice(start, index) });
+        }
+        pieces.push({ type: "break" });
+        start = index;
+      }
+      index = value.indexOf(":rb_", index + 1);
+    }
+
+    if (start < value.length) {
+      pieces.push({ type: "text", value: value.slice(start) });
+    }
+
+    return pieces;
+  };
+
+  const isListBoundaryChar = (char: string | null) => {
+    return char === "." || char === emDash || char === ":";
+  };
+
+  const splitListItems = (value: string) => {
+    const indices: number[] = [];
+    for (let i = 1; i < value.length; i += 1) {
+      if (value[i] !== "*") {
+        continue;
+      }
+      const prevIndex = findPrevNonSpaceIndex(value, i - 1);
+      if (prevIndex === -1 || !isListBoundaryChar(value[prevIndex])) {
+        continue;
+      }
+      indices.push(i);
+    }
+    if (indices.length === 0) {
+      return null;
+    }
+    const items: string[] = [];
+    for (let i = 0; i < indices.length; i += 1) {
+      const startIndex = indices[i] + 1;
+      const endIndex = i + 1 < indices.length ? indices[i + 1] : value.length;
+      items.push(value.slice(startIndex, endIndex));
+    }
+    return {
+      before: value.slice(0, indices[0]),
+      items,
+    };
+  };
+
+  const pushNonListText = (value: string) => {
+    const firstNonSpaceIndex = findFirstNonSpaceIndex(value);
+    if (
+      firstNonSpaceIndex !== -1 &&
+      isUppercase(value[firstNonSpaceIndex]) &&
+      hasContent &&
+      !lastWasBreak &&
+      isBoundaryChar(lastNonSpaceChar)
+    ) {
+      pushBreak();
+    }
+    if (
+      firstNonSpaceIndex !== -1 &&
+      value.slice(firstNonSpaceIndex).startsWith(":rb_") &&
+      hasContent &&
+      !lastWasBreak &&
+      isBoundaryChar(lastNonSpaceChar)
+    ) {
+      pushBreak();
+    }
+
+    splitByCapitalStarts(value).forEach((piece) => {
+      if (piece.type === "break") {
+        if (hasContent && !lastWasBreak) {
+          pushBreak();
+        }
+        return;
+      }
+      if (!piece.value) {
+        return;
+      }
+      splitByTokenStarts(piece.value).forEach((tokenPiece) => {
+        if (tokenPiece.type === "break") {
+          if (hasContent && !lastWasBreak) {
+            pushBreak();
+          }
+          return;
+        }
+        if (!tokenPiece.value) {
+          return;
+        }
+        pushInlineText(tokenPiece.value);
+      });
+    });
+  };
+
   const pushText = (value: string) => {
     const segments = value.split(/(\([^)]*\))/g);
     segments.forEach((segment, segmentIndex) => {
@@ -129,58 +443,47 @@ export function transpileCardDescription(
             className="text-xs italic text-slate-600"
             key={`paren-${parts.length}-${segmentIndex}`}
           >
-            {renderTokens(segment)}
+            {renderInlineNodes(segment)}
           </span>
         );
+        hasContent = true;
+        lastWasBreak = false;
+        updateLastNonSpaceChar(segment);
       } else {
-        parts.push(...renderTokens(segment));
+        const listData = splitListItems(segment);
+        if (listData) {
+          if (listData.before) {
+            pushNonListText(listData.before);
+          }
+          if (listData.items.length > 0) {
+            if (hasContent && !lastWasBreak) {
+              pushBreak();
+            }
+            parts.push(
+              <ul className="list-disc pl-4" key={`list-${parts.length}`}>
+                {listData.items.map((item, index) => (
+                  <li key={`list-item-${parts.length}-${index}`}>
+                    {renderInlineNodes(item.trim())}
+                  </li>
+                ))}
+              </ul>
+            );
+            hasContent = true;
+            lastWasBreak = false;
+          }
+          return;
+        }
+
+        pushNonListText(segment);
       }
     });
   };
 
-  while ((match = regex.exec(normalizedText)) !== null) {
-    if (match.index > lastIndex) {
-      pushText(normalizedText.slice(lastIndex, match.index));
-    }
-
-    const content = match[1].trim();
-    const keywordMatch = content.match(/^([A-Za-z-]+)(?:\s+(\d+))?$/);
-
-    if (keywordMatch) {
-      const keyword = keywordMatch[1].toLowerCase() as CardKeyword;
-      const count = keywordMatch[2];
-
-      if (keywordSet.has(keyword)) {
-        const src = getKeywordImage({ keyword, size });
-        parts.push(
-          <span
-            className="inline-flex items-center gap-1 align-middle"
-            key={`${keyword}-${match.index}`}
-          >
-            <img
-              src={src}
-              alt={keyword}
-              className="h-4 w-auto object-contain"
-            />
-            {count ? (
-              <span className="flex justify-center items-center size-5 rounded-full bg-black/10 text-xs">
-                {count}
-              </span>
-            ) : null}
-          </span>
-        );
-        lastIndex = regex.lastIndex;
-        continue;
-      }
-    }
-
-    pushText(match[0]);
-    lastIndex = regex.lastIndex;
-  }
-
-  if (lastIndex < normalizedText.length) {
-    pushText(normalizedText.slice(lastIndex));
-  }
+  pushText(normalizedText);
 
   return parts;
+}
+
+function isUppercase(char: string) {
+  return char >= "A" && char <= "Z";
 }
