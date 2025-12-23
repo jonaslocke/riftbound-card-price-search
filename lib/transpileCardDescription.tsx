@@ -324,7 +324,7 @@ export function transpileCardDescription(
     if (value[index] !== ":") {
       return false;
     }
-    return /:rb_[a-z0-9_]+::$/.test(value.slice(0, index + 1));
+    return /:rb_[a-z0-9_]+::?$/.test(value.slice(0, index + 1));
   };
 
   const shouldBreakBeforeIndex = (value: string, index: number) => {
@@ -432,7 +432,8 @@ export function transpileCardDescription(
       isUppercase(value[firstNonSpaceIndex]) &&
       hasContent &&
       !lastWasBreak &&
-      isBoundaryChar(lastNonSpaceChar)
+      isBoundaryChar(lastNonSpaceChar) &&
+      !lastWasToken
     ) {
       pushBreak();
     }

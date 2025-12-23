@@ -9,4 +9,5 @@
 [x] update card details window spacing
 [x] create a gradient effect for cards that have 2 domains
 [x] fix: transpileCardDescription.tsx:79 Encountered two children with the same key, `might-4`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
-[ ] fix transpileCardDescription erro with cards that generate tokens
+[x] fix transpileCardDescription erro with cards that generate tokens
+[ ] fix card text starting with energy cost as in: Assembly Rig
