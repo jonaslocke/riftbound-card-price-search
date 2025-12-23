@@ -181,7 +181,7 @@ body::after {
 }
 
 main {
-  width: min(95vw, 640px);
+  width: min(95vw, 720px);
 }
 
 .card-shell {

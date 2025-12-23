@@ -1,4 +1,5 @@
 ﻿import CardDetails from "@/app/components/card-details";
+import CardListing from "@/app/components/card-listing";
 import CardDescriptionTestGrid from "@/app/components/CardDescriptionTestGrid";
 import CardTokenCreationTestGrid from "@/app/components/CardTokenCreationTestGrid";
 import { parseSlug } from "@/lib/parseSlug";
@@ -23,7 +24,7 @@ export default async function CardPage({
   if (!card) notFound();
 
   return (
-    <>
+    <main>
       <CardDetails card={card}>
         <CardDetails.Image />
         <CardDetails.Panel>
@@ -36,7 +37,8 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
-      <div className="h-4 md:h-2" aria-hidden="true" />
-    </>
+      <div className="h-12 md:h-10" aria-hidden="true" />
+      <CardListing />
+    </main>
   );
 }
