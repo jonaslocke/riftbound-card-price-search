@@ -27,7 +27,7 @@ export default function CardDetailsPanel({ children, className }: Props) {
     <div
       className={cn(
         "flex flex-col",
-        "bg-white/75 w-[356] h-[470] text-black -translate-x-5 translate-y-5",
+        "bg-white/75 w-94 h-124 text-black -translate-x-5 translate-y-5",
         "border border-t-3 border-b-0 border-slate-400",
         "*:pl-8 *:py-2 *:pr-3 *:border-b *:border-b-black/10",
         domains[0] && domainBorderColors[domains[0]],
