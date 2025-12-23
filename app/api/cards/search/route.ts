@@ -27,9 +27,18 @@ export async function GET(req: NextRequest) {
 
   const cards = await loadAllCards();
   const qNorm = query.toLowerCase();
-  const matches = cards.filter((card) =>
-    (card.name ?? "").toLowerCase().includes(qNorm)
-  );
+  const matches = cards.filter((card) => {
+    const nameMatch = (card.name ?? "").toLowerCase().includes(qNorm);
+    if (nameMatch) return true;
+
+    const isLegend =
+      card.classification?.type?.toLowerCase() === "legend";
+    if (!isLegend) return false;
+
+    return (card.tags ?? []).some((tag) =>
+      tag.toLowerCase().includes(qNorm)
+    );
+  });
 
   const total = matches.length;
   const pages = total === 0 ? 0 : Math.ceil(total / size);

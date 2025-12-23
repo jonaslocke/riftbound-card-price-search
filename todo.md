@@ -11,4 +11,5 @@
 [x] fix: transpileCardDescription.tsx:79 Encountered two children with the same key, `might-4`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
 [x] fix transpileCardDescription erro with cards that generate tokens
 [x] fix card text starting with energy cost as in: Assembly Rig
-[ ] fix double close X's on search bar
+[x] fix double close X's on search bar
+[x] update search card by name to find legend cards by tags
