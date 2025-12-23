@@ -5,4 +5,4 @@
 [ ] search component arrows dont work
 [ ] clean up dto
 [ ] format details into a compond pattern component
-[ ] might color based on the card rarity
+[x] might color based on the card rarity

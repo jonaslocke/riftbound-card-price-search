@@ -75,7 +75,9 @@
   --color-fury: #d02030;
   --color-mind: #2070a0;
   --color-order: #d0b000;
-  --color-might: #d3a43f;
+  --color-rare: #d3a43f;
+  --color-uncommon: #989898;
+  --color-common: #965a1f;
 }
 
 :root {
@@ -622,16 +624,15 @@ main {
   * {
     @apply border-border outline-ring/50;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
   }
   body {
     @apply bg-background text-foreground;
   }
 }
-
-
-
-
-
-
