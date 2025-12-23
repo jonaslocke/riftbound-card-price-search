@@ -24,7 +24,7 @@ export default function CardIllustrator({
       className={cn(
         backgroundColor,
         "-mx-px flex items-center gap-2 pl-3!",
-        domain !== "order" && "text-white"
+        !!domain && domain !== "order" && "text-white"
       )}
     >
       <Brush className="size-4" />

@@ -21,7 +21,5 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
 
-  return <CardDescriptionTestGrid />;
-
-  // return <CardDetails {...card} />;
+  return <CardDetails {...card} />;
 }
