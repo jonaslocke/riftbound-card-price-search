@@ -1,4 +1,4 @@
-import src from "@/assets/icons/might-24.webp";
+import icon from "@/assets/icons/might-24.webp";
 import { CardDisplayData } from "@/lib/card-display-dto";
 import { cn } from "@/lib/utils";
 
@@ -15,11 +15,11 @@ export default function UnitCardMight({ might }: CardDisplayData) {
         filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
       }}
     >
-      <div className="flex items-center gap-2 bg-might py-1 px-2 rounded border border-black/50">
-        <div className="">
-          <img src={src.src} alt="might symbol" className="invert" />
+      <div className="flex items-center gap-2 bg-might py-0.5 px-1.5 rounded border border-black/50">
+        <div className="size-5">
+          <img src={icon.src} alt="might symbol" className="invert" />
         </div>
-        <div className="text-xl">{might}</div>
+        <div className="text-lg">{might}</div>
       </div>
     </div>
   );
