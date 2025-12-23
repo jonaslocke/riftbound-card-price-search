@@ -1,13 +1,14 @@
-import type { CardDisplayData } from "@/lib/card-display-dto";
+"use client";
+
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
+import { useCardDetails } from "./context";
 
-interface Props extends CardDisplayData {
-  size: "sm" | "md" | "lg";
-}
+type Size = "sm" | "md" | "lg";
 
-export default function CardCost(props: Props) {
-  const { power, energy, domains, size = "sm" } = props;
-  const { domainImg } = getCardInfoAssets({ ...props, size });
+export default function CardCost({ size = "sm" }: { size?: Size }) {
+  const card = useCardDetails();
+  const { power, energy, domains } = card;
+  const { domainImg } = getCardInfoAssets({ ...card, size });
 
   return (
     <div className="flex items-center h-6 gap-1">

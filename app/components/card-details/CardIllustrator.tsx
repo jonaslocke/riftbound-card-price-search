@@ -1,7 +1,9 @@
-import { CardDisplayData } from "@/lib/card-display-dto";
-import { CardDomain } from "../types/card";
-import { cn } from "@/lib/utils";
+"use client";
+
 import { Brush } from "lucide-react";
+import type { CardDomain } from "@/app/types/card";
+import { cn } from "@/lib/utils";
+import { useCardDetails } from "./context";
 
 const backgroundColorMap: Record<CardDomain, string> = {
   order: "bg-order",
@@ -12,10 +14,8 @@ const backgroundColorMap: Record<CardDomain, string> = {
   mind: "bg-mind",
 };
 
-export default function CardIllustrator({
-  artistLabel,
-  domains,
-}: CardDisplayData) {
+export default function CardIllustrator() {
+  const { artistLabel, domains } = useCardDetails();
   const domain = domains[0];
   const backgroundColor = domain ? backgroundColorMap[domain] : "bg-black";
 

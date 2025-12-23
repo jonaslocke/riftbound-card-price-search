@@ -4,5 +4,6 @@
 [ ] change assets for svgs
 [ ] search component arrows dont work
 [ ] clean up dto
-[ ] format details into a compond pattern component
+[x] format details into a compond pattern component
 [x] might color based on the card rarity
+[ ] update card details window spacing

@@ -1,9 +1,11 @@
-"use client";
+﻿"use client";
 
-import { CardDisplayData } from "@/lib/card-display-dto";
 import { motion, useMotionValue, useSpring } from "motion/react";
+import { useCardDetails } from "./context";
 
-export default function CardImage({ imageUrl, name }: CardDisplayData) {
+export default function CardImage() {
+  const { imageUrl, name } = useCardDetails();
+
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
   const smoothTiltX = useSpring(tiltX, { stiffness: 180, damping: 18 });
@@ -24,6 +26,7 @@ export default function CardImage({ imageUrl, name }: CardDisplayData) {
     tiltX.set(0);
     tiltY.set(0);
   };
+
   return (
     <div
       className="z-1 w-[320]"

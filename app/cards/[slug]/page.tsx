@@ -1,5 +1,4 @@
-import CardDescriptionTestGrid from "@/app/components/CardDescriptionTestGrid";
-import CardDetails from "@/app/components/CardDetails";
+﻿import CardDetails from "@/app/components/card-details";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
 import { notFound } from "next/navigation";
@@ -21,5 +20,18 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
 
-  return <CardDetails {...card} />;
+  return (
+    <CardDetails card={card}>
+      <CardDetails.Image />
+      <CardDetails.Panel>
+        <CardDetails.Title />
+        <CardDetails.MainInfo />
+        <CardDetails.Types />
+        <CardDetails.Description />
+        <CardDetails.NumberSet />
+        <CardDetails.Illustrator />
+        <CardDetails.Might />
+      </CardDetails.Panel>
+    </CardDetails>
+  );
 }

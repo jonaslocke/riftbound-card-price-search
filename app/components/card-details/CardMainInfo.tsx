@@ -1,14 +1,15 @@
-import { Badge } from "@/components/ui/badge";
-import { CardDisplayData } from "@/lib/card-display-dto";
-import CardDomainEl from "./CardDomain";
-import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
+"use client";
 
-export default function CardMainInfo(card: CardDisplayData) {
+import { Badge } from "@/components/ui/badge";
+import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
+import CardDomain from "./CardDomain";
+import { useCardDetails } from "./context";
+
+export default function CardMainInfo() {
+  const card = useCardDetails();
   const { type, rarity, domains } = card;
-  const { rarityImg, typeImg } = getCardInfoAssets({
-    ...card,
-    size: "sm",
-  });
+  const { rarityImg, typeImg } = getCardInfoAssets({ ...card, size: "sm" });
+
   return (
     <div className="flex gap-0.5">
       <Badge variant="secondary">
@@ -20,9 +21,7 @@ export default function CardMainInfo(card: CardDisplayData) {
         <span>{type}</span>
       </Badge>
       {domains.length > 0 &&
-        domains.map((domain) => (
-          <CardDomainEl key={domain} card={card} domain={domain} />
-        ))}
+        domains.map((domain) => <CardDomain key={domain} domain={domain} />)}
     </div>
   );
 }

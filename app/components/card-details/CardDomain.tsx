@@ -1,19 +1,20 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
-import type { CardDisplayData } from "@/lib/card-display-dto";
+import type { CardDomain as Domain } from "@/app/types/card";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
-import type { CardDomain } from "../types/card";
+import { useCardDetails } from "./context";
 
 type Size = "sm" | "md" | "lg";
 
 export default function CardDomain({
-  card,
   domain,
   size = "sm",
 }: {
-  card: CardDisplayData;
-  domain: CardDomain;
+  domain: Domain;
   size?: Size;
 }) {
+  const card = useCardDetails();
   const { domainImg } = getCardInfoAssets({
     ...card,
     domains: [domain],

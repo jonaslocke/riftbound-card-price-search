@@ -1,8 +1,12 @@
-import icon from "@/assets/icons/might-24.webp";
-import { CardDisplayData } from "@/lib/card-display-dto";
-import { cn } from "@/lib/utils";
+"use client";
 
-export default function UnitCardMight({ might, rarity }: CardDisplayData) {
+import icon from "@/assets/icons/might-24.webp";
+import { cn } from "@/lib/utils";
+import { useCardDetails } from "./context";
+
+export default function UnitCardMight() {
+  const { might, rarity } = useCardDetails();
+
   if (!might) return null;
 
   console.log(rarity);

@@ -1,7 +1,7 @@
-import type { Card } from "@/app/types/card";
+﻿import type { Card } from "@/app/types/card";
 import ogn from "@/data/sets/ogn.json";
 import ogs from "@/data/sets/ogs.json";
-import CardDetails from "./CardDetails";
+import CardDetails from "@/app/components/card-details";
 
 const cardNames = [
   "Stand United",
@@ -59,7 +59,18 @@ export default function CardDescriptionTestGrid() {
       </div>
       <div className="grid gap-10 lg:grid-cols-2">
         {cards.map((card) => (
-          <CardDetails key={card.id ?? card.name} {...card} />
+          <CardDetails key={card.id ?? card.name} card={card}>
+            <CardDetails.Image />
+            <CardDetails.Panel>
+              <CardDetails.Title />
+              <CardDetails.MainInfo />
+              <CardDetails.Types />
+              <CardDetails.Description />
+              <CardDetails.NumberSet />
+              <CardDetails.Illustrator />
+              <CardDetails.Might />
+            </CardDetails.Panel>
+          </CardDetails>
         ))}
       </div>
     </section>
