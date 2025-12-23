@@ -80,7 +80,7 @@ export interface CardDetailsDto {
   energy: number | null;
   power: number | null;
   might: number | null;
-  type: CardType;
+  type: CardType | `${CardSupertype} ${CardType}`;
   rarity: CardRarity;
   descriptionPlain: string;
   artistLabel: string;

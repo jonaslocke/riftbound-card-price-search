@@ -1,14 +1,14 @@
 "use client";
 import { createContext, useContext } from "react";
-import type { CardDisplayData } from "@/lib/card-display-dto";
+import type { CardDetailsDto } from "@/app/types/card";
 
-const CardDetailsContext = createContext<CardDisplayData | null>(null);
+const CardDetailsContext = createContext<CardDetailsDto | null>(null);
 
 export function CardDetailsProvider({
   value,
   children,
 }: {
-  value: CardDisplayData;
+  value: CardDetailsDto;
   children: React.ReactNode;
 }) {
   return (

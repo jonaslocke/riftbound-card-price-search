@@ -14,11 +14,11 @@ export default function CardMainInfo() {
     <div className="flex gap-0.5">
       <Badge variant="secondary">
         <img src={rarityImg} alt={`${rarity} image`} />
-        <span>{rarity}</span>
+        <span className="capitalize">{rarity}</span>
       </Badge>
       <Badge variant="secondary">
         <img src={typeImg} alt={`${type} image`} className="invert" />
-        <span>{type}</span>
+        <span className="capitalize">{type}</span>
       </Badge>
       {domains.length > 0 &&
         domains.map((domain) => <CardDomain key={domain} domain={domain} />)}

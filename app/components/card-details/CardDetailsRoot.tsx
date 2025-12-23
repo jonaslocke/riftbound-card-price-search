@@ -1,7 +1,7 @@
 "use client";
 
 import type { Card } from "@/app/types/card";
-import { toCardDisplayData } from "@/lib/card-display-dto";
+import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { cn } from "@/lib/utils";
 import { CardDetailsProvider } from "./context";
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function CardDetailsRoot({ card, children, className }: Props) {
-  const cardDetails = toCardDisplayData(card);
+  const cardDetails = toCardDetailsDto(card);
 
   return (
     <CardDetailsProvider value={cardDetails}>

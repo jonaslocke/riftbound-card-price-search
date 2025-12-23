@@ -1,4 +1,3 @@
-import type { CardDisplayData } from "./card-display-dto";
 import type { CardDomain } from "@/app/types/card";
 
 import body16 from "@/assets/domains/body-16.webp";
@@ -61,9 +60,12 @@ import uncommon48 from "@/assets/rarities/uncommon-48.webp";
 
 type Size = "sm" | "md" | "lg";
 
-interface Props extends CardDisplayData {
+type Props = {
+  domains: CardDomain[];
+  type: string;
+  rarity: string;
   size: Size;
-}
+};
 
 export const getCardInfoAssets = (card: Props) => {
   const domainKey = card.domains[0] as string | undefined;

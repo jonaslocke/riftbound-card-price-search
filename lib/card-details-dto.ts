@@ -1,10 +1,23 @@
-import type { Card, CardDetailsDto, CardDomain } from "../app/types/card";
+import type {
+  Card,
+  CardDetailsDto,
+  CardDomain,
+  CardSupertype,
+  CardType,
+} from "../app/types/card";
 
 export function toCardDetailsDto(card: Card): CardDetailsDto {
-  const type = card.classification?.type ?? "unit";
-  const rarity = card.classification?.rarity ?? "common";
-  const showStats = type !== "battlefield" && type !== "rune";
-  const showMight = type === "unit";
+  const typeRaw = card.classification?.type ?? "unit";
+  const supertypeRaw = card.classification?.supertype ?? null;
+  const rarityRaw = card.classification?.rarity ?? "common";
+  const typeKey = typeRaw.toLowerCase() as CardType;
+  const supertypeKey = supertypeRaw
+    ? (supertypeRaw.toLowerCase() as CardSupertype)
+    : null;
+  const type = supertypeKey ? `${supertypeKey} ${typeKey}` : typeKey;
+  const rarity = rarityRaw.toLowerCase() as CardDetailsDto["rarity"];
+  const showStats = typeKey !== "battlefield" && typeKey !== "rune";
+  const showMight = typeKey === "unit";
   const energy = showStats ? card.attributes?.energy ?? null : null;
   const power = showStats ? card.attributes?.power ?? null : null;
   const might = showMight ? card.attributes?.might ?? null : null;

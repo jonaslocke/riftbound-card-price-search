@@ -5,11 +5,10 @@ import { cn } from "@/lib/utils";
 import { useCardDetails } from "./context";
 
 export default function UnitCardMight() {
-  const { might, rarity } = useCardDetails();
+  const card = useCardDetails();
+  const { might, rarity } = card;
 
   if (!might) return null;
-
-  console.log(rarity);
 
   return (
     <div
@@ -24,9 +23,9 @@ export default function UnitCardMight() {
       <div
         className={cn(
           "flex items-center gap-2 py-0.5 px-1.5 rounded border border-black/50",
-          rarity === "Common"
+          rarity === "common"
             ? "bg-common"
-            : rarity === "Uncommon"
+            : rarity === "uncommon"
             ? "bg-uncommon"
             : "bg-rare"
         )}
