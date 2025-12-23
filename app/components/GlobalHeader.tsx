@@ -34,7 +34,7 @@ export default function GlobalHeader() {
           </button>
         </div>
       </header>
-      <div className="h-24 md:h-20" aria-hidden="true" />
+      <div className="h-4 md:h-2" aria-hidden="true" />
     </>
   );
 }

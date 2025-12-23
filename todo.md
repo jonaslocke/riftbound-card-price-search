@@ -6,4 +6,4 @@
 [ ] clean up dto
 [x] format details into a compond pattern component
 [x] might color based on the card rarity
-[ ] update card details window spacing
+[x] update card details window spacing

@@ -205,7 +205,7 @@ export default function SearchForm({
         className={`relative flex items-center rounded-full border shadow-(--shadow) transition ${
           isHeader
             ? "h-10 border-slate-400/40 bg-slate-900/80 px-3"
-            : "h-12 border-(--border) bg-(--pill) px-4"
+            : "h-12 border-border bg-(--pill) px-4"
         }`}
       >
         <span

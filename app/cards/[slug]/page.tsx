@@ -21,17 +21,20 @@ export default async function CardPage({
   if (!card) notFound();
 
   return (
-    <CardDetails card={card}>
-      <CardDetails.Image />
-      <CardDetails.Panel>
-        <CardDetails.Title />
-        <CardDetails.MainInfo />
-        <CardDetails.Types />
-        <CardDetails.Description />
-        <CardDetails.NumberSet />
-        <CardDetails.Illustrator />
-        <CardDetails.Might />
-      </CardDetails.Panel>
-    </CardDetails>
+    <>
+      <CardDetails card={card}>
+        <CardDetails.Image />
+        <CardDetails.Panel>
+          <CardDetails.Title />
+          <CardDetails.MainInfo />
+          <CardDetails.Types />
+          <CardDetails.Description />
+          <CardDetails.NumberSet />
+          <CardDetails.Illustrator />
+          <CardDetails.Might />
+        </CardDetails.Panel>
+      </CardDetails>
+      <div className="h-4 md:h-2" aria-hidden="true" />
+    </>
   );
 }
