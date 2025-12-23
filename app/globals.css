@@ -1,9 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Thin Italic.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Arpona";
+  src: url("../assets/Arpona/Arpona Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --font-display: "Arpona", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   --color-body: #e07010;
   --color-calm: #10b070;
   --color-chaos: #705090;
@@ -28,8 +93,8 @@
   --gold: #f0c36a;
   --copper: #d98d4a;
   --card-glow: 0 24px 70px rgba(3, 7, 18, 0.6);
-  --font-display: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  --font-ui: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  --font-display: "Arpona", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-ui: "Open Sans", "Segoe UI", Tahoma, sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -557,7 +622,16 @@ main {
   * {
     @apply border-border outline-ring/50;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
   body {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+
+
+
