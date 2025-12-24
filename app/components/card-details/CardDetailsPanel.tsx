@@ -41,6 +41,7 @@ export default function CardDetailsPanel({ children, className }: Props) {
 
   return (
     <div
+      id="qwe123"
       className={cn(
         "flex flex-col",
         "bg-white/75 w-96 h-124 text-black -translate-x-5 translate-y-5",

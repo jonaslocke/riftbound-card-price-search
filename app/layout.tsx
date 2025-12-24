@@ -4,7 +4,7 @@ import "./globals.css";
 import GlobalHeader from "./components/GlobalHeader";
 
 export const metadata: Metadata = {
-  title: "Hello World",
+  title: "Rift Search",
   description: "Minimal Next.js Hello World",
 };
 
@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <GlobalHeader />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

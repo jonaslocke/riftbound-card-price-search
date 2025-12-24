@@ -1,7 +1,5 @@
 ﻿import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
-import CardDescriptionTestGrid from "@/app/components/CardDescriptionTestGrid";
-import CardTokenCreationTestGrid from "@/app/components/CardTokenCreationTestGrid";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
 import { notFound } from "next/navigation";
@@ -24,7 +22,8 @@ export default async function CardPage({
   if (!card) notFound();
 
   return (
-    <main>
+    <>
+      <div className="h-16" />
       <CardDetails card={card}>
         <CardDetails.Image />
         <CardDetails.Panel>
@@ -37,8 +36,7 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
-      <div className="h-12 md:h-10" aria-hidden="true" />
       <CardListing />
-    </main>
+    </>
   );
 }

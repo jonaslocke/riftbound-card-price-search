@@ -244,7 +244,7 @@ export default function SearchForm({
       aria-busy={loading}
       ref={formRef}
     >
-      <label className="visually-hidden" htmlFor="search-input">
+      <label className="sr-only" htmlFor="search-input">
         Search
       </label>
       <div

@@ -10,7 +10,7 @@ export default function GlobalHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-400/20 bg-slate-900/85 px-4 py-3 backdrop-blur-lg md:px-6">
+      <header className="flex items-center fixed inset-x-0 top-0 z-40 border-b border-slate-400/20 bg-slate-900/85 px-4 py-3 backdrop-blur-lg md:px-6 h-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 md:flex-row md:items-center md:gap-6">
           <Link
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--text-primary) no-underline md:shrink-0"
@@ -22,7 +22,7 @@ export default function GlobalHeader() {
             />
             <span className="leading-none">Rift Search</span>
           </Link>
-          <div className="w-full md:flex-1 md:max-w-xl md:mx-auto">
+          <div className="w-full flex items-center md:flex-1 md:max-w-xl md:mx-auto">
             <SearchForm
               placeholder="Search by card name (press / to focus)"
               variant="header"
@@ -37,7 +37,6 @@ export default function GlobalHeader() {
           </button>
         </div>
       </header>
-      <div className="h-4 md:h-2" aria-hidden="true" />
     </>
   );
 }
