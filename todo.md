@@ -13,3 +13,7 @@
 [x] fix card text starting with energy cost as in: Assembly Rig
 [x] fix double close X's on search bar
 [x] update search card by name to find legend cards by tags
+[ ] update power cost on signature spells
+[x] fix card detail and card listing placement
+[ ] fix main page elements spacing
+[ ] create new listing UI component

@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <GlobalHeader />
-        <main>{children}</main>
+        <main className="flex flex-col w-full max-w-2xl">{children}</main>
       </body>
     </html>
   );
