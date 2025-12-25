@@ -17,3 +17,4 @@
 [x] fix card detail and card listing placement
 [ ] fix main page elements spacing
 [ ] create new listing UI component
+[x] Rename site to hextech codex

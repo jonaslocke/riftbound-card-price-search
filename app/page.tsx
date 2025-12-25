@@ -53,7 +53,7 @@ export default function Home() {
 
       <section className="flex flex-col gap-2">
         <p className="text-sm uppercase tracking-widest text-(--text-muted)">
-          Rift Search
+          Hextech Codex
         </p>
         <h1 className="text-4xl font-bold leading-tight text-(--text-primary) sm:text-5xl">
           Card search

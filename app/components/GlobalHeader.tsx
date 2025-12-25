@@ -20,7 +20,7 @@ export default function GlobalHeader() {
               className="h-2.5 w-2.5 shrink-0 rounded-full bg-linear-to-br from-(--gold) to-(--copper) shadow-lg"
               aria-hidden="true"
             />
-            <span className="leading-none">Rift Search</span>
+            <span className="leading-none">Hextech Codex</span>
           </Link>
           <div className="w-full flex items-center md:flex-1 md:max-w-xl md:mx-auto">
             <SearchForm
@@ -33,7 +33,7 @@ export default function GlobalHeader() {
             type="button"
             aria-label="Account"
           >
-            RS
+            HC
           </button>
         </div>
       </header>
