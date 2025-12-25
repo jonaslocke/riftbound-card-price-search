@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-12 flex flex-col gap-4">
       <button
         className="fixed right-4 top-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
         type="button"
@@ -51,18 +51,12 @@ export default function Home() {
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>
 
-      <section className="flex flex-col gap-2">
-        <p className="text-sm uppercase tracking-widest text-(--text-muted)">
-          Hextech Codex
-        </p>
-        <h1 className="text-4xl font-bold leading-tight text-(--text-primary) sm:text-5xl">
-          Card search
-        </h1>
-        <p className="text-base leading-relaxed text-(--text-muted)">
-          Find any Riftbound card by name and track it across your favorite
-          shops.
-        </p>
-      </section>
+      <h1 className="text-4xl font-bold leading-tight text-(--text-primary) sm:text-5xl">
+        Hextech Codex
+      </h1>
+      <p className="text-base leading-relaxed text-(--text-muted)">
+        Find and compare Riftbound card prices across multiple stores
+      </p>
 
       <SearchForm placeholder="Search by card name (press / to focus)" />
     </div>

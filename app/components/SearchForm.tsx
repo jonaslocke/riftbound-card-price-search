@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { Card } from "../types/card";
 import CardSuggestionItem from "./CardSuggestionItem";
+import { cn } from "@/lib/utils";
 
 type SearchFormProps = {
   placeholder?: string;
@@ -45,14 +46,17 @@ export default function SearchForm({
     abortRef.current?.abort();
   }, []);
 
-  const closeSuggestions = useCallback((options?: { clear?: boolean }) => {
-    clearTimers();
-    if (options?.clear) {
-      setSuggestions([]);
-    }
-    setHighlightedIndex(-1);
-    setIsOpen(false);
-  }, [clearTimers]);
+  const closeSuggestions = useCallback(
+    (options?: { clear?: boolean }) => {
+      clearTimers();
+      if (options?.clear) {
+        setSuggestions([]);
+      }
+      setHighlightedIndex(-1);
+      setIsOpen(false);
+    },
+    [clearTimers]
+  );
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -226,12 +230,6 @@ export default function SearchForm({
     };
   }, []);
 
-  const suggestionsClassName = `list-none w-full rounded-lg border border-(--border) bg-(--panel) p-2 shadow-(--shadow) ${
-    isHeader
-      ? "absolute left-0 right-0 top-full z-50 mt-2 flex flex-col gap-1"
-      : "mt-2 flex flex-col gap-1"
-  }`;
-
   return (
     <form
       className="relative w-full"
@@ -247,7 +245,7 @@ export default function SearchForm({
         Search
       </label>
       <div
-        className={`relative flex items-center rounded-full border shadow-(--shadow) transition ${
+        className={`relative flex items-center rounded-sm border shadow-(--shadow) transition ${
           isHeader
             ? "h-10 border-slate-400/40 bg-slate-900/80 px-3"
             : "h-12 border-border bg-(--pill) px-4"
@@ -313,7 +311,12 @@ export default function SearchForm({
       {showSuggestions && (
         <ul
           id="card-suggestions"
-          className={suggestionsClassName}
+          className={cn(
+            "list-none w-full rounded-sm border border-border bg-(--panel) p-2 shadow-(--shadow)",
+            isHeader
+              ? "absolute left-0 right-0 top-full z-50 mt-2 flex flex-col gap-1"
+              : "mt-2 flex flex-col gap-1"
+          )}
           role="listbox"
           aria-label="Card search suggestions"
         >
@@ -340,4 +343,3 @@ export default function SearchForm({
     </form>
   );
 }
-

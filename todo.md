@@ -15,6 +15,6 @@
 [x] update search card by name to find legend cards by tags
 [ ] update power cost on signature spells
 [x] fix card detail and card listing placement
-[ ] fix main page elements spacing
+[x] fix main page elements spacing
 [ ] create new listing UI component
 [x] Rename site to hextech codex
