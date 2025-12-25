@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ExternalLinkIcon, PackageIcon } from "lucide-react";
+import CardListingItem from "./CardListingItem";
 
 export default function CardListing() {
   return (
@@ -48,87 +49,10 @@ export default function CardListing() {
                 storeName: "Card Kingdom",
                 quantity: 24,
                 price: 12.99,
-                stock: "high",
+                stock: "high" as "high" | "low" | "medium",
                 url: "#",
               };
-              return (
-                <TableRow
-                  key={index}
-                  className="border-black/10 hover:bg-black/5 transition-colors"
-                >
-                  <TableCell className="px-3 py-2">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="size-10 border-2 border-black/10 bg-white">
-                        <AvatarFallback className="bg-black/5 text-black/60">
-                          {listing.storeName.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium text-black">
-                          {listing.storeName}
-                        </div>
-                        <Badge
-                          variant={
-                            listing.stock === "high"
-                              ? "default"
-                              : listing.stock === "medium"
-                              ? "secondary"
-                              : "destructive"
-                          }
-                          className={
-                            listing.stock === "high"
-                              ? "mt-1 text-xs bg-black/10 text-black hover:bg-black/10"
-                              : listing.stock === "medium"
-                              ? "mt-1 text-xs bg-black/5 text-black/70 hover:bg-black/5"
-                              : "mt-1 text-xs"
-                          }
-                        >
-                          <PackageIcon className="mr-1 size-3" />
-                          {listing.stock === "high"
-                            ? "In Stock"
-                            : listing.stock === "medium"
-                            ? "Limited"
-                            : "Low Stock"}
-                        </Badge>
-                      </div>
-                    </div>
-                  </TableCell>
-
-                  <TableCell className="text-center px-3 py-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-lg font-semibold text-black">
-                        {listing.quantity}
-                      </span>
-                      <span className="text-sm text-black/60">available</span>
-                    </div>
-                  </TableCell>
-
-                  <TableCell className="text-center px-3 py-2">
-                    <div className="text-lg font-semibold text-black">
-                      ${listing.price.toFixed(2)}
-                    </div>
-                    <div className="text-xs text-black/50 mt-0.5">per card</div>
-                  </TableCell>
-
-                  <TableCell className="text-center px-3 py-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-black/20 bg-white/60 hover:bg-white text-black shadow-sm"
-                      asChild
-                    >
-                      <a
-                        href={listing.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Visit Store
-                        <ExternalLinkIcon className="ml-2 size-4" />
-                      </a>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
+              return <CardListingItem key={index} {...listing} />;
             })}
           </TableBody>
         </Table>
