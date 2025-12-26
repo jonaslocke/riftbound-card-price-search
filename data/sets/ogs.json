@@ -15,7 +15,10 @@
       "type": "Unit",
       "supertype": "Signature",
       "rarity": "Epic",
-      "domain": ["Fury", "Chaos"]
+      "domain": [
+        "Fury",
+        "Chaos"
+      ]
     },
     "text": {
       "rich": "<p>When you play me, deal 3 to all units at battlefields.</p>",
@@ -30,14 +33,17 @@
       "artist": "Polar Engine Studio",
       "accessibility_text": "Riftbound Unit: Tibbers. When you play me, deal 3 to all units at battlefields."
     },
-    "tags": ["Annie"],
+    "tags": [
+      "Annie"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Tibbers",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "370"
   },
   {
     "id": "1556594f-8470-4dfd-8be4-aae5045185d8",
@@ -55,7 +61,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Uncommon",
-      "domain": ["Order"]
+      "domain": [
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>[Action] <em>(Play on your turn or in showdowns.)</em><br />Play four 1 :rb_might: Recruit unit tokens. <em>(They can be played to your base or to battlefields you control.)</em></p>",
@@ -77,7 +85,8 @@
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "367"
   },
   {
     "id": "fd8e48a1-2341-48d0-93b5-3f2dd32a80f8",
@@ -95,7 +104,9 @@
       "type": "Unit",
       "supertype": null,
       "rarity": "Common",
-      "domain": ["Order"]
+      "domain": [
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>I enter ready.</p>",
@@ -110,14 +121,18 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Unit: Vanguard Attendant. I enter ready."
     },
-    "tags": ["Elite", "Demacia"],
+    "tags": [
+      "Elite",
+      "Demacia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Vanguard Attendant",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "368"
   },
   {
     "id": "38052469-6e48-46ae-b0e9-acb9012a71bd",
@@ -135,7 +150,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Calm"]
+      "domain": [
+        "Calm"
+      ]
     },
     "text": {
       "rich": "<p>While you have 8+ runes, I have +4 :rb_might:.</p>",
@@ -150,14 +167,18 @@
       "artist": "Kudos Productions",
       "accessibility_text": "Riftbound Unit: Yi, Meditative. While you have 8+ runes, I have +4 [S]."
     },
-    "tags": ["Master Yi", "Ionia"],
+    "tags": [
+      "Master Yi",
+      "Ionia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Yi Meditative",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "356"
   },
   {
     "id": "cfa62e26-900a-4562-a408-7959a695893a",
@@ -175,7 +196,10 @@
       "type": "Legend",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Calm", "Body"]
+      "domain": [
+        "Calm",
+        "Body"
+      ]
     },
     "text": {
       "rich": "<p>While a friendly unit defends alone, it gets +2 :rb_might:.</p>",
@@ -190,14 +214,17 @@
       "artist": "Grafit Studio/Quy Ho",
       "accessibility_text": "Riftbound Legend: Wuju Bladesman - Starter. While a friendly unit defends alone, it gets +2 [S]."
     },
-    "tags": ["Master Yi"],
+    "tags": [
+      "Master Yi"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Wuju Bladesman  Starter",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "371"
   },
   {
     "id": "09397732-5f8d-412c-ae14-c8d84ed02ee6",
@@ -215,7 +242,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Epic",
-      "domain": ["Body"]
+      "domain": [
+        "Body"
+      ]
     },
     "text": {
       "rich": "<p>[Ganking] <em>(I can move from battlefield to battlefield.)</em><br />I enter ready.</p>",
@@ -230,14 +259,18 @@
       "artist": "Kudos Productions",
       "accessibility_text": "Riftbound Unit: Yi, Honed. [Ganking] (I can move from battlefield to battlefield.)\nI enter ready."
     },
-    "tags": ["Master Yi", "Ionia"],
+    "tags": [
+      "Master Yi",
+      "Ionia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Yi Honed",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "361"
   },
   {
     "id": "93608125-32e5-41d4-8623-a3f26ec22186",
@@ -255,7 +288,9 @@
       "type": "Unit",
       "supertype": null,
       "rarity": "Uncommon",
-      "domain": ["Calm"]
+      "domain": [
+        "Calm"
+      ]
     },
     "text": {
       "rich": "<p>[Shield] <em>(+1 :rb_might: while I'm a defender.)</em></p>",
@@ -270,14 +305,18 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Unit: Zephyr Sage. [Shield] (+1 [S] while I'm a defender.)"
     },
-    "tags": ["Ionia", "Bird"],
+    "tags": [
+      "Ionia",
+      "Bird"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Zephyr Sage",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "357"
   },
   {
     "id": "535c45d3-1fb9-4227-993e-576444b70bfd",
@@ -295,7 +334,10 @@
       "type": "Spell",
       "supertype": "Signature",
       "rarity": "Epic",
-      "domain": ["Body", "Order"]
+      "domain": [
+        "Body",
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>[Action] <em>(Play on your turn or in showdowns.)</em><br />Give friendly units +2 :rb_might: this turn.</p>",
@@ -310,14 +352,17 @@
       "artist": "Kudos Productions",
       "accessibility_text": "Riftbound Spell: Decisive Strike. [Action] (Play on your turn or in showdowns.)\nGive friendly units +2 [S] this turn."
     },
-    "tags": ["Garen"],
+    "tags": [
+      "Garen"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Decisive Strike",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "376"
   },
   {
     "id": "b15344ec-e5dd-43f9-a34b-4e7eefa25084",
@@ -335,7 +380,10 @@
       "type": "Legend",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Fury", "Chaos"]
+      "domain": [
+        "Fury",
+        "Chaos"
+      ]
     },
     "text": {
       "rich": "<p>At the end of your turn, ready 2 runes.</p>",
@@ -350,14 +398,17 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Legend: Dark Child - Starter. At the end of your turn, ready 2 runes."
     },
-    "tags": ["Annie"],
+    "tags": [
+      "Annie"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Dark Child  Starter",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "369"
   },
   {
     "id": "7a85c39c-c96c-45d5-8120-ad063f352c0a",
@@ -375,7 +426,10 @@
       "type": "Spell",
       "supertype": "Signature",
       "rarity": "Epic",
-      "domain": ["Mind", "Order"]
+      "domain": [
+        "Mind",
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>[Action] <em>(Play on your turn or in showdowns.)</em><br />Deal 8 to a unit.</p>",
@@ -390,14 +444,17 @@
       "artist": "Kudos Productions",
       "accessibility_text": "Riftbound Spell: Final Spark. [Action] (Play on your turn or in showdowns.)\nDeal 8 to a unit."
     },
-    "tags": ["Lux"],
+    "tags": [
+      "Lux"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Final Spark",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "374"
   },
   {
     "id": "84ae4762-09fb-414b-a4af-f72c996c3c33",
@@ -415,7 +472,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Uncommon",
-      "domain": ["Fury"]
+      "domain": [
+        "Fury"
+      ]
     },
     "text": {
       "rich": "<p>Deal 3 to all enemy units at a battlefield.</p>",
@@ -437,7 +496,8 @@
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "354"
   },
   {
     "id": "93f1e74f-35fc-49e2-a997-a8fe23e832b9",
@@ -455,7 +515,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Common",
-      "domain": ["Chaos"]
+      "domain": [
+        "Chaos"
+      ]
     },
     "text": {
       "rich": "<p>[Reaction] <em>(Play any time, even before spells and abilities resolve.)</em><br />Move up to 2 friendly units to base.</p>",
@@ -477,7 +539,8 @@
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "363"
   },
   {
     "id": "f55e5090-af45-45d5-8a14-32a12f7b8e2f",
@@ -495,7 +558,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Common",
-      "domain": ["Order"]
+      "domain": [
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>[Action] <em>(Play on your turn or in showdowns.)</em><br />Kill a unit at a battlefield.</p>",
@@ -517,7 +582,8 @@
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "364"
   },
   {
     "id": "a4658ad3-2540-43a9-8d2d-0108c64848b8",
@@ -535,7 +601,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Epic",
-      "domain": ["Fury"]
+      "domain": [
+        "Fury"
+      ]
     },
     "text": {
       "rich": "<p>Your spells and abilities deal 1 Bonus Damage. <em>(Each instance of damage the spell deals is increased by 1.)</em></p>",
@@ -550,14 +618,18 @@
       "artist": "Polar Engine Studio",
       "accessibility_text": "Riftbound Unit: Annie, Fiery. Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)"
     },
-    "tags": ["Annie", "Noxus"],
+    "tags": [
+      "Annie",
+      "Noxus"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Annie Fiery",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "353"
   },
   {
     "id": "4118a71c-c841-4b45-ab7a-af92e24b48f1",
@@ -575,7 +647,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Chaos"]
+      "domain": [
+        "Chaos"
+      ]
     },
     "text": {
       "rich": "<p>When you play me, return a spell from your trash to your hand.</p>",
@@ -590,14 +664,18 @@
       "artist": "League Splash Team",
       "accessibility_text": "Riftbound Unit: Annie, Stubborn. When you play me, return a spell from your trash to your hand."
     },
-    "tags": ["Annie", "Noxus"],
+    "tags": [
+      "Annie",
+      "Noxus"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Annie Stubborn",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "362"
   },
   {
     "id": "adbc306c-99e5-44e6-89d5-2520908cc986",
@@ -615,7 +693,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Epic",
-      "domain": ["Order"]
+      "domain": [
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>:rb_exhaust:: [Reaction] — [Add] :rb_energy_2:. Use only to play spells. <em>(Abilities that add resources can't be reacted to.)</em></p>",
@@ -630,14 +710,18 @@
       "artist": "Envar Studio",
       "accessibility_text": "Riftbound Unit: Lux, Crownguard. [T]: [Reaction] — [Add] [2]. Use only to play spells. (Abilities that add resources can't be reacted to.)"
     },
-    "tags": ["Lux", "Demacia"],
+    "tags": [
+      "Lux",
+      "Demacia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Lux Crownguard",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "366"
   },
   {
     "id": "e91c4ec4-a19b-4e28-8e94-d1ba85dcb62e",
@@ -655,7 +739,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Mind"]
+      "domain": [
+        "Mind"
+      ]
     },
     "text": {
       "rich": "<p>When you play a spell that costs :rb_energy_5: or more, give me +3 :rb_might: this turn.</p>",
@@ -670,14 +756,18 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Unit: Lux, Illuminated. When you play a spell that costs [5] or more, give me +3 [S] this turn."
     },
-    "tags": ["Lux", "Demacia"],
+    "tags": [
+      "Lux",
+      "Demacia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Lux Illuminated",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "358"
   },
   {
     "id": "fda78980-b4db-4efb-986d-5446b03d021e",
@@ -695,7 +785,10 @@
       "type": "Legend",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Body", "Order"]
+      "domain": [
+        "Body",
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>When you conquer, if you have 4+ units at that battlefield, draw 2.</p>",
@@ -710,14 +803,17 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Legend: Might of Demacia - Starter. When you conquer, if you have 4+ units at that battlefield, draw 2."
     },
-    "tags": ["Garen"],
+    "tags": [
+      "Garen"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Might of Demacia  Starter",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "375"
   },
   {
     "id": "effeefb5-4276-4cf7-9be2-a7b84df0633c",
@@ -735,7 +831,10 @@
       "type": "Spell",
       "supertype": "Signature",
       "rarity": "Epic",
-      "domain": ["Calm", "Body"]
+      "domain": [
+        "Calm",
+        "Body"
+      ]
     },
     "text": {
       "rich": "<p>[Reaction] <em>(Play any time, even before spells and abilities resolve.)</em><br />Choose a friendly unit. The next time it dies this turn, recall it exhausted instead. <em>(Send it to base. This isn't a move.)</em></p>",
@@ -750,14 +849,17 @@
       "artist": "Kudos Productions",
       "accessibility_text": "Riftbound Spell: Highlander. [Reaction] (Play any time, even before spells and abilities resolve.)\nChoose a friendly unit. The next time it dies this turn, recall it exhausted instead. (Send it to base. This isn't a move.)"
     },
-    "tags": ["Master Yi"],
+    "tags": [
+      "Master Yi"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Highlander",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "372"
   },
   {
     "id": "7b419775-97ce-4b49-80c1-9785c7c2a3d2",
@@ -775,7 +877,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Epic",
-      "domain": ["Order"]
+      "domain": [
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>Other friendly units have +1 :rb_might: here.</p>",
@@ -790,14 +894,19 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Unit: Garen, Commander. Other friendly units have +1 [S] here."
     },
-    "tags": ["Elite", "Garen", "Demacia"],
+    "tags": [
+      "Elite",
+      "Garen",
+      "Demacia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Garen Commander",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "365"
   },
   {
     "id": "cf7196a6-8d8c-40a3-a692-62ab9b6e8d10",
@@ -815,7 +924,9 @@
       "type": "Unit",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Body"]
+      "domain": [
+        "Body"
+      ]
     },
     "text": {
       "rich": "<p>[Assault 2], [Shield 2] <em>(+2 :rb_might: while I'm an attacker or defender.)</em></p>",
@@ -830,14 +941,19 @@
       "artist": "Six More Vodka",
       "accessibility_text": "Riftbound Unit: Garen, Rugged. [Assault 2], [Shield 2] (+2 [S] while I'm an attacker or defender.)"
     },
-    "tags": ["Elite", "Garen", "Demacia"],
+    "tags": [
+      "Elite",
+      "Garen",
+      "Demacia"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Garen Rugged",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "359"
   },
   {
     "id": "b8594cb7-e9f2-479e-871b-b3c2cd0a578a",
@@ -855,7 +971,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Common",
-      "domain": ["Body"]
+      "domain": [
+        "Body"
+      ]
     },
     "text": {
       "rich": "<p>[Action] <em>(Play on your turn or in showdowns.)</em><br />Give a friendly unit +3 :rb_might: this turn. Then choose an enemy unit. They deal damage equal to their Mights to each other.</p>",
@@ -877,7 +995,8 @@
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "360"
   },
   {
     "id": "85ce2468-4628-4c2c-960d-286728e81afa",
@@ -895,7 +1014,10 @@
       "type": "Legend",
       "supertype": "Champion",
       "rarity": "Rare",
-      "domain": ["Mind", "Order"]
+      "domain": [
+        "Mind",
+        "Order"
+      ]
     },
     "text": {
       "rich": "<p>When you play a spell that costs :rb_energy_5: or more, draw 1.</p>",
@@ -910,20 +1032,24 @@
       "artist": "Grafit Studio/Maki Planas Mata",
       "accessibility_text": "Riftbound Legend: Lady of Luminosity - Starter. When you play a spell that costs [5] or more, draw 1."
     },
-    "tags": ["Lux"],
+    "tags": [
+      "Lux"
+    ],
     "orientation": "portrait",
     "metadata": {
       "clean_name": "Lady of Luminosity  Starter",
       "alternate_art": false,
       "overnumbered": false,
       "signature": false
-    }
+    },
+    "ligamagic_id": "373"
   },
   {
     "id": "72379165-4e6a-42a0-be85-b60f4e9e491b",
     "name": "Incinerate",
     "riftbound_id": "ogs-003-024",
     "tcgplayer_id": "653138",
+    "ligamagic_id": "355",
     "public_code": "OGS-003/024",
     "collector_number": 3,
     "attributes": {
@@ -935,7 +1061,9 @@
       "type": "Spell",
       "supertype": null,
       "rarity": "Common",
-      "domain": ["Fury"]
+      "domain": [
+        "Fury"
+      ]
     },
     "text": {
       "rich": "<p>[Action]_ (Play on your turn or in showdowns.)_<br />Deal 2 to a unit at a battlefield.</p>",

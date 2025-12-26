@@ -1,0 +1,476 @@
+# Test Results
+
+## Card samples (5 lowest + 5 highest collector numbers per set)
+
+### OGN (Origins) - source: data/sets/ogn.json
+- 1: Blazing Scorcher (OGN-001/298)
+- 2: Brazen Buccaneer (OGN-002/298)
+- 3: Chemtech Enforcer (OGN-003/298)
+- 4: Cleave (OGN-004/298)
+- 5: Disintegrate (OGN-005/298)
+- 306: Radiant Dawn (OGN-306/298)
+- 307: Swift Scout (OGN-307*/298)
+- 308: Herald of the Arcane (OGN-308*/298)
+- 309: Bounty Hunter (OGN-309*/298)
+- 310: The Boss (OGN-310*/298)
+
+### OGS (Proving Grounds) - source: data/sets/ogs.json
+- 1: Annie, Fiery (OGS-001/024)
+- 2: Firestorm (OGS-002/024)
+- 3: Incinerate (OGS-003/024)
+- 4: Yi, Meditative (OGS-004/024)
+- 5: Zephyr Sage (OGS-005/024)
+- 20: Highlander (OGS-020/024)
+- 21: Lady of Luminosity - Starter (OGS-021/024)
+- 22: Final Spark (OGS-022/024)
+- 23: Might of Demacia - Starter (OGS-023/024)
+- 24: Decisive Strike (OGS-024/024)
+
+### SFD (Spirit Forge) - source: data/sets/sfd.json
+- 1: Against the Odds (SFD-001/221)
+- 2: Armed Assailant (SFD-002/221)
+- 3: Blood Rush (SFD-003/221)
+- 4: Bushwhack (SFD-004/221)
+- 5: Detonate (SFD-005/221)
+- 247: Emperor of the Sands (SFD-247/221)
+- 248: Prodigal Explorer (SFD-248/221)
+- 249: Chem-Baroness (SFD-249/221)
+- 250: Battle Mistress (SFD-250/221)
+- 251: Grand Duelist (SFD-251/221)
+
+## HTML parse test (local file)
+
+Source HTML: rift-crawler-one/Kadregrin the Infernal (#38) _ Mega Geek - Cardgame e Boardgame.html
+
+- Parsed title: Kadregrin the Infernal (#38)
+- Parsed price: R$ 112,00
+- Parsed quantity: 1
+
+## Notes
+- Parsing tests were run against the single local HTML sample above (no live fetch).
+
+
+## Live fetch parse results (2025-12-26T12:51:10.674Z)
+
+Results: 420 store/card checks.
+
+- OGN #1 Blazing Scorcher @ megageek -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,50, qty=22
+- OGN #1 Blazing Scorcher @ mestre-pokemon -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,69, qty=14
+- OGN #1 Blazing Scorcher @ legacy -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,50, qty=15
+- OGN #1 Blazing Scorcher @ tcg-br -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,95, qty=8
+- OGN #1 Blazing Scorcher @ epic-games -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,90, qty=28
+- OGN #1 Blazing Scorcher @ bolovo -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,45, qty=61
+- OGN #1 Blazing Scorcher @ brandao -> itemId=1, title=Blazing Scorcher (#1), price=R$ 1,00, qty=40
+- OGN #1 Blazing Scorcher @ miragem -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,95, qty=12
+- OGN #1 Blazing Scorcher @ lostbox -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,50, qty=5
+- OGN #1 Blazing Scorcher @ jogando-tcg -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,99, qty=35
+- OGN #1 Blazing Scorcher @ kedge -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,99, qty=12
+- OGN #1 Blazing Scorcher @ infinity -> itemId=1, title=Blazing Scorcher (#1), price=R$ 4,94, qty=1
+- OGN #1 Blazing Scorcher @ turn-zero -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,25, qty=2
+- OGN #1 Blazing Scorcher @ bird-games -> itemId=1, title=Blazing Scorcher (#1), price=R$ 0,49, qty=12
+- OGN #2 Brazen Buccaneer @ megageek -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,50, qty=20
+- OGN #2 Brazen Buccaneer @ mestre-pokemon -> no itemId found in search
+- OGN #2 Brazen Buccaneer @ legacy -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 1,00, qty=1
+- OGN #2 Brazen Buccaneer @ tcg-br -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,95, qty=9
+- OGN #2 Brazen Buccaneer @ epic-games -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,90, qty=30
+- OGN #2 Brazen Buccaneer @ bolovo -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,75, qty=61
+- OGN #2 Brazen Buccaneer @ brandao -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 1,00, qty=49
+- OGN #2 Brazen Buccaneer @ miragem -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,95, qty=12
+- OGN #2 Brazen Buccaneer @ lostbox -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,50, qty=7
+- OGN #2 Brazen Buccaneer @ jogando-tcg -> no itemId found in search
+- OGN #2 Brazen Buccaneer @ kedge -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,99, qty=15
+- OGN #2 Brazen Buccaneer @ infinity -> no itemId found in search
+- OGN #2 Brazen Buccaneer @ turn-zero -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,25, qty=2
+- OGN #2 Brazen Buccaneer @ bird-games -> itemId=2, title=Brazen Buccaneer (#2), price=R$ 0,49, qty=19
+- OGN #3 Chemtech Enforcer @ megageek -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ mestre-pokemon -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ legacy -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ tcg-br -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ epic-games -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ bolovo -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ brandao -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ miragem -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ lostbox -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ jogando-tcg -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ kedge -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ infinity -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ turn-zero -> no itemId found in search
+- OGN #3 Chemtech Enforcer @ bird-games -> no itemId found in search
+- OGN #4 Cleave @ megageek -> itemId=4, title=Cleave (#4), price=R$ 1,00, qty=8
+- OGN #4 Cleave @ mestre-pokemon -> itemId=4, title=Cleave (#4), price=R$ 1,19, qty=7
+- OGN #4 Cleave @ legacy -> itemId=4, title=Cleave (#4), price=R$ 1,50, qty=29
+- OGN #4 Cleave @ tcg-br -> itemId=4, title=Cleave (#4), price=R$ 1,25, qty=2
+- OGN #4 Cleave @ epic-games -> itemId=4, title=Cleave (#4), price=R$ 1,90, qty=19
+- OGN #4 Cleave @ bolovo -> itemId=4, title=Cleave (#4), price=R$ 0,90, qty=56
+- OGN #4 Cleave @ brandao -> itemId=4, title=Cleave (#4), price=R$ 2,50, qty=29
+- OGN #4 Cleave @ miragem -> itemId=4, title=Cleave (#4), price=R$ 0,95, qty=14
+- OGN #4 Cleave @ lostbox -> itemId=4, title=Cleave (#4), price=R$ 1,00, qty=0
+- OGN #4 Cleave @ jogando-tcg -> no itemId found in search
+- OGN #4 Cleave @ kedge -> itemId=4, title=Cleave (#4), price=R$ 2,49, qty=19
+- OGN #4 Cleave @ infinity -> itemId=4, title=Cleave (#4), price=R$ 9,94, qty=2
+- OGN #4 Cleave @ turn-zero -> itemId=4, title=Cleave (#4), price=R$ 0,50, qty=0
+- OGN #4 Cleave @ bird-games -> itemId=4, title=Cleave (#4), price=R$ 0,99, qty=11
+- OGN #5 Disintegrate @ megageek -> itemId=5, title=Disintegrate (#5), price=R$ 0,50, qty=8
+- OGN #5 Disintegrate @ mestre-pokemon -> no itemId found in search
+- OGN #5 Disintegrate @ legacy -> itemId=5, title=Disintegrate (#5), price=R$ 0,50, qty=14
+- OGN #5 Disintegrate @ tcg-br -> itemId=5, title=Disintegrate (#5), price=R$ 0,75, qty=16
+- OGN #5 Disintegrate @ epic-games -> itemId=5, title=Disintegrate (#5), price=R$ 0,90, qty=30
+- OGN #5 Disintegrate @ bolovo -> itemId=5, title=Disintegrate (#5), price=R$ 0,75, qty=57
+- OGN #5 Disintegrate @ brandao -> itemId=5, title=Disintegrate (#5), price=R$ 1,50, qty=34
+- OGN #5 Disintegrate @ miragem -> itemId=5, title=Disintegrate (#5), price=R$ 0,95, qty=12
+- OGN #5 Disintegrate @ lostbox -> itemId=5, title=Disintegrate (#5), price=R$ 0,50, qty=0
+- OGN #5 Disintegrate @ jogando-tcg -> no itemId found in search
+- OGN #5 Disintegrate @ kedge -> itemId=5, title=Disintegrate (#5), price=R$ 0,99, qty=14
+- OGN #5 Disintegrate @ infinity -> no itemId found in search
+- OGN #5 Disintegrate @ turn-zero -> itemId=5, title=Disintegrate (#5), price=R$ 0,36, qty=0
+- OGN #5 Disintegrate @ bird-games -> itemId=5, title=Disintegrate (#5), price=R$ 0,49, qty=21
+- OGN #306 Radiant Dawn @ megageek -> itemId=261, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ mestre-pokemon -> itemId=261, title=n/a, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ legacy -> itemId=261, title=n/a, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ tcg-br -> itemId=261, title=n/a, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ epic-games -> itemId=261, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ bolovo -> itemId=261, title=Bolovo Games, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ brandao -> itemId=261, title=Brandao Card Game, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ miragem -> itemId=261, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ lostbox -> itemId=261, title=LostBox, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ jogando-tcg -> itemId=261, title=Jogando TCG, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ kedge -> itemId=261, title=Kedge Card Games, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ infinity -> itemId=261, title=Infinity Shop, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ turn-zero -> itemId=261, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGN #306 Radiant Dawn @ bird-games -> itemId=261, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ megageek -> itemId=263, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ mestre-pokemon -> itemId=263, title=n/a, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ legacy -> itemId=263, title=n/a, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ tcg-br -> itemId=263, title=n/a, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ epic-games -> itemId=263, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ bolovo -> itemId=263, title=Bolovo Games, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ brandao -> itemId=263, title=Brandao Card Game, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ miragem -> itemId=263, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ lostbox -> itemId=263, title=LostBox, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ jogando-tcg -> itemId=263, title=Jogando TCG, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ kedge -> itemId=263, title=Kedge Card Games, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ infinity -> itemId=263, title=Infinity Shop, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ turn-zero -> itemId=263, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGN #307 Swift Scout @ bird-games -> itemId=263, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ megageek -> itemId=265, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ mestre-pokemon -> itemId=265, title=n/a, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ legacy -> itemId=265, title=n/a, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ tcg-br -> itemId=265, title=n/a, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ epic-games -> itemId=265, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ bolovo -> itemId=265, title=Bolovo Games, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ brandao -> itemId=265, title=Brandao Card Game, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ miragem -> itemId=265, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ lostbox -> itemId=265, title=LostBox, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ jogando-tcg -> itemId=265, title=Jogando TCG, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ kedge -> itemId=265, title=Kedge Card Games, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ infinity -> itemId=265, title=Infinity Shop, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ turn-zero -> itemId=265, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGN #308 Herald of the Arcane @ bird-games -> itemId=265, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ megageek -> itemId=771, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ mestre-pokemon -> itemId=771, title=n/a, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ legacy -> itemId=267, title=n/a, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ tcg-br -> itemId=771, title=n/a, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ epic-games -> itemId=771, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ bolovo -> itemId=267, title=Bolovo Games, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ brandao -> itemId=267, title=Brandao Card Game, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ miragem -> itemId=267, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ lostbox -> itemId=267, title=LostBox, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ jogando-tcg -> itemId=267, title=Jogando TCG, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ kedge -> itemId=267, title=Kedge Card Games, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ infinity -> itemId=267, title=Infinity Shop, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ turn-zero -> itemId=267, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGN #309 Bounty Hunter @ bird-games -> itemId=771, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGN #310 The Boss @ megageek -> itemId=269, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGN #310 The Boss @ mestre-pokemon -> itemId=556, title=n/a, price=n/a, qty=n/a
+- OGN #310 The Boss @ legacy -> itemId=269, title=n/a, price=n/a, qty=n/a
+- OGN #310 The Boss @ tcg-br -> itemId=556, title=n/a, price=n/a, qty=n/a
+- OGN #310 The Boss @ epic-games -> itemId=556, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGN #310 The Boss @ bolovo -> itemId=269, title=Bolovo Games, price=n/a, qty=n/a
+- OGN #310 The Boss @ brandao -> itemId=269, title=Brandao Card Game, price=n/a, qty=n/a
+- OGN #310 The Boss @ miragem -> itemId=269, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGN #310 The Boss @ lostbox -> itemId=269, title=LostBox, price=n/a, qty=n/a
+- OGN #310 The Boss @ jogando-tcg -> itemId=269, title=Jogando TCG, price=n/a, qty=n/a
+- OGN #310 The Boss @ kedge -> itemId=269, title=Kedge Card Games, price=n/a, qty=n/a
+- OGN #310 The Boss @ infinity -> itemId=269, title=Infinity Shop, price=n/a, qty=n/a
+- OGN #310 The Boss @ turn-zero -> itemId=269, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGN #310 The Boss @ bird-games -> itemId=269, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGS #1 Annie, Fiery @ megageek -> no itemId found in search
+- OGS #1 Annie, Fiery @ mestre-pokemon -> no itemId found in search
+- OGS #1 Annie, Fiery @ legacy -> no itemId found in search
+- OGS #1 Annie, Fiery @ tcg-br -> no itemId found in search
+- OGS #1 Annie, Fiery @ epic-games -> no itemId found in search
+- OGS #1 Annie, Fiery @ bolovo -> no itemId found in search
+- OGS #1 Annie, Fiery @ brandao -> no itemId found in search
+- OGS #1 Annie, Fiery @ miragem -> no itemId found in search
+- OGS #1 Annie, Fiery @ lostbox -> no itemId found in search
+- OGS #1 Annie, Fiery @ jogando-tcg -> no itemId found in search
+- OGS #1 Annie, Fiery @ kedge -> no itemId found in search
+- OGS #1 Annie, Fiery @ infinity -> no itemId found in search
+- OGS #1 Annie, Fiery @ turn-zero -> no itemId found in search
+- OGS #1 Annie, Fiery @ bird-games -> no itemId found in search
+- OGS #2 Firestorm @ megageek -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ mestre-pokemon -> no itemId found in search
+- OGS #2 Firestorm @ legacy -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ tcg-br -> itemId=354, title=Firestorm (#2), price=R$ 0,95, qty=0
+- OGS #2 Firestorm @ epic-games -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ bolovo -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ brandao -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ miragem -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ lostbox -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ jogando-tcg -> no itemId found in search
+- OGS #2 Firestorm @ kedge -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ infinity -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ turn-zero -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #2 Firestorm @ bird-games -> itemId=354, title=Firestorm (#2), price=n/a, qty=0
+- OGS #3 Incinerate @ megageek -> itemId=164, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- OGS #3 Incinerate @ mestre-pokemon -> no itemId found in search
+- OGS #3 Incinerate @ legacy -> itemId=355, title=Incinerate (#3), price=R$ 70,00, qty=0
+- OGS #3 Incinerate @ tcg-br -> itemId=355, title=Incinerate (#3), price=R$ 0,95, qty=0
+- OGS #3 Incinerate @ epic-games -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ bolovo -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ brandao -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ miragem -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ lostbox -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ jogando-tcg -> no itemId found in search
+- OGS #3 Incinerate @ kedge -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ infinity -> no itemId found in search
+- OGS #3 Incinerate @ turn-zero -> itemId=355, title=Incinerate (#3), price=n/a, qty=0
+- OGS #3 Incinerate @ bird-games -> itemId=164, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- OGS #4 Yi, Meditative @ megageek -> no itemId found in search
+- OGS #4 Yi, Meditative @ mestre-pokemon -> no itemId found in search
+- OGS #4 Yi, Meditative @ legacy -> no itemId found in search
+- OGS #4 Yi, Meditative @ tcg-br -> no itemId found in search
+- OGS #4 Yi, Meditative @ epic-games -> no itemId found in search
+- OGS #4 Yi, Meditative @ bolovo -> no itemId found in search
+- OGS #4 Yi, Meditative @ brandao -> no itemId found in search
+- OGS #4 Yi, Meditative @ miragem -> no itemId found in search
+- OGS #4 Yi, Meditative @ lostbox -> no itemId found in search
+- OGS #4 Yi, Meditative @ jogando-tcg -> no itemId found in search
+- OGS #4 Yi, Meditative @ kedge -> no itemId found in search
+- OGS #4 Yi, Meditative @ infinity -> no itemId found in search
+- OGS #4 Yi, Meditative @ turn-zero -> no itemId found in search
+- OGS #4 Yi, Meditative @ bird-games -> no itemId found in search
+- OGS #5 Zephyr Sage @ megageek -> no itemId found in search
+- OGS #5 Zephyr Sage @ mestre-pokemon -> no itemId found in search
+- OGS #5 Zephyr Sage @ legacy -> no itemId found in search
+- OGS #5 Zephyr Sage @ tcg-br -> no itemId found in search
+- OGS #5 Zephyr Sage @ epic-games -> no itemId found in search
+- OGS #5 Zephyr Sage @ bolovo -> no itemId found in search
+- OGS #5 Zephyr Sage @ brandao -> no itemId found in search
+- OGS #5 Zephyr Sage @ miragem -> no itemId found in search
+- OGS #5 Zephyr Sage @ lostbox -> no itemId found in search
+- OGS #5 Zephyr Sage @ jogando-tcg -> no itemId found in search
+- OGS #5 Zephyr Sage @ kedge -> no itemId found in search
+- OGS #5 Zephyr Sage @ infinity -> no itemId found in search
+- OGS #5 Zephyr Sage @ turn-zero -> no itemId found in search
+- OGS #5 Zephyr Sage @ bird-games -> no itemId found in search
+- OGS #20 Highlander @ megageek -> no itemId found in search
+- OGS #20 Highlander @ mestre-pokemon -> no itemId found in search
+- OGS #20 Highlander @ legacy -> no itemId found in search
+- OGS #20 Highlander @ tcg-br -> itemId=5823, title=n/a, price=n/a, qty=n/a
+- OGS #20 Highlander @ epic-games -> itemId=5823, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGS #20 Highlander @ bolovo -> no itemId found in search
+- OGS #20 Highlander @ brandao -> no itemId found in search
+- OGS #20 Highlander @ miragem -> itemId=5823, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- OGS #20 Highlander @ lostbox -> no itemId found in search
+- OGS #20 Highlander @ jogando-tcg -> no itemId found in search
+- OGS #20 Highlander @ kedge -> itemId=5823, title=Kedge Card Games, price=n/a, qty=n/a
+- OGS #20 Highlander @ infinity -> itemId=5823, title=Infinity Shop, price=n/a, qty=n/a
+- OGS #20 Highlander @ turn-zero -> itemId=5823, title=Turno Zero TCG, price=n/a, qty=n/a
+- OGS #20 Highlander @ bird-games -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ megageek -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ mestre-pokemon -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ legacy -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ tcg-br -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ epic-games -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ bolovo -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ brandao -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ miragem -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ lostbox -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ jogando-tcg -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ kedge -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ infinity -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ turn-zero -> no itemId found in search
+- OGS #21 Lady of Luminosity - Starter @ bird-games -> no itemId found in search
+- OGS #22 Final Spark @ megageek -> no itemId found in search
+- OGS #22 Final Spark @ mestre-pokemon -> itemId=2453, title=n/a, price=n/a, qty=n/a
+- OGS #22 Final Spark @ legacy -> no itemId found in search
+- OGS #22 Final Spark @ tcg-br -> no itemId found in search
+- OGS #22 Final Spark @ epic-games -> itemId=2453, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- OGS #22 Final Spark @ bolovo -> no itemId found in search
+- OGS #22 Final Spark @ brandao -> no itemId found in search
+- OGS #22 Final Spark @ miragem -> no itemId found in search
+- OGS #22 Final Spark @ lostbox -> no itemId found in search
+- OGS #22 Final Spark @ jogando-tcg -> no itemId found in search
+- OGS #22 Final Spark @ kedge -> no itemId found in search
+- OGS #22 Final Spark @ infinity -> no itemId found in search
+- OGS #22 Final Spark @ turn-zero -> no itemId found in search
+- OGS #22 Final Spark @ bird-games -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ megageek -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ mestre-pokemon -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ legacy -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ tcg-br -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ epic-games -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ bolovo -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ brandao -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ miragem -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ lostbox -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ jogando-tcg -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ kedge -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ infinity -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ turn-zero -> no itemId found in search
+- OGS #23 Might of Demacia - Starter @ bird-games -> no itemId found in search
+- OGS #24 Decisive Strike @ megageek -> no itemId found in search
+- OGS #24 Decisive Strike @ mestre-pokemon -> itemId=376, title=Decisive Strike (#24), price=n/a, qty=0
+- OGS #24 Decisive Strike @ legacy -> no itemId found in search
+- OGS #24 Decisive Strike @ tcg-br -> no itemId found in search
+- OGS #24 Decisive Strike @ epic-games -> itemId=376, title=Decisive Strike (#24), price=n/a, qty=0
+- OGS #24 Decisive Strike @ bolovo -> no itemId found in search
+- OGS #24 Decisive Strike @ brandao -> no itemId found in search
+- OGS #24 Decisive Strike @ miragem -> no itemId found in search
+- OGS #24 Decisive Strike @ lostbox -> no itemId found in search
+- OGS #24 Decisive Strike @ jogando-tcg -> no itemId found in search
+- OGS #24 Decisive Strike @ kedge -> no itemId found in search
+- OGS #24 Decisive Strike @ infinity -> no itemId found in search
+- OGS #24 Decisive Strike @ turn-zero -> no itemId found in search
+- OGS #24 Decisive Strike @ bird-games -> no itemId found in search
+- SFD #1 Against the Odds @ megageek -> no itemId found in search
+- SFD #1 Against the Odds @ mestre-pokemon -> no itemId found in search
+- SFD #1 Against the Odds @ legacy -> no itemId found in search
+- SFD #1 Against the Odds @ tcg-br -> no itemId found in search
+- SFD #1 Against the Odds @ epic-games -> no itemId found in search
+- SFD #1 Against the Odds @ bolovo -> no itemId found in search
+- SFD #1 Against the Odds @ brandao -> no itemId found in search
+- SFD #1 Against the Odds @ miragem -> no itemId found in search
+- SFD #1 Against the Odds @ lostbox -> no itemId found in search
+- SFD #1 Against the Odds @ jogando-tcg -> no itemId found in search
+- SFD #1 Against the Odds @ kedge -> no itemId found in search
+- SFD #1 Against the Odds @ infinity -> no itemId found in search
+- SFD #1 Against the Odds @ turn-zero -> no itemId found in search
+- SFD #1 Against the Odds @ bird-games -> no itemId found in search
+- SFD #2 Armed Assailant @ megageek -> no itemId found in search
+- SFD #2 Armed Assailant @ mestre-pokemon -> no itemId found in search
+- SFD #2 Armed Assailant @ legacy -> no itemId found in search
+- SFD #2 Armed Assailant @ tcg-br -> no itemId found in search
+- SFD #2 Armed Assailant @ epic-games -> no itemId found in search
+- SFD #2 Armed Assailant @ bolovo -> no itemId found in search
+- SFD #2 Armed Assailant @ brandao -> no itemId found in search
+- SFD #2 Armed Assailant @ miragem -> no itemId found in search
+- SFD #2 Armed Assailant @ lostbox -> no itemId found in search
+- SFD #2 Armed Assailant @ jogando-tcg -> no itemId found in search
+- SFD #2 Armed Assailant @ kedge -> no itemId found in search
+- SFD #2 Armed Assailant @ infinity -> no itemId found in search
+- SFD #2 Armed Assailant @ turn-zero -> no itemId found in search
+- SFD #2 Armed Assailant @ bird-games -> no itemId found in search
+- SFD #3 Blood Rush @ megageek -> no itemId found in search
+- SFD #3 Blood Rush @ mestre-pokemon -> no itemId found in search
+- SFD #3 Blood Rush @ legacy -> no itemId found in search
+- SFD #3 Blood Rush @ tcg-br -> no itemId found in search
+- SFD #3 Blood Rush @ epic-games -> no itemId found in search
+- SFD #3 Blood Rush @ bolovo -> no itemId found in search
+- SFD #3 Blood Rush @ brandao -> no itemId found in search
+- SFD #3 Blood Rush @ miragem -> no itemId found in search
+- SFD #3 Blood Rush @ lostbox -> no itemId found in search
+- SFD #3 Blood Rush @ jogando-tcg -> no itemId found in search
+- SFD #3 Blood Rush @ kedge -> no itemId found in search
+- SFD #3 Blood Rush @ infinity -> no itemId found in search
+- SFD #3 Blood Rush @ turn-zero -> no itemId found in search
+- SFD #3 Blood Rush @ bird-games -> no itemId found in search
+- SFD #4 Bushwhack @ megageek -> no itemId found in search
+- SFD #4 Bushwhack @ mestre-pokemon -> no itemId found in search
+- SFD #4 Bushwhack @ legacy -> no itemId found in search
+- SFD #4 Bushwhack @ tcg-br -> no itemId found in search
+- SFD #4 Bushwhack @ epic-games -> no itemId found in search
+- SFD #4 Bushwhack @ bolovo -> no itemId found in search
+- SFD #4 Bushwhack @ brandao -> no itemId found in search
+- SFD #4 Bushwhack @ miragem -> no itemId found in search
+- SFD #4 Bushwhack @ lostbox -> no itemId found in search
+- SFD #4 Bushwhack @ jogando-tcg -> no itemId found in search
+- SFD #4 Bushwhack @ kedge -> no itemId found in search
+- SFD #4 Bushwhack @ infinity -> no itemId found in search
+- SFD #4 Bushwhack @ turn-zero -> no itemId found in search
+- SFD #4 Bushwhack @ bird-games -> no itemId found in search
+- SFD #5 Detonate @ megageek -> itemId=913, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #5 Detonate @ mestre-pokemon -> no itemId found in search
+- SFD #5 Detonate @ legacy -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ tcg-br -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ epic-games -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ bolovo -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ brandao -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ miragem -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ lostbox -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ jogando-tcg -> no itemId found in search
+- SFD #5 Detonate @ kedge -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ infinity -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ turn-zero -> itemId=564, title=Detonate (#5), price=n/a, qty=0
+- SFD #5 Detonate @ bird-games -> itemId=913, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ megageek -> itemId=483, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ mestre-pokemon -> itemId=483, title=n/a, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ legacy -> itemId=483, title=n/a, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ tcg-br -> itemId=483, title=n/a, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ epic-games -> itemId=483, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ bolovo -> itemId=483, title=Bolovo Games, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ brandao -> itemId=483, title=Brandao Card Game, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ miragem -> itemId=483, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ lostbox -> itemId=483, title=LostBox, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ jogando-tcg -> itemId=483, title=Jogando TCG, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ kedge -> itemId=483, title=Kedge Card Games, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ infinity -> itemId=483, title=Infinity Shop, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ turn-zero -> itemId=483, title=Turno Zero TCG, price=n/a, qty=n/a
+- SFD #247 Emperor of the Sands @ bird-games -> itemId=483, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ megageek -> itemId=484, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ mestre-pokemon -> itemId=484, title=n/a, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ legacy -> itemId=484, title=n/a, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ tcg-br -> itemId=484, title=n/a, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ epic-games -> itemId=484, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ bolovo -> itemId=484, title=Bolovo Games, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ brandao -> itemId=484, title=Brandao Card Game, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ miragem -> itemId=484, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ lostbox -> itemId=484, title=LostBox, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ jogando-tcg -> itemId=484, title=Jogando TCG, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ kedge -> itemId=484, title=Kedge Card Games, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ infinity -> itemId=484, title=Infinity Shop, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ turn-zero -> itemId=484, title=Turno Zero TCG, price=n/a, qty=n/a
+- SFD #248 Prodigal Explorer @ bird-games -> itemId=484, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ megageek -> itemId=485, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ mestre-pokemon -> itemId=485, title=n/a, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ legacy -> itemId=485, title=n/a, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ tcg-br -> itemId=485, title=n/a, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ epic-games -> itemId=485, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ bolovo -> itemId=485, title=Bolovo Games, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ brandao -> itemId=485, title=Brandao Card Game, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ miragem -> itemId=485, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ lostbox -> itemId=485, title=LostBox, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ jogando-tcg -> itemId=485, title=Jogando TCG, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ kedge -> itemId=485, title=Kedge Card Games, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ infinity -> itemId=485, title=Infinity Shop, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ turn-zero -> itemId=485, title=Turno Zero TCG, price=n/a, qty=n/a
+- SFD #249 Chem-Baroness @ bird-games -> itemId=485, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ megageek -> itemId=486, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ mestre-pokemon -> itemId=486, title=n/a, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ legacy -> itemId=486, title=n/a, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ tcg-br -> itemId=486, title=n/a, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ epic-games -> itemId=486, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ bolovo -> itemId=486, title=Bolovo Games, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ brandao -> itemId=486, title=Brandao Card Game, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ miragem -> itemId=486, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ lostbox -> itemId=486, title=LostBox, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ jogando-tcg -> itemId=486, title=Jogando TCG, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ kedge -> itemId=486, title=Kedge Card Games, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ infinity -> itemId=486, title=Infinity Shop, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ turn-zero -> itemId=486, title=Turno Zero TCG, price=n/a, qty=n/a
+- SFD #250 Battle Mistress @ bird-games -> itemId=486, title=Bem vindo à Bird Games, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ megageek -> itemId=487, title=Mega Geek - Cardgame e Boardgame, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ mestre-pokemon -> itemId=487, title=n/a, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ legacy -> itemId=487, title=n/a, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ tcg-br -> itemId=487, title=n/a, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ epic-games -> itemId=487, title=Epic Game - A loja de card game mais ÉPICA do Brasil!, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ bolovo -> itemId=487, title=Bolovo Games, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ brandao -> itemId=487, title=Brandao Card Game, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ miragem -> itemId=487, title=Miragem Hobby Store: Trading Card Games, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ lostbox -> itemId=487, title=LostBox, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ jogando-tcg -> itemId=487, title=Jogando TCG, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ kedge -> itemId=487, title=Kedge Card Games, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ infinity -> itemId=487, title=Infinity Shop, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ turn-zero -> itemId=487, title=Turno Zero TCG, price=n/a, qty=n/a
+- SFD #251 Grand Duelist @ bird-games -> itemId=487, title=Bem vindo à Bird Games, price=n/a, qty=n/a
