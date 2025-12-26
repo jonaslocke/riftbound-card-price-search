@@ -19,5 +19,5 @@
 [x] create new listing UI component
 [x] Rename site to hextech codex
 [ ] create other pritings section
-[ ] add card header on listing scroll
+[x] add card header on listing scroll
 [x] fix double icon clear on search bar

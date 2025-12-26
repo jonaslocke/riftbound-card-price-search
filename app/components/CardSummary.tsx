@@ -1,47 +1,61 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "motion/react";
+import type { CardDetailsDto } from "@/app/types/card";
 import { Badge } from "@/components/ui/badge";
-import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
-import { parseSlug } from "@/lib/parseSlug";
-import { fetchCard } from "@/services/fetchCard";
-import { notFound } from "next/navigation";
-import { CardCostUi } from "./card-details/CardCost";
 import { cn } from "@/lib/utils";
+import { CardCostUi } from "./card-details/CardCost";
 
-type CardPageParams = { slug?: string };
+const DETAILS_ROOT_ID = "card-details-root";
 
-export default async function CardSummary({
-  params,
-}: {
-  params: Promise<CardPageParams> | CardPageParams;
-}) {
-  const resolvedParams = await Promise.resolve(params);
-  const slug = resolvedParams?.slug;
-  const { setId, collector } = parseSlug(slug);
-  if (!setId || !collector) {
-    notFound();
-  }
+type Props = {
+  details: CardDetailsDto;
+};
 
-  const card = await fetchCard(setId, collector);
-  if (!card) notFound();
+export default function CardSummary({ details }: Props) {
+  const [detailsVisible, setDetailsVisible] = useState(true);
 
-  const details = toCardDetailsDto(card);
-  const { name, imageUrl, energy, power, might, domains, type, rarity } =
-    details;
+  useEffect(() => {
+    const element = document.getElementById(DETAILS_ROOT_ID);
+    if (!element) {
+      setDetailsVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setDetailsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  const showSummary = !detailsVisible;
+  const { name, imageUrl, energy, domains, type, rarity } = details;
   const { domainImg, rarityImg, typeImg } = getCardInfoAssets({
     domains,
     type,
     rarity,
     size: "sm",
   });
-  const domainBadges = domains.map((domain) => ({
-    domain,
-    domainImg: getCardInfoAssets({
-      domains: [domain],
-      type,
-      rarity,
-      size: "sm",
-    }).domainImg,
-  }));
+  const domainBadges = useMemo(
+    () =>
+      domains.map((domain) => ({
+        domain,
+        domainImg: getCardInfoAssets({
+          domains: [domain],
+          type,
+          rarity,
+          size: "sm",
+        }).domainImg,
+      })),
+    [domains, rarity, type]
+  );
   const formatLabel = (value: string) =>
     value
       .split(" ")
@@ -49,10 +63,17 @@ export default async function CardSummary({
       .join(" ");
 
   return (
-    <nav
+    <motion.nav
+      aria-hidden={!showSummary}
+      initial={false}
+      animate={showSummary ? "visible" : "hidden"}
+      variants={{
+        hidden: { opacity: 0, y: -12, transition: { duration: 0.2 } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
+      }}
       className={cn(
-        "w-full bg-slate-700/85 backdrop-blur-lg fixed z-30",
-        // "translate-y-16"
+        "w-full bg-slate-700/85 backdrop-blur-lg fixed inset-x-0 top-16 z-30",
+        showSummary ? "pointer-events-auto" : "pointer-events-none"
       )}
     >
       <div className="mx-auto w-full max-w-2xl flex flex-col gap-3 md:flex-row md:items-center md:gap-6 py-2">
@@ -95,6 +116,6 @@ export default async function CardSummary({
           <CardCostUi {...details} domainImg={domainImg} variant="light" />
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 }

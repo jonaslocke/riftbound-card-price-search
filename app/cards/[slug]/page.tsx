@@ -1,5 +1,7 @@
-﻿import CardDetails from "@/app/components/card-details";
+import CardSummary from "@/app/components/CardSummary";
+import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
+import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
 import { notFound } from "next/navigation";
@@ -20,9 +22,11 @@ export default async function CardPage({
 
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
+  const details = toCardDetailsDto(card);
 
   return (
     <main className="flex flex-col w-full max-w-2xl">
+      <CardSummary details={details} />
       <CardDetails card={card}>
         <CardDetails.Image />
         <CardDetails.Panel>
