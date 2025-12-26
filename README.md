@@ -1,4 +1,4 @@
-# Riftbound Card Price Search
+ï»¿# Riftbound Card Price Search
 
 A Next.js app for searching Riftbound cards, viewing card details, and jumping to card pages directly from typeahead suggestions. The app supports light/dark themes, keyboard navigation for search suggestions, and a global header search. Tailwind (v4) and shadcn/ui are set up for rapid styling.
 
@@ -17,11 +17,17 @@ A Next.js app for searching Riftbound cards, viewing card details, and jumping t
 - TypeScript
 
 ## Scripts
-- `npm run dev` – start the dev server
-- `npm run build` – production build
-- `npm start` – start the production server
-- `npm run lint` – lint the project
+- `npm run dev` â€“ start the dev server
+- `npm run build` â€“ production build
+- `npm start` â€“ start the production server
+- `npm run lint` â€“ lint the project
 
+## Ligamagic ID Fetcher
+Use scripts/fetch-ligamagic-ids.js to populate ligamagic_id for a set by scraping Ligamagic item/search pages and validating item pages (price + stock). Example:
+`ash
+node scripts/fetch-ligamagic-ids.js --set ogn
+`
+For OGS starter cards, add --strip-starter; for custom files, use --file and --edicao.
 ## Setup
 1) Install dependencies:
 ```bash
@@ -34,13 +40,13 @@ npm run dev
 3) Open http://localhost:3000.
 
 ## Project Structure (high level)
-- `app/` – routes and UI
-  - `page.tsx` – home search page
-  - `cards/[slug]/page.tsx` – card detail page
-  - `components/` – shared UI (search form, header, etc.)
-- `components/ui/` – shadcn/ui components (e.g., `button.tsx`)
-- `lib/utils.ts` – `cn` helper for class merging
-- `app/globals.css` – Tailwind + design tokens, background styles
+- `app/` â€“ routes and UI
+  - `page.tsx` â€“ home search page
+  - `cards/[slug]/page.tsx` â€“ card detail page
+  - `components/` â€“ shared UI (search form, header, etc.)
+- `components/ui/` â€“ shadcn/ui components (e.g., `button.tsx`)
+- `lib/utils.ts` â€“ `cn` helper for class merging
+- `app/globals.css` â€“ Tailwind + design tokens, background styles
 
 ## Styling & Theming
 - Tailwind v4 with custom CSS variables (`--bg`, `--panel`, etc.) for light/dark themes
@@ -55,3 +61,4 @@ npm run dev
 - Search suggestions close on selection and on outside click
 - Selecting a card navigates to `/cards/{set}-{collector}` and clears the search box
 - Background imagery and gradients come from `globals.css`
+
