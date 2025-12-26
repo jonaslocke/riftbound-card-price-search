@@ -13,7 +13,7 @@ type StorePrice = {
   cardUrl: string | null;
   quantity: number;
   price: number;
-  currency: "brl";
+  currency: "brl" | "usd";
   error?: string;
 };
 
@@ -71,8 +71,12 @@ export async function GET(req: NextRequest) {
   const tasks = STORE_LIST.map((store) =>
     fetchStorePrice(store, edicao, collector, ligamagicId)
   );
-  const stores = await Promise.all(tasks);
-  const inStockStores = stores.filter((store) => store.quantity > 0).length;
+  const [stores, tcgplayerEntry] = await Promise.all([
+    Promise.all(tasks),
+    fetchTcgplayerEntry(card),
+  ]);
+  const allStores = [tcgplayerEntry, ...stores];
+  const inStockStores = allStores.filter((store) => store.quantity > 0).length;
   stores.sort((a, b) => {
     const aHasStock = a.quantity > 0 ? 1 : 0;
     const bHasStock = b.quantity > 0 ? 1 : 0;
@@ -86,7 +90,7 @@ export async function GET(req: NextRequest) {
     set: setId,
     number: collector,
     inStockStores,
-    stores,
+    stores: [tcgplayerEntry, ...stores],
   });
 }
 
@@ -198,6 +202,153 @@ function parseItemPage(html: string) {
   const price = parsePrice(priceText);
   const quantity = extractQuantity($("body") as Cheerio<Element>, $);
   return { price, quantity };
+}
+
+async function fetchTcgplayerEntry(card: Card): Promise<StorePrice> {
+  const tcgplayerId = card.tcgplayer_id ?? null;
+  const cardUrl = tcgplayerId
+    ? `https://www.tcgplayer.com/product/${tcgplayerId}`
+    : null;
+
+  if (!cardUrl) {
+    return {
+      storeName: "tcgplayer",
+      storeUrl: "https://www.tcgplayer.com",
+      cardUrl: null,
+      quantity: 0,
+      price: 0,
+      currency: "usd",
+      error: "Missing tcgplayer_id.",
+    };
+  }
+
+  try {
+    const { price, quantity } = await fetchTcgplayerMarketData(tcgplayerId);
+    return {
+      storeName: "tcgplayer",
+      storeUrl: "https://www.tcgplayer.com",
+      cardUrl,
+      quantity,
+      price,
+      currency: "usd",
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return {
+      storeName: "tcgplayer",
+      storeUrl: "https://www.tcgplayer.com",
+      cardUrl,
+      quantity: 0,
+      price: 0,
+      currency: "usd",
+      error: message,
+    };
+  }
+}
+
+type TcgplayerPricePoint = {
+  printingType?: string;
+  marketPrice?: number | null;
+  listedMedianPrice?: number | null;
+};
+
+type TcgplayerSearchResponse = {
+  results?: Array<{
+    results?: Array<{
+      totalListings?: number;
+      listings?: Array<{ quantity?: number | null }>;
+      marketPrice?: number | null;
+    }>;
+  }>;
+};
+
+async function fetchTcgplayerMarketData(tcgplayerId: string) {
+  const pricePointsUrl = `https://mpapi.tcgplayer.com/v2/product/${tcgplayerId}/pricepoints`;
+  const pricePoints = await fetchJson<TcgplayerPricePoint[]>(pricePointsUrl);
+
+  const pricePoint =
+    pricePoints.find(
+      (point) =>
+        point.printingType?.toLowerCase() === "foil" &&
+        point.marketPrice !== null &&
+        point.marketPrice !== undefined
+    ) ??
+    pricePoints.find(
+      (point) =>
+        point.printingType?.toLowerCase() === "normal" &&
+        point.marketPrice !== null &&
+        point.marketPrice !== undefined
+    ) ??
+    pricePoints.find((point) => point.marketPrice !== null);
+
+  const price = pricePoint?.marketPrice ? Number(pricePoint.marketPrice) : 0;
+  const printing = pricePoint?.printingType ?? "Normal";
+  const quantity = await fetchTcgplayerQuantity(tcgplayerId, printing);
+
+  return { price, quantity };
+}
+
+async function fetchTcgplayerQuantity(
+  tcgplayerId: string,
+  printing: string
+) {
+  const searchUrl = "https://mp-search-api.tcgplayer.com/v1/search/request";
+  const body = {
+    algorithm: "salesSynonym",
+    from: 0,
+    size: 1,
+    filters: { term: { productId: Number(tcgplayerId) } },
+    listingFilters: { term: { printing } },
+    sort: {},
+  };
+  const data = await fetchJson<TcgplayerSearchResponse>(searchUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const result = data.results?.[0]?.results?.[0];
+  const totalListings = result?.totalListings ?? 0;
+  const listingQuantities = (result?.listings ?? []).reduce(
+    (sum, listing) => sum + (listing.quantity ?? 0),
+    0
+  );
+  if (listingQuantities > 0 && totalListings <= (result?.listings ?? []).length) {
+    return listingQuantities;
+  }
+  if (listingQuantities > 0 && totalListings === 0) {
+    return listingQuantities;
+  }
+  return totalListings;
+}
+
+async function fetchJson<T>(
+  url: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12_000);
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "User-Agent": USER_AGENT,
+        Accept: "application/json",
+        ...(options.headers ?? {}),
+      },
+      cache: "no-store",
+      redirect: "follow",
+      signal: controller.signal,
+      ...options,
+    });
+
+    if (!res.ok) {
+      throw new Error(`Fetch failed (${res.status})`);
+    }
+
+    return (await res.json()) as T;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function parsePrice(text: string): number {

@@ -95,7 +95,7 @@ export interface CardPriceStoreDto {
   cardUrl: string | null;
   quantity: number;
   price: number;
-  currency: "brl";
+  currency: "brl" | "usd";
   error?: string;
 }
 
