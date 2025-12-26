@@ -20,4 +20,4 @@
 [x] Rename site to hextech codex
 [ ] create other pritings section
 [ ] add card header on listing scroll
-[ ] fix double icon clear on search bar
+[x] fix double icon clear on search bar

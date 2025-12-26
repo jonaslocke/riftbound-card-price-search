@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-12 flex flex-col gap-4">
+    <main className="flex flex-col w-full max-w-2xl mt-12 gap-4">
       <button
         className="fixed right-4 top-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
         type="button"
@@ -59,6 +59,6 @@ export default function Home() {
       </p>
 
       <SearchForm placeholder="Search by card name (press / to focus)" />
-    </div>
+    </main>
   );
 }

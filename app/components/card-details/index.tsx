@@ -1,4 +1,4 @@
-﻿import CardDetailsRoot from "./CardDetailsRoot";
+import CardDetailsRoot from "./CardDetailsRoot";
 import CardImage from "./CardImage";
 import CardDetailsPanel from "./CardDetailsPanel";
 import CardTitle from "./CardTitle";

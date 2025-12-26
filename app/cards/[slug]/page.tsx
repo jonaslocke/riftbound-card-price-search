@@ -22,8 +22,7 @@ export default async function CardPage({
   if (!card) notFound();
 
   return (
-    <>
-      <div className="h-16" />
+    <main className="flex flex-col w-full max-w-2xl">
       <CardDetails card={card}>
         <CardDetails.Image />
         <CardDetails.Panel>
@@ -37,6 +36,6 @@ export default async function CardPage({
         </CardDetails.Panel>
       </CardDetails>
       <CardListing />
-    </>
+    </main>
   );
 }
