@@ -1,6 +1,8 @@
 "use client";
 
+import logo from "@/assets/brand/hextech-codex-gradient.svg";
 import { Moon, Sun } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import SearchForm from "./components/SearchForm";
 
@@ -51,10 +53,11 @@ export default function Home() {
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>
 
-      <h1 className="text-4xl font-bold leading-tight text-(--text-primary) sm:text-5xl">
-        Hextech Codex
-      </h1>
-      <p className="text-base leading-relaxed text-(--text-muted)">
+      <h1 className="sr-only">Hextech Codex</h1>
+      <div className="flex justify-center">
+        <Image src={logo} alt="Hextech Codex"></Image>
+      </div>
+      <p className="text-base leading-relaxed text-accent">
         Find and compare Riftbound card prices across multiple stores
       </p>
 

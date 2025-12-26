@@ -1,5 +1,7 @@
 "use client";
 
+import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SearchForm from "./SearchForm";
@@ -16,11 +18,7 @@ export default function GlobalHeader() {
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--text-primary) no-underline md:shrink-0"
             href="/"
           >
-            <span
-              className="h-2.5 w-2.5 shrink-0 rounded-full bg-linear-to-br from-(--gold) to-(--copper) shadow-lg"
-              aria-hidden="true"
-            />
-            <span className="leading-none">Hextech Codex</span>
+            <Image src={logo} alt="Hextech Codex" height={32} />
           </Link>
           <div className="w-full flex items-center md:flex-1 md:max-w-xl md:mx-auto">
             <SearchForm

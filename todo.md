@@ -22,7 +22,7 @@
 [x] add card header on listing scroll
 [x] fix double icon clear on search bar
 [x] logo
-[ ] update main page with new logo
-[ ] update global header with new logo
+[x] update main page with new logo
+[x] update global header with new logo
 [ ] new api that returns list of card listings
 
