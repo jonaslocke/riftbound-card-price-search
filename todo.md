@@ -21,3 +21,8 @@
 [ ] create other pritings section
 [x] add card header on listing scroll
 [x] fix double icon clear on search bar
+[x] logo
+[ ] update main page with new logo
+[ ] update global header with new logo
+[ ] new api that returns list of card listings
+
