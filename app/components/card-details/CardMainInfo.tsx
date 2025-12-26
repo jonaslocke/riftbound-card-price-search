@@ -11,7 +11,7 @@ export default function CardMainInfo() {
   const { rarityImg, typeImg } = getCardInfoAssets({ ...card, size: "sm" });
 
   return (
-    <div className="flex gap-0.5">
+    <div className="flex flex-wrap gap-0.5 gap-y-1">
       <Badge variant="secondary">
         <img src={rarityImg} alt={`${rarity} image`} />
         <span className="capitalize">{rarity}</span>
