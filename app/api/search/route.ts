@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import stores from "@/data/stores.json";
 import { load, type Cheerio, type CheerioAPI } from "cheerio";
 import type { Element } from "domhandler";
-import stores from "@/stores.json";
+import { NextRequest, NextResponse } from "next/server";
 
 type Store = { storeName: string; url: string };
 type CardResult = {
@@ -239,11 +239,16 @@ function extractQuantity(
   }
 
   const textCandidates = [
-    scope.find('[class*="estoque"], [class*="stock"], [class*="quant"], [class*="qtd"]')
+    scope
+      .find(
+        '[class*="estoque"], [class*="stock"], [class*="quant"], [class*="qtd"]'
+      )
       .first()
       .text(),
     scope
-      .closest('[class*="estoque"], [class*="stock"], [class*="quant"], [class*="qtd"]')
+      .closest(
+        '[class*="estoque"], [class*="stock"], [class*="quant"], [class*="qtd"]'
+      )
       .first()
       .text(),
   ].find(Boolean);
@@ -253,7 +258,11 @@ function extractQuantity(
   if (match) return match[0];
 
   const lowered = quantityText.toLowerCase();
-  if (lowered.includes("sem estoque") || lowered.includes("indispon") || lowered.includes("out")) {
+  if (
+    lowered.includes("sem estoque") ||
+    lowered.includes("indispon") ||
+    lowered.includes("out")
+  ) {
     return "0";
   }
 
