@@ -4,6 +4,7 @@ import CardListing from "@/app/components/card-listing";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
+import { fetchCardPrices } from "@/services/fetchCardPrices";
 import { notFound } from "next/navigation";
 
 type CardPageParams = { slug?: string };
@@ -23,6 +24,7 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
   const details = toCardDetailsDto(card);
+  const prices = await fetchCardPrices(setId, collector);
 
   return (
     <main className="flex flex-col w-full max-w-2xl">
@@ -39,7 +41,7 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
-      <CardListing />
+      <CardListing prices={prices} />
     </main>
   );
 }

@@ -18,7 +18,8 @@ type Listing = {
   storeName: string;
   quantity: number;
   price: number;
-  url: string;
+  url: string | null;
+  currency: "brl" | "usd";
   stock: "high" | "low" | "medium";
 };
 
@@ -29,7 +30,16 @@ export default function CardListingItem({
   storeName,
   url,
   stock,
+  currency,
 }: Listing) {
+  const formattedPrice =
+    price > 0
+      ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: currency === "brl" ? "BRL" : "USD",
+        }).format(price)
+      : "-";
+
   return (
     <TableRow className="border-black/10 hover:bg-black/5 text-sm">
       <TableCell className="px-2 py-1">
@@ -50,20 +60,31 @@ export default function CardListingItem({
         </div>
       </TableCell>
       <TableCell className="text-center px-2 py-1">
-        <div className="text-black">${price.toFixed(2)}</div>
+        <div className="text-black">{formattedPrice}</div>
       </TableCell>
       <TableCell className="text-center px-2 py-1">
-        <Button
-          variant="outline"
-          size="sm"
-          className="border-black/20 bg-white/60 hover:bg-white text-black shadow-sm"
-          asChild
-        >
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            Visit Store
-            <ExternalLinkIcon className="ml-2 size-4" />
-          </a>
-        </Button>
+        {url ? (
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-black/20 bg-white/60 hover:bg-white text-black shadow-sm"
+            asChild
+          >
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              Visit Store
+              <ExternalLinkIcon className="ml-2 size-4" />
+            </a>
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-black/10 bg-white/30 text-black/40 shadow-sm"
+            disabled
+          >
+            Unavailable
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   );

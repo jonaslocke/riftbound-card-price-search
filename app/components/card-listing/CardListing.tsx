@@ -12,15 +12,29 @@ import {
 } from "@/components/ui/table";
 import { ExternalLinkIcon, PackageIcon } from "lucide-react";
 import CardListingItem from "./CardListingItem";
+import type { CardPricesResponseDto } from "@/app/types/card";
 
-export default function CardListing() {
+type CardListingProps = {
+  prices: CardPricesResponseDto | null;
+};
+
+function getStockLabel(quantity: number) {
+  if (quantity >= 10) return "high";
+  if (quantity >= 3) return "medium";
+  return "low";
+}
+
+export default function CardListing({ prices }: CardListingProps) {
+  const listings = prices?.stores ?? [];
+  const inStockStores = prices?.inStockStores ?? 0;
+
   return (
     <Card className="border-slate-400 bg-white/75 text-black mt-6 py-3 gap-0">
       <CardHeader className="border-b border-black/10 py-0! px-3">
         <CardTitle className="text-lg font-semibold flex justify-between items-center">
           <h2>Card Listings</h2>
           <p className="text-xs text-black/50">
-            {30} stores currently selling this card
+            {inStockStores} stores currently selling this card
           </p>
         </CardTitle>
       </CardHeader>
@@ -43,17 +57,29 @@ export default function CardListing() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Array.from({ length: 30 }).map((_, index) => {
-              const listing = {
-                id: index,
-                storeName: "Card Kingdom",
-                quantity: 24,
-                price: 12.99,
-                stock: "high" as "high" | "low" | "medium",
-                url: "#",
-              };
-              return <CardListingItem key={index} {...listing} />;
-            })}
+            {listings.length ? (
+              listings.map((listing, index) => (
+                <CardListingItem
+                  key={`${listing.storeName}-${index}`}
+                  id={index}
+                  storeName={listing.storeName}
+                  quantity={listing.quantity}
+                  price={listing.price}
+                  currency={listing.currency}
+                  url={listing.cardUrl}
+                  stock={getStockLabel(listing.quantity)}
+                />
+              ))
+            ) : (
+              <TableRow className="border-black/10 text-sm">
+                <TableCell
+                  colSpan={4}
+                  className="px-3 py-6 text-center text-black/60"
+                >
+                  No listings available yet.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </CardContent>
