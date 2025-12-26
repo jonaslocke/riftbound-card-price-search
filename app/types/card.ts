@@ -3,6 +3,7 @@ export type Card = {
   name: string;
   riftbound_id?: string;
   tcgplayer_id?: string;
+  ligamagic_id?: string | null;
   public_code?: string;
   collector_number?: number;
   attributes?: {
@@ -86,4 +87,21 @@ export interface CardDetailsDto {
   artistLabel: string;
   setLabel: string;
   cardNumber: string;
+}
+
+export interface CardPriceStoreDto {
+  storeName: string;
+  storeUrl: string;
+  cardUrl: string | null;
+  quantity: number;
+  price: number;
+  currency: "brl";
+  error?: string;
+}
+
+export interface CardPricesResponseDto {
+  set: string;
+  number: number;
+  inStockStores: number;
+  stores: CardPriceStoreDto[];
 }

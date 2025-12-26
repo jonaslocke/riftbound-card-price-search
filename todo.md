@@ -24,5 +24,5 @@
 [x] logo
 [x] update main page with new logo
 [x] update global header with new logo
-[ ] new api that returns list of card listings
+[x] new api that returns list of card listings
 [ ] tcgplayer card price listing
