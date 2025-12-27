@@ -1,6 +1,9 @@
+"use client";
+
 import type { Card } from "../types/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 type CardSuggestionItemProps = {
   card: Card;
@@ -15,6 +18,7 @@ export default function CardSuggestionItem({
   className,
   isActive = false,
 }: CardSuggestionItemProps) {
+  const { t } = useTranslation("common");
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
   const collector = card.collector_number ?? "";
@@ -35,7 +39,9 @@ export default function CardSuggestionItem({
         {image ? (
           <img src={image} alt="" loading="lazy" />
         ) : (
-          <span className="text-xs text-(--text-muted)">No image</span>
+          <span className="text-xs text-(--text-muted)">
+            {t("search.no_image")}
+          </span>
         )}
       </span>
       <span className="flex flex-1 flex-col gap-0.5">

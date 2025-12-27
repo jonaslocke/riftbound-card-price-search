@@ -1,8 +1,14 @@
+import {
+  defaultLocale,
+  isLocaleSegment,
+  localeCookie,
+  toLanguageTag,
+} from "@/app/i18n/settings";
+import { siteMetadata } from "@/lib/site-metadata";
 import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import "./globals.css";
-import GlobalHeader from "./components/GlobalHeader";
-import { siteMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
@@ -45,13 +51,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const headerStore = await headers();
+  const headerLocale = headerStore.get("x-locale");
+  const cookieStore = await cookies();
+  const storedLocale = cookieStore.get(localeCookie)?.value;
+  const locale = isLocaleSegment(headerLocale)
+    ? headerLocale
+    : isLocaleSegment(storedLocale)
+    ? storedLocale
+    : defaultLocale;
+  const languageTag = toLanguageTag(locale);
+
   return (
-    <html lang="en">
-      <body>
-        <GlobalHeader />
-        {children}
-      </body>
+    <html lang={languageTag}>
+      <body>{children}</body>
     </html>
   );
 }

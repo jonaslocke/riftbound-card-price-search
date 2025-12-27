@@ -1,8 +1,10 @@
 "use client";
 
+import { getLocaleFromPathname } from "@/app/i18n/pathname";
+import { defaultLocale } from "@/app/i18n/settings";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   useCallback,
   useEffect,
@@ -12,6 +14,7 @@ import {
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
+import { useTranslation } from "react-i18next";
 import type { Card } from "../types/card";
 import CardSuggestionItem from "./CardSuggestionItem";
 
@@ -23,12 +26,16 @@ type SearchFormProps = {
 };
 
 export default function SearchForm({
-  placeholder = "Search by card name (press / to focus)",
+  placeholder,
   name = "query",
   onCardSelect,
   variant = "default",
 }: SearchFormProps) {
+  const { t } = useTranslation("common");
+  const pathname = usePathname();
   const router = useRouter();
+  const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
+  const resolvedPlaceholder = placeholder ?? t("search.placeholder");
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Card[]>([]);
   const [loading, setLoading] = useState(false);
@@ -104,7 +111,7 @@ export default function SearchForm({
 
       if (!res.ok) {
         const body = await res.json().catch(() => null);
-        const message = body?.error ?? "Unable to search right now.";
+        const message = body?.error ?? t("search.error_default");
         throw new Error(message);
       }
 
@@ -130,7 +137,7 @@ export default function SearchForm({
 
     if (setId && collector !== null) {
       startTransition(() => {
-        router.push(`/cards/${setId}-${collector}`);
+        router.push(`/${locale}/cards/${setId}-${collector}`);
       });
     }
   }
@@ -251,7 +258,7 @@ export default function SearchForm({
       ref={formRef}
     >
       <label className="sr-only" htmlFor="search-input">
-        Search
+        {t("search.label")}
       </label>
       <div
         className={`relative flex items-center rounded-sm border shadow-(--shadow) transition ${
@@ -272,7 +279,7 @@ export default function SearchForm({
           id="search-input"
           name={name}
           type="search"
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           className={`h-full w-full border-0 bg-transparent text-(--text-primary) placeholder:text-slate-400 focus:outline-none ${
             isHeader ? "pl-8 pr-11 text-sm" : "pl-10 pr-12 text-base"
           }`}
@@ -298,11 +305,11 @@ export default function SearchForm({
           <button
             type="button"
             className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-transparent text-(--text-primary) transition hover:border-accent hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
-            aria-label="Clear search"
+            aria-label={t("search.clear")}
             onClick={handleClear}
             disabled={isBlocked}
           >
-            ×
+            A-
           </button>
         ) : null}
         <span
@@ -329,7 +336,7 @@ export default function SearchForm({
               : "mt-2 flex flex-col gap-1"
           )}
           role="listbox"
-          aria-label="Card search suggestions"
+          aria-label={t("search.suggestions_aria")}
         >
           {suggestions.map((card, index) => {
             const isActive = index === highlightedIndex;

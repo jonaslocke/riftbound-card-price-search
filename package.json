@@ -15,11 +15,13 @@
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "i18next": "^23.12.2",
     "lucide-react": "^0.561.0",
     "motion": "^12.23.26",
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1",
+    "react-i18next": "^15.0.0",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

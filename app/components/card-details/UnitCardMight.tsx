@@ -3,8 +3,10 @@
 import icon from "@/assets/icons/might-24.webp";
 import { cn } from "@/lib/utils";
 import { useCardDetails } from "./context";
+import { useTranslation } from "react-i18next";
 
 export default function UnitCardMight() {
+  const { t } = useTranslation("common");
   const card = useCardDetails();
   const { might, rarity } = card;
 
@@ -31,7 +33,7 @@ export default function UnitCardMight() {
         )}
       >
         <div className="size-5">
-          <img src={icon.src} alt="might symbol" className="invert" />
+          <img src={icon.src} alt={t("card.might_symbol")} className="invert" />
         </div>
         <div className="text-lg">{might}</div>
       </div>

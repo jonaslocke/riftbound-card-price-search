@@ -1,13 +1,14 @@
 import CardSummary from "@/app/components/CardSummary";
 import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
+import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
 import { fetchCardPrices } from "@/services/fetchCardPrices";
 import { notFound } from "next/navigation";
 
-type CardPageParams = { slug?: string };
+type CardPageParams = { locale?: string; slug?: string };
 
 export default async function CardPage({
   params,
@@ -16,6 +17,8 @@ export default async function CardPage({
 }) {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams?.slug;
+  const localeParam = resolvedParams?.locale;
+  const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
   const { setId, collector } = parseSlug(slug);
   if (!setId || !collector) {
     notFound();
@@ -41,7 +44,7 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
-      <CardListing prices={prices} />
+      <CardListing prices={prices} locale={locale} />
     </main>
   );
 }

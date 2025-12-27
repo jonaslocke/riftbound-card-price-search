@@ -4,9 +4,11 @@ import logo from "@/assets/brand/hextech-codex-gradient.svg";
 import { Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import SearchForm from "./components/SearchForm";
+import { useTranslation } from "react-i18next";
+import SearchForm from "../components/SearchForm";
 
 export default function Home() {
+  const { t } = useTranslation("common");
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
@@ -47,21 +49,23 @@ export default function Home() {
         type="button"
         onClick={toggleTheme}
         aria-label={
-          theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          theme === "dark"
+            ? t("theme.switch_to_light")
+            : t("theme.switch_to_dark")
         }
       >
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>
 
-      <h1 className="sr-only">Hextech Codex</h1>
+      <h1 className="sr-only">{t("brand.name")}</h1>
       <div className="flex justify-center">
-        <Image src={logo} alt="Hextech Codex" className="w-80 sm:w-96" />
+        <Image src={logo} alt={t("brand.name")} className="w-80 sm:w-96" />
       </div>
       <p className="text-sm leading-relaxed text-accent text-center">
-        Find and compare Riftbound card prices across multiple stores
+        {t("home.tagline")}
       </p>
 
-      <SearchForm placeholder="Search by card name (press / to focus)" />
+      <SearchForm placeholder={t("search.placeholder")} />
     </main>
   );
 }

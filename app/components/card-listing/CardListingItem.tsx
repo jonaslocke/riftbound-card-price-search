@@ -3,6 +3,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ExternalLinkIcon } from "lucide-react";
+import { toLanguageTag, type LocaleSegment } from "@/app/i18n/settings";
+
+type CardListingItemProps = CardPriceStoreDto & {
+  locale: LocaleSegment;
+  visitStoreLabel: string;
+  unavailableLabel: string;
+};
 
 export default function CardListingItem({
   price,
@@ -13,11 +20,14 @@ export default function CardListingItem({
   storeUrl,
   cardUrl,
   currency,
-}: CardPriceStoreDto) {
+  locale,
+  visitStoreLabel,
+  unavailableLabel,
+}: CardListingItemProps) {
   const displayTitle = storeTitle || storeName;
   const formattedPrice =
     price > 0
-      ? new Intl.NumberFormat("en-US", {
+      ? new Intl.NumberFormat(toLanguageTag(locale), {
           style: "currency",
           currency: currency === "brl" ? "BRL" : "USD",
         }).format(price)
@@ -65,7 +75,7 @@ export default function CardListingItem({
             asChild
           >
             <a href={cardUrl} target="_blank" rel="noopener noreferrer">
-              Visit Store
+              {visitStoreLabel}
               <ExternalLinkIcon className="ml-2 size-4" />
             </a>
           </Button>
@@ -76,7 +86,7 @@ export default function CardListingItem({
             className="border-black/10 bg-white/30 text-black/40 shadow-sm"
             disabled
           >
-            Unavailable
+            {unavailableLabel}
           </Button>
         )}
       </TableCell>

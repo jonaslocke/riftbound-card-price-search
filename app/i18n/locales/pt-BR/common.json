@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "name": "Hextech Codex"
+  },
+  "home": {
+    "tagline": "Encontre e compare preços de cartas de Riftbound em várias lojas"
+  },
+  "theme": {
+    "switch_to_light": "Mudar para modo claro",
+    "switch_to_dark": "Mudar para modo escuro"
+  },
+  "search": {
+    "placeholder": "Busque pelo nome da carta (pressione / para focar)",
+    "label": "Buscar",
+    "clear": "Limpar busca",
+    "suggestions_aria": "Sugestões de cartas",
+    "error_default": "Não foi possível pesquisar agora.",
+    "no_image": "Sem imagem"
+  },
+  "listing": {
+    "title": "Listagens da carta",
+    "in_stock_one": "{{count}} loja vendendo esta carta",
+    "in_stock_other": "{{count}} lojas vendendo esta carta",
+    "store_name": "Loja",
+    "quantity": "Quantidade",
+    "value": "Valor",
+    "go_to": "Ir para",
+    "empty": "Nenhuma listagem disponível ainda.",
+    "visit_store": "Visitar",
+    "unavailable": "Indisponível"
+  },
+  "card": {
+    "might_symbol": "Símbolo de poder"
+  },
+  "language": {
+    "switcher": "Mudar idioma"
+  }
+}

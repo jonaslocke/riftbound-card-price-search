@@ -27,7 +27,7 @@
 [x] new api that returns list of card listings
 [x] tcgplayer card price listing
 [x] enhance store metadata
-[ ] i18n preparation
+[x] i18n preparation
 [ ] authentication preparation
-[ ] responsive
+[x] responsive
 [ ] footer - legal disclaimer
