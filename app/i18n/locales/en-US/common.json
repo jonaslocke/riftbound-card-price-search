@@ -35,6 +35,12 @@
   "language": {
     "switcher": "Switch language"
   },
+  "auth": {
+    "sign_in": "Sign in",
+    "sign_out": "Sign out",
+    "signed_in_as": "Account",
+    "sign_in_prices": "Login to see the prices."
+  },
   "footer": {
     "social_label": "Social",
     "social_discord": "Discord",

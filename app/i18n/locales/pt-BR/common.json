@@ -35,6 +35,12 @@
   "language": {
     "switcher": "Mudar idioma"
   },
+  "auth": {
+    "sign_in": "Entrar",
+    "sign_out": "Sair",
+    "signed_in_as": "Conta",
+    "sign_in_prices": "Faca login para ver os precos."
+  },
   "footer": {
     "social_label": "Social",
     "social_discord": "Discord",

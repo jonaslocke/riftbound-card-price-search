@@ -9,13 +9,17 @@ export async function fetchCardPrices(
   const host = headersList.get("host");
   if (!host) return null;
   const protocol = headersList.get("x-forwarded-proto") ?? "http";
+  const cookie = headersList.get("cookie");
   const number = encodeURIComponent(collector.toString());
   const url = `${protocol}://${host}/api/cards/prices?set=${encodeURIComponent(
     setId
   )}&number=${number}`;
 
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: cookie ? { cookie } : undefined,
+    });
     if (!res.ok) return null;
     const data = (await res.json()) as CardPricesResponseDto;
     return data ?? null;

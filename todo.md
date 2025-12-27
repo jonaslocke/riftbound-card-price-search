@@ -28,6 +28,7 @@
 [x] tcgplayer card price listing
 [x] enhance store metadata
 [x] i18n preparation
-[ ] authentication preparation
+[x] authentication preparation
 [x] responsive
 [x] footer - legal disclaimer
+[ ] validate light/dark mode

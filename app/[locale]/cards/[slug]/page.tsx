@@ -1,12 +1,15 @@
 import CardSummary from "@/app/components/CardSummary";
 import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
+import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
 import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
 import { fetchCard } from "@/services/fetchCard";
 import { fetchCardPrices } from "@/services/fetchCardPrices";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 type CardPageParams = { locale?: string; slug?: string };
 
@@ -27,7 +30,11 @@ export default async function CardPage({
   const card = await fetchCard(setId, collector);
   if (!card) notFound();
   const details = toCardDetailsDto(card);
-  const prices = await fetchCardPrices(setId, collector);
+  const session = await getServerSession(authOptions);
+  const prices = session ? await fetchCardPrices(setId, collector) : null;
+  const signInUrl = `/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
+    `/${locale}/cards/${slug}`
+  )}`;
 
   return (
     <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col px-[clamp(16px,4vw,32px)]">
@@ -44,7 +51,11 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
-      <CardListing prices={prices} locale={locale} />
+      {session ? (
+        <CardListing prices={prices} locale={locale} />
+      ) : (
+        <CardListingAuthPrompt locale={locale} signInUrl={signInUrl} />
+      )}
     </main>
   );
 }

@@ -5,6 +5,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import type { Card } from "../../../types/card";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 type Store = {
   storeName: string;
@@ -35,6 +37,11 @@ const SET_EDICAO: Record<string, number> = {
 };
 
 export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
   const { searchParams } = new URL(req.url);
   const set = searchParams.get("set")?.trim();
   const numberRaw = searchParams.get("number")?.trim();

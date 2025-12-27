@@ -19,6 +19,7 @@
     "lucide-react": "^0.561.0",
     "motion": "^12.23.26",
     "next": "16.0.8",
+    "next-auth": "^4.24.11",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-i18next": "^15.0.0",
