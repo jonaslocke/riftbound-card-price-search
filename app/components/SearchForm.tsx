@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -7,12 +8,12 @@ import {
   useEffect,
   useRef,
   useState,
+  useTransition,
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import type { Card } from "../types/card";
 import CardSuggestionItem from "./CardSuggestionItem";
-import { cn } from "@/lib/utils";
 
 type SearchFormProps = {
   placeholder?: string;
@@ -35,11 +36,13 @@ export default function SearchForm({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
+  const [isNavigating, startTransition] = useTransition();
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isHeader = variant === "header";
+  const isBlocked = isNavigating;
 
   const clearTimers = useCallback(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -126,7 +129,9 @@ export default function SearchForm({
     const collector = card.collector_number ?? null;
 
     if (setId && collector !== null) {
-      router.push(`/cards/${setId}-${collector}`);
+      startTransition(() => {
+        router.push(`/cards/${setId}-${collector}`);
+      });
     }
   }
 
@@ -232,13 +237,17 @@ export default function SearchForm({
 
   return (
     <form
-      className="relative w-full"
+      className={cn(
+        "relative w-full",
+        isBlocked && "pointer-events-none opacity-60"
+      )}
       role="search"
       action="#"
       method="get"
       onSubmit={handleSubmit}
       autoComplete="off"
-      aria-busy={loading}
+      aria-busy={loading || isNavigating}
+      aria-disabled={isBlocked}
       ref={formRef}
     >
       <label className="sr-only" htmlFor="search-input">
@@ -269,6 +278,7 @@ export default function SearchForm({
           }`}
           value={query}
           ref={inputRef}
+          disabled={isBlocked}
           onChange={(event) => {
             setQuery(event.target.value);
             if (event.target.value.trim().length >= 2) {
@@ -290,6 +300,7 @@ export default function SearchForm({
             className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-transparent text-(--text-primary) transition hover:border-accent hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
             aria-label="Clear search"
             onClick={handleClear}
+            disabled={isBlocked}
           >
             ×
           </button>
