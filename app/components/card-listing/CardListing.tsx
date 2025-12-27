@@ -63,16 +63,7 @@ export default function CardListing({ prices }: CardListingProps) {
               listings.map((listing, index) => (
                 <CardListingItem
                   key={`${listing.storeName}-${index}`}
-                  id={index}
-                  storeName={listing.storeName}
-                  storeTitle={listing.storeTitle}
-                  storeImage={listing.storeImage}
-                  storeUrl={listing.storeUrl}
-                  quantity={listing.quantity}
-                  price={listing.price}
-                  currency={listing.currency}
-                  url={listing.cardUrl}
-                  stock={getStockLabel(listing.quantity)}
+                  {...listing}
                 />
               ))
             ) : (

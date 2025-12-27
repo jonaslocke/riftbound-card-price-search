@@ -1,33 +1,19 @@
+import { CardPriceStoreDto } from "@/app/types/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ExternalLinkIcon } from "lucide-react";
 
-type Listing = {
-  id: number;
-  storeName: string;
-  storeTitle: string;
-  storeImage: string | null;
-  storeUrl: string;
-  quantity: number;
-  price: number;
-  url: string | null;
-  currency: "brl" | "usd";
-  stock: "high" | "low" | "medium";
-};
-
 export default function CardListingItem({
-  id,
   price,
   quantity,
   storeName,
   storeTitle,
   storeImage,
   storeUrl,
-  url,
-  stock,
+  cardUrl,
   currency,
-}: Listing) {
+}: CardPriceStoreDto) {
   const displayTitle = storeTitle || storeName;
   const formattedPrice =
     price > 0
@@ -71,14 +57,14 @@ export default function CardListingItem({
         <div className="text-black">{formattedPrice}</div>
       </TableCell>
       <TableCell className="text-center px-2 py-1">
-        {url ? (
+        {cardUrl ? (
           <Button
             variant="outline"
             size="sm"
             className="border-black/20 bg-white/60 hover:bg-white text-black shadow-sm"
             asChild
           >
-            <a href={url} target="_blank" rel="noopener noreferrer">
+            <a href={cardUrl} target="_blank" rel="noopener noreferrer">
               Visit Store
               <ExternalLinkIcon className="ml-2 size-4" />
             </a>
