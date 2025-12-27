@@ -75,22 +75,25 @@ export async function GET(req: NextRequest) {
     Promise.all(tasks),
     fetchTcgplayerEntry(card),
   ]);
-  const allStores = [tcgplayerEntry, ...stores];
-  const inStockStores = allStores.filter((store) => store.quantity > 0).length;
-  stores.sort((a, b) => {
-    const aHasStock = a.quantity > 0 ? 1 : 0;
-    const bHasStock = b.quantity > 0 ? 1 : 0;
-    if (inStockStores > 0 && aHasStock !== bHasStock) {
-      return bHasStock - aHasStock;
-    }
-    return a.price - b.price;
-  });
+  const allStores = [tcgplayerEntry, ...stores].filter(
+    (store) => store.quantity > 0
+  );
+  const inStockStores = allStores.length;
+  const tcgplayerStore = allStores.find(
+    (store) => store.storeName === "tcgplayer"
+  );
+  const otherStores = allStores.filter(
+    (store) => store.storeName !== "tcgplayer"
+  );
+  otherStores.sort((a, b) => a.price - b.price);
 
   return NextResponse.json({
     set: setId,
     number: collector,
     inStockStores,
-    stores: [tcgplayerEntry, ...stores],
+    stores: tcgplayerStore
+      ? [tcgplayerStore, ...otherStores]
+      : otherStores,
   });
 }
 

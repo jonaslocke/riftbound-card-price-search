@@ -33,9 +33,11 @@ export default function CardListing({ prices }: CardListingProps) {
       <CardHeader className="border-b border-black/10 py-0! px-3">
         <CardTitle className="text-lg font-semibold flex justify-between items-center">
           <h2>Card Listings</h2>
-          <p className="text-xs text-black/50">
-            {inStockStores} stores currently selling this card
-          </p>
+          {inStockStores > 0 && (
+            <p className="text-xs text-black/50">
+              {inStockStores} stores currently selling this card
+            </p>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 flex-1 min-h-0 overflow-y-auto">
