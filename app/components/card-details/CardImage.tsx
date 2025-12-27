@@ -29,7 +29,7 @@ export default function CardImage() {
 
   return (
     <div
-      className="z-1 w-[320]"
+      className="z-1 w-80"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "900px" }}

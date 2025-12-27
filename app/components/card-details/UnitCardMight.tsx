@@ -14,7 +14,7 @@ export default function UnitCardMight() {
     <div
       className={cn(
         "absolute p-0! select-none right-0 bottom-0",
-        "translate-y-[30%] translate-x-[30%]"
+        "-translate-x-[30%] translate-y-[40%] sm:translate-x-[30%]"
       )}
       style={{
         filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
