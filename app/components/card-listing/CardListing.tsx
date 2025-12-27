@@ -29,7 +29,7 @@ export default function CardListing({ prices }: CardListingProps) {
   const inStockStores = prices?.inStockStores ?? 0;
 
   return (
-    <Card className="border-slate-400 bg-white/75 text-black mt-6 py-3 gap-0">
+    <Card className="border-slate-400 bg-white/75 text-black mt-3 sm:mt-6 py-3 gap-0">
       <CardHeader className="border-b border-black/10 py-0! px-3">
         <CardTitle className="text-lg font-semibold flex justify-between items-center">
           <h2>Card Listings</h2>
