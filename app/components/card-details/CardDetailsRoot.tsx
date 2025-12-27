@@ -18,7 +18,10 @@ export default function CardDetailsRoot({ card, children, className }: Props) {
     <CardDetailsProvider value={cardDetails}>
       <div
         id="card-details-root"
-        className={cn("flex relative mb-4 mt-26 sm:mt-6", className)}
+        className={cn(
+          "flex flex-col items-center sm:items-stretch sm:flex-row relative mb-4 mt-26 sm:mt-6",
+          className
+        )}
       >
         {children}
       </div>
