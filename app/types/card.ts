@@ -92,6 +92,8 @@ export interface CardDetailsDto {
 export interface CardPriceStoreDto {
   storeName: string;
   storeUrl: string;
+  storeTitle: string;
+  storeImage: string | null;
   cardUrl: string | null;
   quantity: number;
   price: number;

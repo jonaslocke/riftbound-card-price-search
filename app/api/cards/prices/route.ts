@@ -6,10 +6,17 @@ import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import type { Card } from "../../../types/card";
 
-type Store = { storeName: string; url: string };
+type Store = {
+  storeName: string;
+  url: string;
+  storeTitle: string;
+  storeImage: string;
+};
 type StorePrice = {
   storeName: string;
   storeUrl: string;
+  storeTitle: string;
+  storeImage: string | null;
   cardUrl: string | null;
   quantity: number;
   price: number;
@@ -140,6 +147,8 @@ async function fetchStorePrice(
     return {
       storeName: store.storeName,
       storeUrl,
+      storeTitle: store.storeTitle,
+      storeImage: store.storeImage ?? null,
       cardUrl: null,
       quantity: 0,
       price: 0,
@@ -154,6 +163,8 @@ async function fetchStorePrice(
     return {
       storeName: store.storeName,
       storeUrl,
+      storeTitle: store.storeTitle,
+      storeImage: store.storeImage ?? null,
       cardUrl,
       quantity,
       price,
@@ -164,6 +175,8 @@ async function fetchStorePrice(
     return {
       storeName: store.storeName,
       storeUrl,
+      storeTitle: store.storeTitle,
+      storeImage: store.storeImage ?? null,
       cardUrl,
       quantity: 0,
       price: 0,
@@ -213,10 +226,12 @@ async function fetchTcgplayerEntry(card: Card): Promise<StorePrice> {
     ? `https://www.tcgplayer.com/product/${tcgplayerId}`
     : null;
 
-  if (!cardUrl) {
+  if (!tcgplayerId || !cardUrl) {
     return {
       storeName: "tcgplayer",
       storeUrl: "https://www.tcgplayer.com",
+      storeTitle: "TCGplayer",
+      storeImage: null,
       cardUrl: null,
       quantity: 0,
       price: 0,
@@ -230,6 +245,8 @@ async function fetchTcgplayerEntry(card: Card): Promise<StorePrice> {
     return {
       storeName: "tcgplayer",
       storeUrl: "https://www.tcgplayer.com",
+      storeTitle: "TCGplayer",
+      storeImage: null,
       cardUrl,
       quantity,
       price,
@@ -240,6 +257,8 @@ async function fetchTcgplayerEntry(card: Card): Promise<StorePrice> {
     return {
       storeName: "tcgplayer",
       storeUrl: "https://www.tcgplayer.com",
+      storeTitle: "TCGplayer",
+      storeImage: null,
       cardUrl,
       quantity: 0,
       price: 0,
