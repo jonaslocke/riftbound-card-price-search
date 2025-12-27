@@ -186,9 +186,11 @@ body::after {
   pointer-events: none;
 }
 
-/* main {
-  width: min(95vw, 720px);
-} */
+@media (max-width: 639px) {
+  html {
+    font-size: 14px;
+  }
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

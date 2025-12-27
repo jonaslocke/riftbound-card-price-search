@@ -1,8 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { ExternalLinkIcon, PackageIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 
 type Listing = {
   id: number;
