@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import GlobalHeader from "../components/GlobalHeader";
+import SiteFooter from "../components/SiteFooter";
 import I18nClientProvider from "../i18n/ClientProvider";
 import {
   defaultLocale,
@@ -22,8 +23,13 @@ export default async function LocaleLayout({
 
   return (
     <I18nClientProvider locale={locale}>
-      <GlobalHeader />
-      {children}
+      <div className="flex min-h-screen w-full flex-col items-stretch">
+        <GlobalHeader />
+        <div className="min-h-screen flex-1">
+          {children}
+        </div>
+        <SiteFooter locale={locale} />
+      </div>
     </I18nClientProvider>
   );
 }

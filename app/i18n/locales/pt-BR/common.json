@@ -34,5 +34,17 @@
   },
   "language": {
     "switcher": "Mudar idioma"
+  },
+  "footer": {
+    "social_label": "Social",
+    "social_discord": "Discord",
+    "social_community": "Comunidade",
+    "social_youtube": "YouTube",
+    "legal_jibber_jabber": "Legal Jibber Jabber",
+    "disclaimer_riot_prefix": "© 2025 Hextech Codex. O Hextech Codex foi criado com base na política ",
+    "disclaimer_riot_suffix": " da Riot Games, utilizando ativos pertencentes à Riot Games. A Riot Games não endossa nem patrocina este projeto.",
+    "disclaimer_assets": "Riftbound é um jogo de cartas colecionáveis feito pela Riot Games. As imagens de cartas, símbolos e elementos do jogo exibidos aqui são propriedade da Riot Games.",
+    "disclaimer_prices": "Os preços das cartas e as ofertas promocionais representam estimativas diárias e/ou valores de mercado fornecidos por afiliados. Não há garantia sobre qualquer informação de preço. Consulte as lojas para preços e detalhes finais.",
+    "disclaimer_other": "Todo o restante do conteúdo © 2025 Hextech Codex."
   }
 }

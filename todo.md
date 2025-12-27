@@ -30,4 +30,4 @@
 [x] i18n preparation
 [ ] authentication preparation
 [x] responsive
-[ ] footer - legal disclaimer
+[x] footer - legal disclaimer
