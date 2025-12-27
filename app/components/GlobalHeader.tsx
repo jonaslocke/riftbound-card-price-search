@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SearchForm from "./SearchForm";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function GlobalHeader() {
   const pathname = usePathname();
@@ -12,27 +13,37 @@ export default function GlobalHeader() {
 
   return (
     <>
-      <header className="flex items-center fixed inset-x-0 top-0 z-40 border-b border-slate-400/20 bg-slate-900/85 px-4 py-3 backdrop-blur-lg md:px-6 h-16">
-        <div className="mx-auto w-full max-w-6xl flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
-          <Link
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--text-primary) no-underline md:shrink-0"
-            href="/"
-          >
-            <Image src={logo} alt="Hextech Codex" height={32} />
-          </Link>
-          <div className="w-full flex items-center md:flex-1 md:max-w-xl md:mx-auto">
+      <header className="fixed inset-x-0 top-0 z-40 flex flex-col gap-3 border-b border-slate-400/20 bg-slate-900/85 px-4 py-3 backdrop-blur-lg md:px-6 md:h-16">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] sm:items-center">
+          <div className="flex items-center justify-between sm:justify-start">
+            <Link href="/" className="flex-1 sm:flex-none">
+              <Image
+                src={logo}
+                alt="Hextech Codex"
+                className="h-10 w-auto sm:h-8"
+              />
+            </Link>
+            <Avatar className="size-11 sm:hidden">
+              <AvatarImage src="." alt="@shadcn" />
+              <AvatarFallback className="bg-transparent! font-ui font-semibold tracking-wider text-amber-300 border-2 border-amber-300/60">
+                HC
+              </AvatarFallback>
+            </Avatar>
+          </div>
+          <div className="flex w-full items-center sm:mx-auto">
             <SearchForm
               placeholder="Search by card name (press / to focus)"
               variant="header"
             />
           </div>
-          <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-300/60 bg-slate-900/80 text-sm font-bold tracking-wider text-(--gold) transition hover:-translate-y-px hover:border-amber-200 hover:text-white hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-0 md:shrink-0"
-            type="button"
-            aria-label="Account"
-          >
-            HC
-          </button>
+          <div className="hidden justify-end sm:flex">
+            <Avatar className="size-9">
+              <AvatarImage src="." alt="@shadcn" />
+              <AvatarFallback className="bg-transparent! font-ui font-semibold tracking-wider text-amber-300 border-2 border-amber-300/60 sm:text-sm">
+                HC
+              </AvatarFallback>
+            </Avatar>
+          </div>
         </div>
       </header>
     </>
