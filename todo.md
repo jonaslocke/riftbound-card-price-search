@@ -29,3 +29,4 @@
 [x] enhance store metadata
 [ ] i18n preparation
 [ ] authentication preparation
+[ ] responsive

@@ -57,7 +57,7 @@ export default function CardListingItem({
             </Avatar>
           </a>
           <div>
-            <div className="font-medium text-black text-base max-w-[26ch] truncate">
+            <div className="font-medium text-black text-sm max-w-[26ch] truncate">
               {displayTitle}
             </div>
           </div>

@@ -27,7 +27,7 @@ export default async function CardPage({
   const prices = await fetchCardPrices(setId, collector);
 
   return (
-    <main className="flex flex-col w-full max-w-2xl">
+    <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col px-[clamp(16px,4vw,32px)]">
       <CardSummary details={details} />
       <CardDetails card={card}>
         <CardDetails.Image />
