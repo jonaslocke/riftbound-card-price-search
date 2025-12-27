@@ -17,10 +17,11 @@ A Next.js app for searching Riftbound cards, viewing card details, and jumping t
 - TypeScript
 
 ## Scripts
-- `npm run dev` – start the dev server
-- `npm run build` – production build
-- `npm start` – start the production server
-- `npm run lint` – lint the project
+- `npm run dev` - start the dev server
+- `npm run build` - production build
+- `npm start` - start the production server
+- `npm run lint` - lint the project
+- `npm run update-store-metadata` - fill missing storeTitle/storeImage in data/stores.json
 
 ## Ligamagic ID Fetcher
 Use scripts/fetch-ligamagic-ids.js to populate ligamagic_id for a set by scraping Ligamagic item/search pages and validating item pages (price + stock). Example:
@@ -28,6 +29,15 @@ Use scripts/fetch-ligamagic-ids.js to populate ligamagic_id for a set by scrapin
 node scripts/fetch-ligamagic-ids.js --set ogn
 `
 For OGS starter cards, add --strip-starter; for custom files, use --file and --edicao.
+## Store Metadata Updater
+Fill missing store metadata (title + og:image) for entries in data/stores.json. The script only fetches stores with missing values.
+```bash
+npm run update-store-metadata
+```
+Options:
+```bash
+node scripts/update-store-metadata.js --file data/stores.json --timeout 20000 --dry-run
+```
 ## Setup
 1) Install dependencies:
 ```bash

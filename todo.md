@@ -26,3 +26,4 @@
 [x] update global header with new logo
 [x] new api that returns list of card listings
 [x] tcgplayer card price listing
+[ ] enhance store metadata

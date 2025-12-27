@@ -1,16 +1,86 @@
 [
-  { "storeName": "megageek", "url": "https://www.megageek.com.br" },
-  { "storeName": "mestre-pokemon", "url": "https://www.mestrepokemon.com.br" },
-  { "storeName": "legacy", "url": "https://www.legacytcg.com.br" },
-  { "storeName": "tcg-br", "url": "https://www.tcgbr.com" },
-  { "storeName": "epic-games", "url": "https://www.epicgame.com.br" },
-  { "storeName": "bolovo", "url": "https://www.bolovogames.com.br" },
-  { "storeName": "brandao", "url": "https://www.brandaocardgame.com.br" },
-  { "storeName": "miragem", "url": "https://www.miragemhobby.com.br" },
-  { "storeName": "lostbox", "url": "https://www.lostboxcardshop.com.br" },
-  { "storeName": "jogando-tcg", "url": "https://www.jogandotcg.com.br" },
-  { "storeName": "kedge", "url": "https://www.kedgecardgames.com.br" },
-  { "storeName": "infinity", "url": "https://www.infinityshoptcg.com.br" },
-  { "storeName": "turn-zero", "url": "https://www.turnozerotcg.com.br" },
-  { "storeName": "bird-games", "url": "https://www.birdgames.com.br" }
+  {
+    "storeName": "megageek",
+    "url": "https://www.megageek.com.br",
+    "storeTitle": "Mega Geek - Cardgame e Boardgame",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/89582_1739918680.jpg"
+  },
+  {
+    "storeName": "mestre-pokemon",
+    "url": "https://www.mestrepokemon.com.br",
+    "storeTitle": "Mestre Pokémon",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/630d90bb920e6-qplz7-hqwti-367531924630d90bb92126.jpg"
+  },
+  {
+    "storeName": "legacy",
+    "url": "https://www.legacytcg.com.br",
+    "storeTitle": "Legacy",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/36310_1746535170.jpg"
+  },
+  {
+    "storeName": "tcg-br",
+    "url": "https://www.tcgbr.com",
+    "storeTitle": "tcgBR",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/673241_1753123717.jpg"
+  },
+  {
+    "storeName": "epic-games",
+    "url": "https://www.epicgame.com.br",
+    "storeTitle": "Epic Game - A loja de card game mais \u0026Eacute;PICA do Brasil!",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/461.jpg"
+  },
+  {
+    "storeName": "bolovo",
+    "url": "https://www.bolovogames.com.br",
+    "storeTitle": "Bolovo Games",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/62fd41eae67ac-qunyt-mi6qh-23928094562fd41eae6816.jpg"
+  },
+  {
+    "storeName": "brandao",
+    "url": "https://www.brandaocardgame.com.br",
+    "storeTitle": "Brandao Card Game",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/678948eb01eb0-t04k6-b952u-1752821333678948eb01ef6.jpg"
+  },
+  {
+    "storeName": "miragem",
+    "url": "https://www.miragemhobby.com.br",
+    "storeTitle": "Miragem Hobby Store: Trading Card Games",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/62881.jpg"
+  },
+  {
+    "storeName": "lostbox",
+    "url": "https://www.lostboxcardshop.com.br",
+    "storeTitle": "LostBox",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/215095_1736557791.jpg"
+  },
+  {
+    "storeName": "jogando-tcg",
+    "url": "https://www.jogandotcg.com.br",
+    "storeTitle": "Jogando TCG",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/292750_1737888914.jpg"
+  },
+  {
+    "storeName": "kedge",
+    "url": "https://www.kedgecardgames.com.br",
+    "storeTitle": "Kedge Card Games",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/62a252421e21e-ws1mv-tl8u6-143818233162a252421e28a.jpg"
+  },
+  {
+    "storeName": "infinity",
+    "url": "https://www.infinityshoptcg.com.br",
+    "storeTitle": "Infinity Shop",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/630dc56559d7f-ya684-1e7jg-1836392754630dc56559dca.jpg"
+  },
+  {
+    "storeName": "turn-zero",
+    "url": "https://www.turnozerotcg.com.br",
+    "storeTitle": "Turno Zero TCG",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/597556_1752493158.jpg"
+  },
+  {
+    "storeName": "bird-games",
+    "url": "https://www.birdgames.com.br",
+    "storeTitle": "Bem vindo \u0026agrave; Bird Games",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/67c20e7fcb928-yrlgw-nls9f-90559334567c20e7fcb965.jpg"
+  }
 ]
