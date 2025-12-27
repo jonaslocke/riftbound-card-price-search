@@ -43,7 +43,7 @@ export default function CardListingItem({
       <TableCell className="px-2 py-3">
         <div className="flex items-center gap-3">
           <a href={storeUrl} target="_blank" rel="noopener noreferrer">
-            <Avatar className="border-2 border-black/10 text-sm size-12">
+            <Avatar className="border-2 border-black/5 bg-black/20 text-sm size-12">
               {storeImage && (
                 <AvatarImage
                   src={storeImage}
