@@ -24,7 +24,7 @@ export default function GlobalHeader() {
               />
             </Link>
             <Avatar className="size-11 sm:hidden">
-              <AvatarImage src="." alt="@shadcn" />
+              <AvatarImage src="/favicon-32x32.png" alt="Hextech Codex" />
               <AvatarFallback className="bg-transparent! font-ui font-semibold tracking-wider text-amber-300 border-2 border-amber-300/60">
                 HC
               </AvatarFallback>
@@ -38,7 +38,7 @@ export default function GlobalHeader() {
           </div>
           <div className="hidden justify-end sm:flex">
             <Avatar className="size-9">
-              <AvatarImage src="." alt="@shadcn" />
+              <AvatarImage src="/favicon-32x32.png" alt="Hextech Codex" />
               <AvatarFallback className="bg-transparent! font-ui font-semibold tracking-wider text-amber-300 border-2 border-amber-300/60 sm:text-sm">
                 HC
               </AvatarFallback>
