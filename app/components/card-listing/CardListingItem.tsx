@@ -1,21 +1,15 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ExternalLinkIcon, PackageIcon } from "lucide-react";
 
-// {
-//   id: index,
-//   storeName: "Card Kingdom",
-//   quantity: 24,
-//   price: 12.99,
-//   stock: "high",
-//   url: "#",
-// };
-
 type Listing = {
   id: number;
   storeName: string;
+  storeTitle: string;
+  storeImage: string | null;
+  storeUrl: string;
   quantity: number;
   price: number;
   url: string | null;
@@ -28,10 +22,14 @@ export default function CardListingItem({
   price,
   quantity,
   storeName,
+  storeTitle,
+  storeImage,
+  storeUrl,
   url,
   stock,
   currency,
 }: Listing) {
+  const displayTitle = storeTitle || storeName;
   const formattedPrice =
     price > 0
       ? new Intl.NumberFormat("en-US", {
@@ -42,15 +40,26 @@ export default function CardListingItem({
 
   return (
     <TableRow className="border-black/10 hover:bg-black/5 text-sm">
-      <TableCell className="px-2 py-1">
+      <TableCell className="px-2 py-3">
         <div className="flex items-center gap-3">
-          <Avatar className="size-8 border-2 border-black/10 bg-white text-sm">
-            <AvatarFallback className="bg-black/5 text-black/60">
-              {storeName.slice(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <a href={storeUrl} target="_blank" rel="noopener noreferrer">
+            <Avatar className="border-2 border-black/10 text-sm size-12">
+              {storeImage && (
+                <AvatarImage
+                  src={storeImage}
+                  alt={displayTitle}
+                  className="object-cover"
+                />
+              )}
+              <AvatarFallback className="bg-black/5 text-black/60">
+                {displayTitle.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </a>
           <div>
-            <div className="font-medium text-black text-base">{storeName}</div>
+            <div className="font-medium text-black text-base max-w-[26ch] truncate">
+              {displayTitle}
+            </div>
           </div>
         </div>
       </TableCell>

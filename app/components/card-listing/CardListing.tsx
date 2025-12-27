@@ -65,6 +65,9 @@ export default function CardListing({ prices }: CardListingProps) {
                   key={`${listing.storeName}-${index}`}
                   id={index}
                   storeName={listing.storeName}
+                  storeTitle={listing.storeTitle}
+                  storeImage={listing.storeImage}
+                  storeUrl={listing.storeUrl}
                   quantity={listing.quantity}
                   price={listing.price}
                   currency={listing.currency}
