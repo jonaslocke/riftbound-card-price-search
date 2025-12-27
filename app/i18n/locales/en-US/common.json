@@ -11,6 +11,7 @@
   },
   "search": {
     "placeholder": "Search by card name (press / to focus)",
+    "placeholder_mobile": "Search by card name",
     "label": "Search",
     "clear": "Clear search",
     "suggestions_aria": "Card search suggestions",

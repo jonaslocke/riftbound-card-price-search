@@ -11,6 +11,7 @@
   },
   "search": {
     "placeholder": "Busque pelo nome da carta (pressione / para focar)",
+    "placeholder_mobile": "Busque pelo nome da carta",
     "label": "Buscar",
     "clear": "Limpar busca",
     "suggestions_aria": "Sugestões de cartas",

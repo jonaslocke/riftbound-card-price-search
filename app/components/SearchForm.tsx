@@ -20,6 +20,7 @@ import CardSuggestionItem from "./CardSuggestionItem";
 
 type SearchFormProps = {
   placeholder?: string;
+  mobilePlaceholder?: string;
   name?: string;
   onCardSelect?: (card: Card) => void;
   variant?: "default" | "header";
@@ -27,6 +28,7 @@ type SearchFormProps = {
 
 export default function SearchForm({
   placeholder,
+  mobilePlaceholder,
   name = "query",
   onCardSelect,
   variant = "default",
@@ -35,7 +37,10 @@ export default function SearchForm({
   const pathname = usePathname();
   const router = useRouter();
   const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
-  const resolvedPlaceholder = placeholder ?? t("search.placeholder");
+  const [isMobile, setIsMobile] = useState(false);
+  const resolvedPlaceholder = isMobile
+    ? mobilePlaceholder ?? t("search.placeholder_mobile")
+    : placeholder ?? t("search.placeholder");
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Card[]>([]);
   const [loading, setLoading] = useState(false);
@@ -239,6 +244,19 @@ export default function SearchForm({
     document.addEventListener("keydown", handleSlashShortcut);
     return () => {
       document.removeEventListener("keydown", handleSlashShortcut);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+    setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, []);
 

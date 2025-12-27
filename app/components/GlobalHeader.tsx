@@ -80,6 +80,7 @@ export default function GlobalHeader() {
           <div className="flex w-full items-center sm:mx-auto">
             <SearchForm
               placeholder={t("search.placeholder")}
+              mobilePlaceholder={t("search.placeholder_mobile")}
               variant="header"
             />
           </div>
@@ -191,7 +192,7 @@ function AuthAvatarMenu({
       {isOpen && (
         <div
           role="menu"
-          className="absolute right-0 mt-3 w-56 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-2 text-sm text-white shadow-xl"
+          className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-2 text-sm text-white shadow-xl z-50"
         >
           {isAuthenticated ? (
             <>

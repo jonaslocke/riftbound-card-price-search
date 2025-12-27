@@ -65,7 +65,10 @@ export default function Home() {
         {t("home.tagline")}
       </p>
 
-      <SearchForm placeholder={t("search.placeholder")} />
+      <SearchForm
+        placeholder={t("search.placeholder")}
+        mobilePlaceholder={t("search.placeholder_mobile")}
+      />
     </main>
   );
 }
