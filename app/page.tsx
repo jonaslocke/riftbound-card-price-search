@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col gap-4 px-[clamp(16px,4vw,32px)]">
       <button
-        className="fixed right-4 top-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
+        className="fixed right-4 bottom-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0 sm:bottom-auto sm:top-4"
         type="button"
         onClick={toggleTheme}
         aria-label={
@@ -55,9 +55,9 @@ export default function Home() {
 
       <h1 className="sr-only">Hextech Codex</h1>
       <div className="flex justify-center">
-        <Image src={logo} alt="Hextech Codex"></Image>
+        <Image src={logo} alt="Hextech Codex" className="w-80 sm:w-96" />
       </div>
-      <p className="text-base leading-relaxed text-accent">
+      <p className="text-sm leading-relaxed text-accent text-center">
         Find and compare Riftbound card prices across multiple stores
       </p>
 
