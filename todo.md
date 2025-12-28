@@ -34,12 +34,14 @@
 [ ] validate light/dark mode
 [x] add hextech logo on mobile login page
 [x] debounce search input
-[ ] min 3 characters for search
+[x] min 3 characters for search
 [ ] api limit rate
 [x] i18n login page
 [x] hide footer in login page
-[ ] revise pt-br translations file
+[x] revise pt-br translations file
 [ ] highlight listing item
 [ ] add foil tag
 [ ] show logged avatar on home page
-[ ] after login return to the last known page
+[x] after login/logout return to the last known page
+[ ] search form refactor with useReducer
+[ ] update card detail height in mobile version

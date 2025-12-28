@@ -8,11 +8,16 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import stamp from "@/assets/brand/icon-gradient.svg";
+import { readLastKnownPath } from "@/lib/lastKnownPath";
 
 export default function SignInPage() {
   const { t } = useTranslation("common");
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+  const callbackUrlParam = searchParams.get("callbackUrl");
+  const handleSignIn = () => {
+    const callbackUrl = callbackUrlParam ?? readLastKnownPath("/") ?? "/";
+    signIn("google", { callbackUrl });
+  };
 
   return (
     <div className="min-h-screen w-full sm:bg-[#0a0f1c] text-white">
@@ -46,7 +51,7 @@ export default function SignInPage() {
             <Button
               type="button"
               className="w-full"
-              onClick={() => signIn("google", { callbackUrl })}
+              onClick={handleSignIn}
             >
               {t("auth.sign_in_google")}
             </Button>

@@ -13,6 +13,7 @@ import {
   isLocaleRoot,
 } from "@/app/i18n/pathname";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -27,13 +28,15 @@ export default function GlobalHeader() {
 
   if (isHome || isAuthScreen) return null;
 
-  const callbackUrl = pathname || `/${locale}`;
+  const signInCallbackUrl = pathname || `/${locale}`;
+  const getCallbackUrl = () =>
+    readLastKnownPath(signInCallbackUrl) ?? signInCallbackUrl;
   const handleSignIn = () => {
-    signIn("google", { callbackUrl });
+    signIn("google", { callbackUrl: getCallbackUrl() });
   };
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: `/${locale}` });
+    signOut({ callbackUrl: getCallbackUrl() });
   };
 
   return (
@@ -68,7 +71,7 @@ export default function GlobalHeader() {
                 <Button asChild size="sm">
                   <Link
                     href={`/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-                      callbackUrl
+                      signInCallbackUrl
                     )}`}
                   >
                     {t("auth.sign_in")}
@@ -104,7 +107,7 @@ export default function GlobalHeader() {
               <Button asChild size="sm">
                 <Link
                   href={`/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-                    callbackUrl
+                    signInCallbackUrl
                   )}`}
                 >
                   {t("auth.sign_in")}

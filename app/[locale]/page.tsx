@@ -12,6 +12,7 @@ import { AuthAvatarMenu } from "../components/GlobalHeader";
 import SearchForm from "../components/SearchForm";
 import { getLocaleFromPathname } from "../i18n/pathname";
 import { defaultLocale } from "../i18n/settings";
+import { readLastKnownPath } from "@/lib/lastKnownPath";
 
 export default function Home() {
   const { t } = useTranslation("common");
@@ -52,13 +53,15 @@ export default function Home() {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
-  const callbackUrl = pathname || `/${locale}`;
+  const signInCallbackUrl = pathname || `/${locale}`;
+  const getCallbackUrl = () =>
+    readLastKnownPath(signInCallbackUrl) ?? signInCallbackUrl;
   const handleSignIn = () => {
-    signIn("google", { callbackUrl });
+    signIn("google", { callbackUrl: getCallbackUrl() });
   };
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: `/${locale}` });
+    signOut({ callbackUrl: getCallbackUrl() });
   };
 
   return (
