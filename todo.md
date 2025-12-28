@@ -32,3 +32,8 @@
 [x] responsive
 [x] footer - legal disclaimer
 [ ] validate light/dark mode
+[ ] add hextech logo on mobile login page
+[ ] debounce search input
+[ ] min 3 characters for search
+[ ] api limit rate
+[ ] i18n login page
