@@ -19,6 +19,8 @@ import { useTranslation } from "react-i18next";
 import type { Card } from "../types/card";
 import CardSuggestionItem from "./CardSuggestionItem";
 
+const DEBOUNCED_SEARCH_TIMER = 700;
+
 type SearchFormProps = {
   placeholder?: string;
   mobilePlaceholder?: string;
@@ -207,7 +209,7 @@ export default function SearchForm({
       dispatch({ type: "resetForShortQuery" });
       helperRef.current = setTimeout(() => {
         dispatch({ type: "setShowMinCharsHelper", value: true });
-      }, 1000);
+      }, DEBOUNCED_SEARCH_TIMER);
       return;
     }
 
@@ -215,7 +217,7 @@ export default function SearchForm({
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       fetchSuggestions(trimmed);
-    }, 1000);
+    }, DEBOUNCED_SEARCH_TIMER);
 
     return () => {
       clearTimers();
