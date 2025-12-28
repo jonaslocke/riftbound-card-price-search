@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "motion/react";
 import type { CardDetailsDto } from "@/app/types/card";
 import { Badge } from "@/components/ui/badge";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
+import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
 import { CardCostUi } from "./card-details/CardCost";
 
 const DETAILS_ROOT_ID = "card-details-root";
@@ -62,6 +63,8 @@ export default function CardSummary({ details }: Props) {
       .map((word) => word[0]?.toUpperCase() + word.slice(1))
       .join(" ");
 
+  console.log({ imageUrl });
+
   return (
     <motion.nav
       aria-hidden={!showSummary}
@@ -72,26 +75,63 @@ export default function CardSummary({ details }: Props) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
       }}
       className={cn(
-        "top-16 z-30 fixed inset-x-0 bg-slate-700/85 backdrop-blur-lg w-full",
+        "top-31 sm:top-16 z-30 fixed inset-x-0 flex flex-col gap-3 bg-slate-700/85 backdrop-blur-lg px-4 md:px-6 py-3 border-slate-400/20 border-b",
         showSummary ? "pointer-events-auto" : "pointer-events-none"
       )}
     >
-      <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-6 mx-auto py-2 w-full max-w-2xl">
+      {/* <div className="flex sm:items-center gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] mx-auto w-full max-w-6xl">
         {imageUrl && (
-          <span
+          <Image
+            src={imageUrl}
+            alt={"brand.name"}
+            width={744}
+            height={1039}
             className={cn(
-              "flex h-12 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)",
+              "w-10 sm:w-12",
               type === "battlefield" ? "aspect-88/63" : "aspect-63/88"
             )}
-          >
-            <img src={imageUrl} alt={name} loading="lazy" />
-          </span>
+          />
+        )}
+        <div>
+          <h2 className="text-white/80">{name}</h2>
+          <div className="flex gap-0.5">
+            {rarityImg && (
+              <Badge variant="secondary">
+                <img src={rarityImg} alt={`${rarity} image`} />
+                <span className="capitalize">{rarity}</span>
+              </Badge>
+            )}
+            {typeImg && (
+              <Badge variant="secondary">
+                <img src={typeImg} alt={`${type} image`} className="invert" />
+                <span>{formatLabel(type)}</span>
+              </Badge>
+            )}
+            {domainBadges.map(({ domain, domainImg: badgeImg }) => (
+              <Badge key={domain} variant="secondary" className="select-none">
+                {badgeImg ? <img src={badgeImg} alt="" /> : null}
+                <span className="capitalize">{domain}</span>
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </div> */}
+      <div className="flex items-center gap-3 mx-auto py-2 w-full max-w-2xl">
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt={"brand.name"}
+            width={744}
+            height={1039}
+            className={cn(
+              "w-10 sm:w-12",
+              type === "battlefield" ? "aspect-88/63" : "aspect-63/88"
+            )}
+          />
         )}
         <div className="flex flex-col flex-1 justify-center gap-1">
-          <h2 className="font-semibold text-primary-foreground truncate leading-4">
-            {name}
-          </h2>
-          <div className="flex gap-0.5">
+          <h2 className="font-semibold text-white/80">{name}</h2>
+          <div className="flex flex-wrap gap-1">
             {rarityImg && (
               <Badge variant="secondary">
                 <img src={rarityImg} alt={`${rarity} image`} />

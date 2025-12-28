@@ -46,4 +46,4 @@
 [x] search form refactor with useReducer
 [x] update card detail height in mobile version
 [x] card listing on mobile version
-[ ] second header mobile version
+[x] second header mobile version

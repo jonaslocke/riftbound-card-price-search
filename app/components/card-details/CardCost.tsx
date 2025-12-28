@@ -1,10 +1,10 @@
 "use client";
 
-import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
-import { useCardDetails } from "./context";
 import type { CardDomain } from "@/app/types/card";
-import { FC } from "react";
+import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
+import { FC } from "react";
+import { useCardDetails } from "./context";
 
 type Size = "sm" | "md" | "lg";
 
@@ -31,11 +31,11 @@ export const CardCostUi: FC<CardCostUi> = ({
   variant = "default",
 }) => {
   return (
-    <div className="flex items-center h-6 gap-1">
+    <div className="flex items-center gap-1 h-6">
       <div
         className={cn(
-          "flex justify-center items-center size-5 rounded-full text-xs",
-          variant === "default" ? "bg-black/10" : "bg-white/10"
+          "flex justify-center items-center rounded-full size-5 text-xs",
+          variant === "default" ? "bg-black/10" : "bg-white/30"
         )}
       >
         {energy}
@@ -46,8 +46,8 @@ export const CardCostUi: FC<CardCostUi> = ({
             <div
               key={index}
               className={cn(
-                "flex justify-center items-center rounded-full border border-white/10 -ml-1.5",
-                variant === "default" ? "bg-black/10" : "bg-white/10"
+                "flex justify-center items-center -ml-1.5 border border-white/10 rounded-full",
+                variant === "default" ? "bg-black/10" : "bg-white/30"
               )}
             >
               <img src={domainImg} alt={`${domains[0]} power image`} />
