@@ -1,12 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import CardListingItem from "./CardListingItem";
 import type { CardPricesResponseDto } from "@/app/types/card";
 import type { LocaleSegment } from "@/app/i18n/settings";
@@ -40,51 +32,42 @@ export default async function CardListing({
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 flex-1 min-h-0 overflow-y-auto">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-black/10 bg-black/5">
-              <TableHead className="text-black/70 font-semibold w-[40%] px-3 py-2">
-                {t("listing.store_name")}
-              </TableHead>
-              <TableHead className="text-black/70 font-semibold text-center px-3 py-2">
-                {t("listing.quantity")}
-              </TableHead>
-              <TableHead className="text-black/70 font-semibold text-center px-3 py-2">
-                {t("listing.value")}
-              </TableHead>
-              <TableHead className="text-black/70 font-semibold text-center px-3 py-2">
-                {t("listing.go_to")}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {listings.length ? (
-              listings.map((listing, index) => (
-                <CardListingItem
-                  key={`${listing.storeName}-${index}`}
-                  {...listing}
-                  locale={locale}
-                  visitStoreLabel={visitStoreLabel}
-                  unavailableLabel={unavailableLabel}
-                  variant={
-                    listing.storeName === "tcgplayer"
-                      ? "highlighted"
-                      : "default"
-                  }
-                />
-              ))
-            ) : (
-              <TableRow className="border-black/10 text-sm">
-                <TableCell
-                  colSpan={4}
-                  className="px-3 py-6 text-center text-black/60"
-                >
-                  {t("listing.empty")}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+        <div className="grid">
+          <div className="grid items-center grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-black/10 bg-black/5">
+            <div className="text-black/70 font-semibold px-3 py-2">
+              {t("listing.store_name")}
+            </div>
+            <div className="text-black/70 font-semibold text-center px-3 py-2">
+              {t("listing.quantity")}
+            </div>
+            <div className="text-black/70 font-semibold text-center px-3 py-2">
+              {t("listing.value")}
+            </div>
+            <div className="text-black/70 font-semibold text-center px-3 py-2">
+              {t("listing.go_to")}
+            </div>
+          </div>
+          {listings.length ? (
+            listings.map((listing, index) => (
+              <CardListingItem
+                key={`${listing.storeName}-${index}`}
+                {...listing}
+                locale={locale}
+                visitStoreLabel={visitStoreLabel}
+                unavailableLabel={unavailableLabel}
+                variant={
+                  listing.storeName === "tcgplayer" ? "highlighted" : "default"
+                }
+              />
+            ))
+          ) : (
+            <div className="grid items-center grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-black/10 text-sm">
+              <div className="col-span-4 px-3 py-6 text-center text-black/60">
+                {t("listing.empty")}
+              </div>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

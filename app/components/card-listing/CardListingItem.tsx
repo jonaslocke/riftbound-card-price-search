@@ -1,7 +1,6 @@
 import { CardPriceStoreDto } from "@/app/types/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { TableCell, TableRow } from "@/components/ui/table";
 import { ExternalLinkIcon } from "lucide-react";
 import { toLanguageTag, type LocaleSegment } from "@/app/i18n/settings";
 import { cn } from "@/lib/utils";
@@ -38,15 +37,15 @@ export default function CardListingItem({
       : "-";
 
   return (
-    <TableRow
+    <div
       className={cn(
-        "border-black/10 text-sm",
+        "grid items-center grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-black/10 text-sm",
         isHighlighted
           ? "border-2 border-amber-400 bg-linear-to-r from-amber-100/60 via-amber-200/50 to-amber-100/60 hover:from-amber-100 hover:via-amber-100/70 hover:to-amber-100"
           : "hover:bg-black/5"
       )}
     >
-      <TableCell className="px-2 py-3">
+      <div className="px-2 py-3">
         <div className="flex items-center gap-3">
           <a href={storeUrl} target="_blank" rel="noopener noreferrer">
             <Avatar
@@ -73,16 +72,16 @@ export default function CardListingItem({
             </div>
           </div>
         </div>
-      </TableCell>
-      <TableCell className="text-center px-2 py-1">
+      </div>
+      <div className="text-center px-2 py-1">
         <div className="flex items-center justify-center gap-2">
           <span className="text-black">{quantity}</span>
         </div>
-      </TableCell>
-      <TableCell className="text-center px-2 py-1">
+      </div>
+      <div className="text-center px-2 py-1">
         <div className="text-black">{formattedPrice}</div>
-      </TableCell>
-      <TableCell className="text-center px-2 py-1">
+      </div>
+      <div className="text-center px-2 py-1">
         {cardUrl ? (
           <Button
             variant="outline"
@@ -105,7 +104,7 @@ export default function CardListingItem({
             {unavailableLabel}
           </Button>
         )}
-      </TableCell>
-    </TableRow>
+      </div>
+    </div>
   );
 }
