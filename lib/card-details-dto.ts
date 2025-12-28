@@ -14,7 +14,9 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
   const supertypeKey = supertypeRaw
     ? (supertypeRaw.toLowerCase() as CardSupertype)
     : null;
-  const type = supertypeKey ? `${supertypeKey} ${typeKey}` : typeKey;
+  const type: CardDetailsDto["type"] = supertypeKey
+    ? (`${supertypeKey} ${typeKey}` as CardDetailsDto["type"])
+    : typeKey;
   const rarity = rarityRaw.toLowerCase() as CardDetailsDto["rarity"];
   const showStats = typeKey !== "battlefield" && typeKey !== "rune";
   const showMight = typeKey === "unit";
@@ -55,5 +57,7 @@ function normalizeDomains(domains: CardDomain[] | string[]) {
 
   return domains
     .map((domain) => domain.toLowerCase())
-    .filter((domain): domain is CardDomain => allowedSet.has(domain as CardDomain));
+    .filter((domain): domain is CardDomain =>
+      allowedSet.has(domain as CardDomain)
+    );
 }
