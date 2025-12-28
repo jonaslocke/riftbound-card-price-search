@@ -72,11 +72,11 @@ export default function CardSummary({ details }: Props) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
       }}
       className={cn(
-        "w-full bg-slate-700/85 backdrop-blur-lg fixed inset-x-0 top-16 z-30",
+        "top-16 z-30 fixed inset-x-0 bg-slate-700/85 backdrop-blur-lg w-full",
         showSummary ? "pointer-events-auto" : "pointer-events-none"
       )}
     >
-      <div className="mx-auto w-full max-w-2xl flex flex-col gap-3 md:flex-row md:items-center md:gap-6 py-2">
+      <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-6 mx-auto py-2 w-full max-w-2xl">
         {imageUrl && (
           <span
             className={cn(
@@ -87,8 +87,8 @@ export default function CardSummary({ details }: Props) {
             <img src={imageUrl} alt={name} loading="lazy" />
           </span>
         )}
-        <div className="flex flex-col justify-center gap-1 flex-1">
-          <h2 className="truncate font-semibold text-primary-foreground leading-4">
+        <div className="flex flex-col flex-1 justify-center gap-1">
+          <h2 className="font-semibold text-primary-foreground truncate leading-4">
             {name}
           </h2>
           <div className="flex gap-0.5">

@@ -45,5 +45,5 @@
 [x] after login/logout return to the last known page
 [x] search form refactor with useReducer
 [x] update card detail height in mobile version
-[ ] card listing on mobile version
+[x] card listing on mobile version
 [ ] second header mobile version
