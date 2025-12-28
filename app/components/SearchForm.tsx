@@ -10,7 +10,7 @@ import {
   useCallback,
   useEffect,
   useRef,
-  useState,
+  useReducer,
   useTransition,
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -27,6 +27,124 @@ type SearchFormProps = {
   variant?: "default" | "header";
 };
 
+type SearchFormState = {
+  isMobile: boolean;
+  query: string;
+  suggestions: Card[];
+  loading: boolean;
+  error: string | null;
+  selectedId: string | null;
+  highlightedIndex: number;
+  isOpen: boolean;
+  showMinCharsHelper: boolean;
+};
+
+type SearchFormAction =
+  | { type: "setMobile"; value: boolean }
+  | { type: "setQuery"; value: string }
+  | { type: "setOpen"; value: boolean }
+  | { type: "setHighlightedIndex"; value: number }
+  | { type: "setShowMinCharsHelper"; value: boolean }
+  | { type: "fetchStart" }
+  | { type: "fetchSuccess"; items: Card[] }
+  | { type: "fetchError"; message: string }
+  | { type: "fetchAbort" }
+  | { type: "closeSuggestions"; clear?: boolean }
+  | { type: "resetForEmptyQuery" }
+  | { type: "resetForShortQuery" }
+  | { type: "selectCard"; id: string }
+  | { type: "clearAll" };
+
+const initialState: SearchFormState = {
+  isMobile: false,
+  query: "",
+  suggestions: [],
+  loading: false,
+  error: null,
+  selectedId: null,
+  highlightedIndex: -1,
+  isOpen: false,
+  showMinCharsHelper: false,
+};
+
+function reducer(
+  state: SearchFormState,
+  action: SearchFormAction
+): SearchFormState {
+  switch (action.type) {
+    case "setMobile":
+      return { ...state, isMobile: action.value };
+    case "setQuery":
+      return { ...state, query: action.value };
+    case "setOpen":
+      return { ...state, isOpen: action.value };
+    case "setHighlightedIndex":
+      return { ...state, highlightedIndex: action.value };
+    case "setShowMinCharsHelper":
+      return { ...state, showMinCharsHelper: action.value };
+    case "fetchStart":
+      return { ...state, loading: true, error: null };
+    case "fetchSuccess":
+      return {
+        ...state,
+        loading: false,
+        suggestions: action.items,
+        highlightedIndex: action.items.length > 0 ? 0 : -1,
+        isOpen: true,
+        selectedId: null,
+      };
+    case "fetchError":
+      return {
+        ...state,
+        loading: false,
+        suggestions: [],
+        highlightedIndex: -1,
+        isOpen: false,
+        error: action.message,
+      };
+    case "fetchAbort":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "closeSuggestions":
+      return {
+        ...state,
+        suggestions: action.clear ? [] : state.suggestions,
+        highlightedIndex: -1,
+        isOpen: false,
+      };
+    case "resetForEmptyQuery":
+    case "resetForShortQuery":
+      return {
+        ...state,
+        suggestions: [],
+        highlightedIndex: -1,
+        selectedId: null,
+        error: null,
+        loading: false,
+        isOpen: false,
+        showMinCharsHelper: false,
+      };
+    case "selectCard":
+      return { ...state, selectedId: action.id };
+    case "clearAll":
+      return {
+        ...state,
+        query: "",
+        suggestions: [],
+        highlightedIndex: -1,
+        selectedId: null,
+        error: null,
+        loading: false,
+        isOpen: false,
+        showMinCharsHelper: false,
+      };
+    default:
+      return state;
+  }
+}
+
 export default function SearchForm({
   placeholder,
   mobilePlaceholder,
@@ -38,18 +156,20 @@ export default function SearchForm({
   const pathname = usePathname();
   const router = useRouter();
   const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
-  const [isMobile, setIsMobile] = useState(false);
-  const resolvedPlaceholder = isMobile
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const resolvedPlaceholder = state.isMobile
     ? mobilePlaceholder ?? t("search.placeholder_mobile")
     : placeholder ?? t("search.placeholder");
-  const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<Card[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [isOpen, setIsOpen] = useState(false);
-  const [showMinCharsHelper, setShowMinCharsHelper] = useState(false);
+  const {
+    query,
+    suggestions,
+    loading,
+    error,
+    selectedId,
+    highlightedIndex,
+    isOpen,
+    showMinCharsHelper,
+  } = state;
   const [isNavigating, startTransition] = useTransition();
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -68,11 +188,7 @@ export default function SearchForm({
   const closeSuggestions = useCallback(
     (options?: { clear?: boolean }) => {
       clearTimers();
-      if (options?.clear) {
-        setSuggestions([]);
-      }
-      setHighlightedIndex(-1);
-      setIsOpen(false);
+      dispatch({ type: "closeSuggestions", clear: options?.clear });
     },
     [clearTimers]
   );
@@ -82,32 +198,20 @@ export default function SearchForm({
 
     if (trimmed.length < 1) {
       clearTimers();
-      setSuggestions([]);
-      setHighlightedIndex(-1);
-      setSelectedId(null);
-      setError(null);
-      setLoading(false);
-      setIsOpen(false);
-      setShowMinCharsHelper(false);
+      dispatch({ type: "resetForEmptyQuery" });
       return;
     }
 
     if (trimmed.length < 3) {
       clearTimers();
-      setSuggestions([]);
-      setHighlightedIndex(-1);
-      setSelectedId(null);
-      setError(null);
-      setLoading(false);
-      setIsOpen(false);
-      setShowMinCharsHelper(false);
+      dispatch({ type: "resetForShortQuery" });
       helperRef.current = setTimeout(() => {
-        setShowMinCharsHelper(true);
+        dispatch({ type: "setShowMinCharsHelper", value: true });
       }, 1000);
       return;
     }
 
-    setShowMinCharsHelper(false);
+    dispatch({ type: "setShowMinCharsHelper", value: false });
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       fetchSuggestions(trimmed);
@@ -124,8 +228,7 @@ export default function SearchForm({
     const controller = new AbortController();
     abortRef.current = controller;
 
-    setLoading(true);
-    setError(null);
+    dispatch({ type: "fetchStart" });
 
     try {
       const res = await fetch(
@@ -142,18 +245,16 @@ export default function SearchForm({
       }
 
       const data = await res.json();
-      setSuggestions(data.items ?? []);
-      setHighlightedIndex((data.items ?? []).length > 0 ? 0 : -1);
-      setIsOpen(true);
-      setSelectedId(null);
+      dispatch({ type: "fetchSuccess", items: data.items ?? [] });
     } catch (err) {
-      if ((err as Error).name === "AbortError") return;
-      setSuggestions([]);
-      setHighlightedIndex(-1);
-      setError((err as Error).message);
-      setIsOpen(false);
-    } finally {
-      setLoading(false);
+      if ((err as Error).name === "AbortError") {
+        dispatch({ type: "fetchAbort" });
+        return;
+      }
+      dispatch({
+        type: "fetchError",
+        message: (err as Error).message,
+      });
     }
   }
 
@@ -169,8 +270,8 @@ export default function SearchForm({
   }
 
   function handleSelect(card: Card) {
-    setSelectedId(card.id);
-    setQuery("");
+    dispatch({ type: "selectCard", id: card.id });
+    dispatch({ type: "setQuery", value: "" });
     closeSuggestions({ clear: true });
     onCardSelect?.(card);
     navigateToCard(card);
@@ -191,23 +292,32 @@ export default function SearchForm({
     if (event.key === "ArrowDown") {
       event.preventDefault();
       if (!isOpen) {
-        setIsOpen(true);
-        setHighlightedIndex(0);
+        dispatch({ type: "setOpen", value: true });
+        dispatch({ type: "setHighlightedIndex", value: 0 });
         return;
       }
-      setHighlightedIndex((prev) =>
-        prev + 1 >= suggestions.length ? 0 : prev + 1
-      );
+      dispatch({
+        type: "setHighlightedIndex",
+        value:
+          highlightedIndex + 1 >= suggestions.length ? 0 : highlightedIndex + 1,
+      });
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
       if (!isOpen) {
-        setIsOpen(true);
-        setHighlightedIndex(suggestions.length - 1);
+        dispatch({ type: "setOpen", value: true });
+        dispatch({
+          type: "setHighlightedIndex",
+          value: suggestions.length - 1,
+        });
         return;
       }
-      setHighlightedIndex((prev) =>
-        prev - 1 < 0 ? suggestions.length - 1 : prev - 1
-      );
+      dispatch({
+        type: "setHighlightedIndex",
+        value:
+          highlightedIndex - 1 < 0
+            ? suggestions.length - 1
+            : highlightedIndex - 1,
+      });
     } else if (event.key === "Enter") {
       event.preventDefault();
       if (
@@ -223,14 +333,8 @@ export default function SearchForm({
   const showSuggestions = isOpen && suggestions.length > 0;
 
   function handleClear() {
-    setQuery("");
-    setSuggestions([]);
-    setHighlightedIndex(-1);
-    setSelectedId(null);
-    setError(null);
-    setShowMinCharsHelper(false);
+    dispatch({ type: "clearAll" });
     clearTimers();
-    setIsOpen(false);
   }
 
   useEffect(() => {
@@ -273,9 +377,9 @@ export default function SearchForm({
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mediaQuery = window.matchMedia("(max-width: 639px)");
     const handleChange = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches);
+      dispatch({ type: "setMobile", value: event.matches });
     };
-    setIsMobile(mediaQuery.matches);
+    dispatch({ type: "setMobile", value: mediaQuery.matches });
     mediaQuery.addEventListener("change", handleChange);
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
@@ -327,9 +431,10 @@ export default function SearchForm({
           ref={inputRef}
           disabled={isBlocked}
           onChange={(event) => {
-            setQuery(event.target.value);
-            if (event.target.value.trim().length >= 3) {
-              setIsOpen(true);
+            const nextValue = event.target.value;
+            dispatch({ type: "setQuery", value: nextValue });
+            if (nextValue.trim().length >= 3) {
+              dispatch({ type: "setOpen", value: true });
             }
           }}
           aria-controls="card-suggestions"
@@ -337,7 +442,7 @@ export default function SearchForm({
           onKeyDown={handleKeyDown}
           onFocus={() => {
             if (suggestions.length > 0) {
-              setIsOpen(true);
+              dispatch({ type: "setOpen", value: true });
             }
           }}
         />
@@ -362,13 +467,29 @@ export default function SearchForm({
       </div>
 
       {error ? (
-        <p className="mt-2 text-sm text-(--text-muted)" role="status">
+        <p
+          className={cn(
+            "text-sm text-(--text-muted)",
+            isHeader
+              ? "absolute left-0 right-0 top-full z-50 mt-2 rounded-sm border border-border bg-(--panel) px-3 py-2 shadow-(--shadow)"
+              : "mt-2"
+          )}
+          role="status"
+        >
           {error}
         </p>
       ) : null}
 
       {!error && showMinCharsHelper ? (
-        <p className="mt-2 text-sm text-(--text-muted)" role="status">
+        <p
+          className={cn(
+            "text-sm text-(--text-muted)",
+            isHeader
+              ? "absolute left-0 right-0 top-full z-50 mt-2 rounded-sm border border-border bg-(--panel) px-3 py-2 shadow-(--shadow)"
+              : "mt-2"
+          )}
+          role="status"
+        >
           {t("search.min_chars")}
         </p>
       ) : null}
@@ -393,7 +514,9 @@ export default function SearchForm({
                 key={card.id}
                 role="option"
                 aria-selected={isActive || card.id === selectedId}
-                onMouseEnter={() => setHighlightedIndex(index)}
+                onMouseEnter={() =>
+                  dispatch({ type: "setHighlightedIndex", value: index })
+                }
               >
                 <CardSuggestionItem
                   card={card}

@@ -11,7 +11,7 @@ export default function CardDescription() {
   }
 
   return (
-    <div className="flex-1 text-sm leading-6">
+    <div className="flex-1 text-sm leading-6 min-h-32">
       {transpileCardDescription(descriptionPlain)}
     </div>
   );

@@ -41,7 +41,7 @@
 [x] revise pt-br translations file
 [ ] highlight listing item
 [ ] add foil tag
-[ ] show logged avatar on home page
+[x] show logged avatar on home page
 [x] after login/logout return to the last known page
-[ ] search form refactor with useReducer
-[ ] update card detail height in mobile version
+[x] search form refactor with useReducer
+[x] update card detail height in mobile version
