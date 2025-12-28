@@ -1,7 +1,6 @@
 [x] make line breaks into p tags
 [x] add card number and set
 [x] adjust size of might
-[ ] change assets for svgs
 [x] search component arrows dont work
 [x] clean up dto
 [x] format details into a compond pattern component
@@ -13,12 +12,10 @@
 [x] fix card text starting with energy cost as in: Assembly Rig
 [x] fix double close X's on search bar
 [x] update search card by name to find legend cards by tags
-[ ] update power cost on signature spells
 [x] fix card detail and card listing placement
 [x] fix main page elements spacing
 [x] create new listing UI component
 [x] Rename site to hextech codex
-[ ] create other pritings section
 [x] add card header on listing scroll
 [x] fix double icon clear on search bar
 [x] logo
@@ -31,19 +28,22 @@
 [x] authentication preparation
 [x] responsive
 [x] footer - legal disclaimer
-[ ] validate light/dark mode
 [x] add hextech logo on mobile login page
 [x] debounce search input
 [x] min 3 characters for search
-[ ] api limit rate
 [x] i18n login page
 [x] hide footer in login page
 [x] revise pt-br translations file
 [x] highlight listing item
-[ ] add foil tag
 [x] show logged avatar on home page
 [x] after login/logout return to the last known page
 [x] search form refactor with useReducer
 [x] update card detail height in mobile version
 [x] card listing on mobile version
 [x] second header mobile version
+[ ] change assets for svgs
+[ ] create other pritings section
+[ ] update power cost on signature spells
+[ ] validate light/dark mode
+[x] api limit rate
+[ ] add foil tag

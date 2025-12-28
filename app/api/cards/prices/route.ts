@@ -1,12 +1,13 @@
 import stores from "@/data/stores.json";
+import { authOptions } from "@/lib/auth";
+import { isRateLimited } from "@/lib/rateLimit";
 import { load, type Cheerio, type CheerioAPI } from "cheerio";
 import type { Element } from "domhandler";
 import { promises as fs } from "fs";
-import path from "path";
+import { getServerSession, type Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 import type { Card } from "../../../types/card";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 type Store = {
   storeName: string;
@@ -30,16 +31,51 @@ const STORE_LIST: Store[] = stores as Store[];
 const USER_AGENT =
   "Mozilla/5.0 (compatible; RiftboundBot/1.0; +https://example.com)";
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
+const RATE_LIMIT_WINDOW_MS = 1000;
 const SET_EDICAO: Record<string, number> = {
   OGN: 1,
   OGS: 2,
   SFD: 5,
 };
+const lastRequestBySession = new Map<string, number>();
+
+function getSessionKey(req: NextRequest, session: Session | null) {
+  const sessionUser = session?.user;
+  if (
+    sessionUser &&
+    "id" in sessionUser &&
+    typeof sessionUser.id === "string"
+  ) {
+    return sessionUser.id;
+  }
+  if (sessionUser?.email) return sessionUser.email;
+
+  const secureToken = req.cookies.get(
+    "__Secure-next-auth.session-token"
+  )?.value;
+  if (secureToken) return secureToken;
+  return req.cookies.get("next-auth.session-token")?.value ?? null;
+}
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session | null;
   if (!session) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
+  const sessionKey = getSessionKey(req, session);
+  if (!sessionKey) {
+    return NextResponse.json(
+      { error: "Session identifier missing." },
+      { status: 500 }
+    );
+  }
+
+  const now = Date.now();
+  if (
+    isRateLimited(lastRequestBySession, sessionKey, now, RATE_LIMIT_WINDOW_MS)
+  ) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -105,13 +141,14 @@ export async function GET(req: NextRequest) {
     set: setId,
     number: collector,
     inStockStores,
-    stores: tcgplayerStore
-      ? [tcgplayerStore, ...otherStores]
-      : otherStores,
+    stores: tcgplayerStore ? [tcgplayerStore, ...otherStores] : otherStores,
   });
 }
 
-async function loadCard(setId: string, numberRaw: string): Promise<Card | null> {
+async function loadCard(
+  setId: string,
+  numberRaw: string
+): Promise<Card | null> {
   const filePath = path.join(DATA_DIR, `${setId.toLowerCase()}.json`);
   let cards: Card[] = [];
 
@@ -317,10 +354,7 @@ async function fetchTcgplayerMarketData(tcgplayerId: string) {
   return { price, quantity };
 }
 
-async function fetchTcgplayerQuantity(
-  tcgplayerId: string,
-  printing: string
-) {
+async function fetchTcgplayerQuantity(tcgplayerId: string, printing: string) {
   const searchUrl = "https://mp-search-api.tcgplayer.com/v1/search/request";
   const body = {
     algorithm: "salesSynonym",
@@ -341,7 +375,10 @@ async function fetchTcgplayerQuantity(
     (sum, listing) => sum + (listing.quantity ?? 0),
     0
   );
-  if (listingQuantities > 0 && totalListings <= (result?.listings ?? []).length) {
+  if (
+    listingQuantities > 0 &&
+    totalListings <= (result?.listings ?? []).length
+  ) {
     return listingQuantities;
   }
   if (listingQuantities > 0 && totalListings === 0) {
@@ -391,10 +428,7 @@ function parsePrice(text: string): number {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
-function extractQuantity(
-  scope: Cheerio<Element>,
-  $: CheerioAPI
-): number {
+function extractQuantity(scope: Cheerio<Element>, $: CheerioAPI): number {
   const attrStock =
     scope.attr("data-stock") ||
     scope.attr("data-qty") ||

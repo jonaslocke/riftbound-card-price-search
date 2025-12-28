@@ -63,8 +63,6 @@ export default function CardSummary({ details }: Props) {
       .map((word) => word[0]?.toUpperCase() + word.slice(1))
       .join(" ");
 
-  console.log({ imageUrl });
-
   return (
     <motion.nav
       aria-hidden={!showSummary}
@@ -79,43 +77,6 @@ export default function CardSummary({ details }: Props) {
         showSummary ? "pointer-events-auto" : "pointer-events-none"
       )}
     >
-      {/* <div className="flex sm:items-center gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] mx-auto w-full max-w-6xl">
-        {imageUrl && (
-          <Image
-            src={imageUrl}
-            alt={"brand.name"}
-            width={744}
-            height={1039}
-            className={cn(
-              "w-10 sm:w-12",
-              type === "battlefield" ? "aspect-88/63" : "aspect-63/88"
-            )}
-          />
-        )}
-        <div>
-          <h2 className="text-white/80">{name}</h2>
-          <div className="flex gap-0.5">
-            {rarityImg && (
-              <Badge variant="secondary">
-                <img src={rarityImg} alt={`${rarity} image`} />
-                <span className="capitalize">{rarity}</span>
-              </Badge>
-            )}
-            {typeImg && (
-              <Badge variant="secondary">
-                <img src={typeImg} alt={`${type} image`} className="invert" />
-                <span>{formatLabel(type)}</span>
-              </Badge>
-            )}
-            {domainBadges.map(({ domain, domainImg: badgeImg }) => (
-              <Badge key={domain} variant="secondary" className="select-none">
-                {badgeImg ? <img src={badgeImg} alt="" /> : null}
-                <span className="capitalize">{domain}</span>
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </div> */}
       <div className="flex items-center gap-3 mx-auto py-2 w-full max-w-2xl">
         {imageUrl && (
           <Image
