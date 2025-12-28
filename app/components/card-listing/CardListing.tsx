@@ -66,6 +66,11 @@ export default async function CardListing({
                   locale={locale}
                   visitStoreLabel={visitStoreLabel}
                   unavailableLabel={unavailableLabel}
+                  variant={
+                    listing.storeName === "tcgplayer"
+                      ? "highlighted"
+                      : "default"
+                  }
                 />
               ))
             ) : (

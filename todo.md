@@ -39,9 +39,11 @@
 [x] i18n login page
 [x] hide footer in login page
 [x] revise pt-br translations file
-[ ] highlight listing item
+[x] highlight listing item
 [ ] add foil tag
 [x] show logged avatar on home page
 [x] after login/logout return to the last known page
 [x] search form refactor with useReducer
 [x] update card detail height in mobile version
+[ ] card listing on mobile version
+[ ] second header mobile version

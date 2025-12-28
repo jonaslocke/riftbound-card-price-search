@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ExternalLinkIcon } from "lucide-react";
 import { toLanguageTag, type LocaleSegment } from "@/app/i18n/settings";
+import { cn } from "@/lib/utils";
 
 type CardListingItemProps = CardPriceStoreDto & {
   locale: LocaleSegment;
   visitStoreLabel: string;
   unavailableLabel: string;
+  variant?: "default" | "highlighted";
 };
 
 export default function CardListingItem({
@@ -23,8 +25,10 @@ export default function CardListingItem({
   locale,
   visitStoreLabel,
   unavailableLabel,
+  variant = "default",
 }: CardListingItemProps) {
   const displayTitle = storeTitle || storeName;
+  const isHighlighted = variant === "highlighted";
   const formattedPrice =
     price > 0
       ? new Intl.NumberFormat(toLanguageTag(locale), {
@@ -34,11 +38,23 @@ export default function CardListingItem({
       : "-";
 
   return (
-    <TableRow className="border-black/10 hover:bg-black/5 text-sm">
+    <TableRow
+      className={cn(
+        "border-black/10 text-sm",
+        isHighlighted
+          ? "border-2 border-amber-400 bg-linear-to-r from-amber-100/60 via-amber-200/50 to-amber-100/60 hover:from-amber-100 hover:via-amber-100/70 hover:to-amber-100"
+          : "hover:bg-black/5"
+      )}
+    >
       <TableCell className="px-2 py-3">
         <div className="flex items-center gap-3">
           <a href={storeUrl} target="_blank" rel="noopener noreferrer">
-            <Avatar className="border-2 border-black/5 bg-black/20 text-sm size-12">
+            <Avatar
+              className={cn(
+                "border-2 bg-black/20 text-sm size-12",
+                isHighlighted ? "border-amber-400/70" : "border-black/5"
+              )}
+            >
               {storeImage && (
                 <AvatarImage
                   src={storeImage}
