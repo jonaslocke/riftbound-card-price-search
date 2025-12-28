@@ -32,14 +32,14 @@
 [x] responsive
 [x] footer - legal disclaimer
 [ ] validate light/dark mode
-[ ] add hextech logo on mobile login page
+[x] add hextech logo on mobile login page
 [ ] debounce search input
 [ ] min 3 characters for search
 [ ] api limit rate
 [x] i18n login page
 [x] hide footer in login page
 [ ] revise pt-br translations file
-[ ] highlight kisting item
+[ ] highlight listing item
 [ ] add foil tag
 [ ] show logged avatar on home page
 [ ] after login return to the last known page

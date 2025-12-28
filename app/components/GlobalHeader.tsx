@@ -133,7 +133,7 @@ type AuthAvatarMenuProps = {
   onSignOut: () => void;
 };
 
-function AuthAvatarMenu({
+export function AuthAvatarMenu({
   ariaLabel,
   avatarFallback,
   avatarSize,

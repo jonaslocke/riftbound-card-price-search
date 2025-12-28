@@ -2,13 +2,22 @@
 
 import logo from "@/assets/brand/hextech-codex-gradient.svg";
 import { Moon, Sun } from "lucide-react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AuthAvatarMenu } from "../components/GlobalHeader";
 import SearchForm from "../components/SearchForm";
+import { getLocaleFromPathname } from "../i18n/pathname";
+import { defaultLocale } from "../i18n/settings";
 
 export default function Home() {
   const { t } = useTranslation("common");
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated";
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
@@ -42,10 +51,37 @@ export default function Home() {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const callbackUrl = pathname || `/${locale}`;
+  const handleSignIn = () => {
+    signIn("google", { callbackUrl });
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: `/${locale}` });
+  };
+
   return (
     <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col gap-4 px-[clamp(16px,4vw,32px)]">
+      {isAuthenticated && (
+        <div className="fixed right-4 top-4 z-20 hidden sm:block">
+          <AuthAvatarMenu
+            ariaLabel={t("brand.name")}
+            avatarFallback="HC"
+            avatarSize="size-11"
+            isAuthenticated={isAuthenticated}
+            displayName={session?.user?.name ?? ""}
+            displayEmail={session?.user?.email ?? ""}
+            imageUrl={session?.user?.image ?? ""}
+            signInLabel={t("auth.sign_in")}
+            signOutLabel={t("auth.sign_out")}
+            signedInAsLabel={t("auth.signed_in_as")}
+            onSignIn={handleSignIn}
+            onSignOut={handleSignOut}
+          />
+        </div>
+      )}
       <button
-        className="fixed right-4 bottom-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0 sm:bottom-auto sm:top-4"
+        className="fixed right-4 bottom-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
         type="button"
         onClick={toggleTheme}
         aria-label={
