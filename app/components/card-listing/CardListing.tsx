@@ -3,11 +3,19 @@ import CardListingItem from "./CardListingItem";
 import type { CardPricesResponseDto } from "@/app/types/card";
 import type { LocaleSegment } from "@/app/i18n/settings";
 import { getServerTranslation } from "@/app/i18n/server";
+import { cn } from "@/lib/utils";
 
 type CardListingProps = {
   prices: CardPricesResponseDto | null;
   locale: LocaleSegment;
 };
+
+const LISTING_HEADERS = [
+  "listing.store_name",
+  "listing.quantity",
+  "listing.value",
+  "listing.go_to",
+];
 
 export default async function CardListing({
   prices,
@@ -19,54 +27,57 @@ export default async function CardListing({
   const visitStoreLabel = t("listing.visit_store");
   const unavailableLabel = t("listing.unavailable");
 
+  if (listings.length < 1) {
+    return (
+      <div className="bg-white/75 mt-3 sm:mt-6 px-3 py-6 border border-slate-400 rounded-sm text-black">
+        {t("listing.empty")}
+      </div>
+    );
+  }
+
   return (
-    <Card className="border-slate-400 bg-white/75 text-black mt-3 sm:mt-6 py-3 gap-0">
-      <CardHeader className="border-b border-black/10 py-0! px-3">
-        <CardTitle className="text-lg font-semibold flex justify-between items-center">
+    <Card className="gap-0 bg-white/75 mt-3 sm:mt-6 py-3 border-slate-400 text-black">
+      <CardHeader className="px-3 py-0! border-black/10 border-b">
+        <CardTitle className="flex justify-between items-center font-semibold text-lg">
           <h2>{t("listing.title")}</h2>
           {inStockStores > 0 && (
-            <p className="text-xs text-black/50">
+            <p className="text-black/50 text-xs">
               {t("listing.in_stock", { count: inStockStores })}
             </p>
           )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0 flex-1 min-h-0 overflow-y-auto">
-        <div className="grid">
-          <div className="grid items-center grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-black/10 bg-black/5">
-            <div className="text-black/70 font-semibold px-3 py-2">
-              {t("listing.store_name")}
+
+      <CardContent className="p-0">
+        <div className="card-listings-grid bg-black/5 border-black/10 border-b">
+          {LISTING_HEADERS.map((head, index) => (
+            <div
+              key={index}
+              className={cn(
+                "px-3 py-2 font-semibold text-black/70 text-sm",
+                index !== 0 && "text-center"
+              )}
+            >
+              {t(head)}
             </div>
-            <div className="text-black/70 font-semibold text-center px-3 py-2">
-              {t("listing.quantity")}
-            </div>
-            <div className="text-black/70 font-semibold text-center px-3 py-2">
-              {t("listing.value")}
-            </div>
-            <div className="text-black/70 font-semibold text-center px-3 py-2">
-              {t("listing.go_to")}
-            </div>
-          </div>
-          {listings.length ? (
-            listings.map((listing, index) => (
-              <CardListingItem
-                key={`${listing.storeName}-${index}`}
-                {...listing}
-                locale={locale}
-                visitStoreLabel={visitStoreLabel}
-                unavailableLabel={unavailableLabel}
-                variant={
-                  listing.storeName === "tcgplayer" ? "highlighted" : "default"
-                }
-              />
-            ))
-          ) : (
-            <div className="grid items-center grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] border-b border-black/10 text-sm">
-              <div className="col-span-4 px-3 py-6 text-center text-black/60">
-                {t("listing.empty")}
-              </div>
-            </div>
-          )}
+          ))}
+        </div>
+        <div>
+          {listings.map((listing, index) => (
+            <CardListingItem
+              key={`${listing.storeName}-${index}`}
+              {...listing}
+              locale={locale}
+              visitStoreLabel={visitStoreLabel}
+              unavailableLabel={unavailableLabel}
+              quantityLabel={t("listing.quantity")}
+              valueLabel={t("listing.value")}
+              variant={
+                listing.storeName === "tcgplayer" ? "highlighted" : "default"
+              }
+              t={t}
+            />
+          ))}
         </div>
       </CardContent>
     </Card>
