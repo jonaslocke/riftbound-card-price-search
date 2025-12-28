@@ -91,7 +91,7 @@ export default function SearchForm({
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       fetchSuggestions(trimmed);
-    }, 200);
+    }, 1000);
 
     return () => {
       clearTimers();
