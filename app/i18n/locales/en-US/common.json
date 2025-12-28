@@ -40,7 +40,14 @@
     "sign_in": "Sign in",
     "sign_out": "Sign out",
     "signed_in_as": "Account",
-    "sign_in_prices": "Login to see the prices."
+    "sign_in_prices": "Login to see the prices.",
+    "sign_in_title": "Welcome back",
+    "sign_in_subtitle": "Sign in to unlock card price listings.",
+    "sign_in_google": "Continue with Google",
+    "sign_in_disclaimer_prefix": "By signing in you agree to the",
+    "sign_in_disclaimer_link": "Riot Games legal policies",
+    "sign_in_promo": "Prices update daily. Keep your session active to see listings.",
+    "sign_in_hero_alt": "Pouty Poro"
   },
   "footer": {
     "social_label": "Social",

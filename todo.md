@@ -36,4 +36,9 @@
 [ ] debounce search input
 [ ] min 3 characters for search
 [ ] api limit rate
-[ ] i18n login page
+[x] i18n login page
+[ ] hide footer in login page
+[ ] revise pt-br translations file
+[ ] highlight kisting item
+[ ] add foil tag
+[ ] show logged avatar on home page

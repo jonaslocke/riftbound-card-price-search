@@ -40,7 +40,14 @@
     "sign_in": "Entrar",
     "sign_out": "Sair",
     "signed_in_as": "Conta",
-    "sign_in_prices": "Faca login para ver os precos."
+    "sign_in_prices": "Faca login para ver os precos.",
+    "sign_in_title": "Bem-vindo de volta",
+    "sign_in_subtitle": "Entre para ver os precos das cartas.",
+    "sign_in_google": "Continuar com Google",
+    "sign_in_disclaimer_prefix": "Ao entrar, voce concorda com as",
+    "sign_in_disclaimer_link": "politicas legais da Riot Games",
+    "sign_in_promo": "Preços atualizados diariamente. Mantenha a sessao ativa para ver listagens.",
+    "sign_in_hero_alt": "Pouty Poro"
   },
   "footer": {
     "social_label": "Social",
