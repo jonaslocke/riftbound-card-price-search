@@ -33,7 +33,7 @@
 [x] footer - legal disclaimer
 [ ] validate light/dark mode
 [x] add hextech logo on mobile login page
-[ ] debounce search input
+[x] debounce search input
 [ ] min 3 characters for search
 [ ] api limit rate
 [x] i18n login page

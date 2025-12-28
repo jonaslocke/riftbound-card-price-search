@@ -49,9 +49,11 @@ export default function SearchForm({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
+  const [showMinCharsHelper, setShowMinCharsHelper] = useState(false);
   const [isNavigating, startTransition] = useTransition();
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const helperRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isHeader = variant === "header";
@@ -59,6 +61,7 @@ export default function SearchForm({
 
   const clearTimers = useCallback(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (helperRef.current) clearTimeout(helperRef.current);
     abortRef.current?.abort();
   }, []);
 
@@ -77,7 +80,7 @@ export default function SearchForm({
   useEffect(() => {
     const trimmed = query.trim();
 
-    if (trimmed.length < 2) {
+    if (trimmed.length < 1) {
       clearTimers();
       setSuggestions([]);
       setHighlightedIndex(-1);
@@ -85,9 +88,26 @@ export default function SearchForm({
       setError(null);
       setLoading(false);
       setIsOpen(false);
+      setShowMinCharsHelper(false);
       return;
     }
 
+    if (trimmed.length < 3) {
+      clearTimers();
+      setSuggestions([]);
+      setHighlightedIndex(-1);
+      setSelectedId(null);
+      setError(null);
+      setLoading(false);
+      setIsOpen(false);
+      setShowMinCharsHelper(false);
+      helperRef.current = setTimeout(() => {
+        setShowMinCharsHelper(true);
+      }, 1000);
+      return;
+    }
+
+    setShowMinCharsHelper(false);
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       fetchSuggestions(trimmed);
@@ -208,6 +228,7 @@ export default function SearchForm({
     setHighlightedIndex(-1);
     setSelectedId(null);
     setError(null);
+    setShowMinCharsHelper(false);
     clearTimers();
     setIsOpen(false);
   }
@@ -307,7 +328,7 @@ export default function SearchForm({
           disabled={isBlocked}
           onChange={(event) => {
             setQuery(event.target.value);
-            if (event.target.value.trim().length >= 2) {
+            if (event.target.value.trim().length >= 3) {
               setIsOpen(true);
             }
           }}
@@ -343,6 +364,12 @@ export default function SearchForm({
       {error ? (
         <p className="mt-2 text-sm text-(--text-muted)" role="status">
           {error}
+        </p>
+      ) : null}
+
+      {!error && showMinCharsHelper ? (
+        <p className="mt-2 text-sm text-(--text-muted)" role="status">
+          {t("search.min_chars")}
         </p>
       ) : null}
 

@@ -16,6 +16,7 @@
     "clear": "Clear search",
     "suggestions_aria": "Card search suggestions",
     "error_default": "Unable to search right now.",
+    "min_chars": "Type at least 3 characters to search.",
     "no_image": "No image"
   },
   "listing": {
