@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import GlobalHeader from "../components/GlobalHeader";
 import SiteFooter from "../components/SiteFooter";
+import LayoutChrome from "../components/LayoutChrome";
 import AppProviders from "../components/AppProviders";
 import {
   defaultLocale,
@@ -23,11 +24,12 @@ export default async function LocaleLayout({
 
   return (
     <AppProviders locale={locale}>
-      <div className="flex min-h-screen w-full flex-col items-stretch">
-        <GlobalHeader />
-        <div className="min-h-screen flex-1">{children}</div>
-        <SiteFooter locale={locale} />
-      </div>
+      <LayoutChrome
+        header={<GlobalHeader />}
+        footer={<SiteFooter locale={locale} />}
+      >
+        {children}
+      </LayoutChrome>
     </AppProviders>
   );
 }

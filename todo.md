@@ -37,8 +37,9 @@
 [ ] min 3 characters for search
 [ ] api limit rate
 [x] i18n login page
-[ ] hide footer in login page
+[x] hide footer in login page
 [ ] revise pt-br translations file
 [ ] highlight kisting item
 [ ] add foil tag
 [ ] show logged avatar on home page
+[ ] after login return to the last known page
