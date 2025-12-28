@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import CardListingItem from "./CardListingItem";
-import type { CardPricesResponseDto } from "@/app/types/card";
-import type { LocaleSegment } from "@/app/i18n/settings";
 import { getServerTranslation } from "@/app/i18n/server";
+import type { LocaleSegment } from "@/app/i18n/settings";
+import type { CardPricesResponseDto } from "@/app/types/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import CardListingItem from "./CardListingItem";
 
 type CardListingProps = {
   prices: CardPricesResponseDto | null;
@@ -24,8 +24,6 @@ export default async function CardListing({
   const { t } = await getServerTranslation(locale);
   const listings = prices?.stores ?? [];
   const inStockStores = prices?.inStockStores ?? 0;
-  const visitStoreLabel = t("listing.visit_store");
-  const unavailableLabel = t("listing.unavailable");
 
   if (listings.length < 1) {
     return (
@@ -67,11 +65,10 @@ export default async function CardListing({
             <CardListingItem
               key={`${listing.storeName}-${index}`}
               {...listing}
-              locale={locale}
+              currency={listing.storeName === "tcgplayer" ? "USD" : "BRL"}
               variant={
                 listing.storeName === "tcgplayer" ? "highlighted" : "default"
               }
-              t={t}
             />
           ))}
         </div>

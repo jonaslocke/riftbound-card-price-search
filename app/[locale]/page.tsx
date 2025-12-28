@@ -1,21 +1,21 @@
 "use client";
 
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { AuthAvatarMenu } from "../components/GlobalHeader";
 import SearchForm from "../components/SearchForm";
 import { getLocaleFromPathname } from "../i18n/pathname";
 import { defaultLocale } from "../i18n/settings";
-import { readLastKnownPath } from "@/lib/lastKnownPath";
 
 export default function Home() {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const pathname = usePathname();
   const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
   const { data: session, status } = useSession();
@@ -65,9 +65,9 @@ export default function Home() {
   };
 
   return (
-    <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col gap-4 px-[clamp(16px,4vw,32px)]">
+    <main className="flex flex-col gap-4 mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] px-[clamp(16px,4vw,32px)] w-full max-w-2xl">
       {isAuthenticated && (
-        <div className="fixed right-4 top-4 z-20">
+        <div className="top-4 right-4 z-20 fixed">
           <AuthAvatarMenu
             ariaLabel={t("brand.name")}
             avatarFallback="HC"
@@ -98,10 +98,15 @@ export default function Home() {
       </button>
 
       <h1 className="sr-only">{t("brand.name")}</h1>
-      <div className={cn("flex justify-center", isAuthenticated && "mt-12 sm:mt-0")}>
+      <div
+        className={cn(
+          "flex justify-center",
+          isAuthenticated && "mt-12 sm:mt-0"
+        )}
+      >
         <Image src={logo} alt={t("brand.name")} className="w-80 sm:w-96" />
       </div>
-      <p className="text-sm leading-relaxed text-accent text-center">
+      <p className="text-accent text-sm text-center leading-relaxed">
         {t("home.tagline")}
       </p>
 

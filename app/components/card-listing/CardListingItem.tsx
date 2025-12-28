@@ -1,16 +1,16 @@
-import { toLanguageTag, type LocaleSegment } from "@/app/i18n/settings";
+"use client";
+
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { CardPriceStoreDto } from "@/app/types/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { i18n } from "i18next";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 
-type CardListingItemProps = CardPriceStoreDto & {
-  locale: LocaleSegment;
+type CardListingItemProps = Omit<CardPriceStoreDto, "currency"> & {
   variant?: "default" | "highlighted";
-  t: i18n["t"];
+  currency?: "BRL" | "USD";
 };
 
 export default function CardListingItem({
@@ -21,20 +21,17 @@ export default function CardListingItem({
   storeImage,
   storeUrl,
   cardUrl,
-  currency,
-  locale,
   variant = "default",
-  t,
+  currency = "BRL",
 }: CardListingItemProps) {
+  const { t, numberFormatter } = useI18nHelpers({
+    numberFormatOptions: {
+      currency,
+    },
+  });
   const displayTitle = storeTitle || storeName;
   const isHighlighted = variant === "highlighted";
-  const formattedPrice =
-    price > 0
-      ? new Intl.NumberFormat(toLanguageTag(locale), {
-          style: "currency",
-          currency: currency === "brl" ? "BRL" : "USD",
-        }).format(price)
-      : "-";
+  const formattedPrice = price > 0 ? numberFormatter().format(price) : "-";
   const storeInitials = displayTitle.slice(0, 2).toUpperCase();
 
   return (
@@ -69,7 +66,7 @@ export default function CardListingItem({
             {storeInitials}
           </AvatarFallback>
         </Avatar>
-        <div className="max-w-[26ch] font-medium truncate">{displayTitle}</div>
+        <div className="font-medium truncate">{displayTitle}</div>
       </Link>
       <div>{quantity}</div>
       <div>{formattedPrice}</div>

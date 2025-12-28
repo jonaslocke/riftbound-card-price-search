@@ -1,24 +1,21 @@
 "use client";
 
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
+import { getLocaleFromPathname, isLocaleRoot } from "@/app/i18n/pathname";
+import { defaultLocale } from "@/app/i18n/settings";
 import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { readLastKnownPath } from "@/lib/lastKnownPath";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SearchForm from "./SearchForm";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useTranslation } from "react-i18next";
-import { defaultLocale } from "@/app/i18n/settings";
-import {
-  getLocaleFromPathname,
-  isLocaleRoot,
-} from "@/app/i18n/pathname";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import SearchForm from "./SearchForm";
 
 export default function GlobalHeader() {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const pathname = usePathname();
   const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
   const isHome = pathname === "/" || isLocaleRoot(pathname);
@@ -41,17 +38,17 @@ export default function GlobalHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 flex flex-col gap-3 border-b border-slate-400/20 bg-slate-900/85 px-4 py-3 backdrop-blur-lg md:px-6 md:h-16">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] sm:items-center">
-          <div className="flex items-center justify-between sm:justify-start">
+      <header className="top-0 z-40 fixed inset-x-0 flex flex-col gap-3 bg-slate-900/85 backdrop-blur-lg px-4 md:px-6 py-3 border-slate-400/20 border-b md:h-16">
+        <div className="flex flex-col sm:items-center gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] mx-auto w-full max-w-6xl">
+          <div className="flex justify-between sm:justify-start items-center">
             <Link href={`/${locale}`} className="flex-1 sm:flex-none">
               <Image
                 src={logo}
                 alt={t("brand.name")}
-                className="h-10 w-auto sm:h-8"
+                className="w-auto h-10 sm:h-8"
               />
             </Link>
-            <div className="flex items-center gap-2 sm:hidden">
+            <div className="sm:hidden flex items-center gap-2">
               {isAuthenticated ? (
                 <AuthAvatarMenu
                   ariaLabel={t("brand.name")}
@@ -80,14 +77,14 @@ export default function GlobalHeader() {
               )}
             </div>
           </div>
-          <div className="flex w-full items-center sm:mx-auto">
+          <div className="flex items-center sm:mx-auto w-full">
             <SearchForm
               placeholder={t("search.placeholder")}
               mobilePlaceholder={t("search.placeholder_mobile")}
               variant="header"
             />
           </div>
-          <div className="hidden items-center justify-end gap-3 sm:flex">
+          <div className="hidden sm:flex justify-end items-center gap-3">
             {isAuthenticated ? (
               <AuthAvatarMenu
                 ariaLabel={t("brand.name")}
@@ -183,11 +180,11 @@ export function AuthAvatarMenu({
         aria-haspopup="menu"
         aria-expanded={isOpen}
         onClick={() => setIsOpen((open) => !open)}
-        className="rounded-full transition hover:scale-[1.02]"
+        className="rounded-full hover:scale-[1.02] transition"
       >
         <Avatar className={avatarSize}>
           <AvatarImage src={imageUrl || "/favicon-32x32.png"} alt={ariaLabel} />
-          <AvatarFallback className="bg-transparent! font-ui font-semibold tracking-wider text-amber-300 border-2 border-amber-300/60 sm:text-sm">
+          <AvatarFallback className="bg-transparent! border-2 border-amber-300/60 font-ui font-semibold text-amber-300 sm:text-sm tracking-wider">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -195,18 +192,18 @@ export function AuthAvatarMenu({
       {isOpen && (
         <div
           role="menu"
-          className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-2 text-sm text-white shadow-xl z-50"
+          className="top-full right-0 z-50 absolute bg-slate-950/95 shadow-xl mt-2 p-2 border border-white/10 rounded-2xl w-56 overflow-hidden text-white text-sm"
         >
           {isAuthenticated ? (
             <>
-              <div className="px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/50">
+              <div className="px-3 py-2 text-white/50 text-xs uppercase tracking-[0.2em]">
                 {signedInAsLabel}
               </div>
-              <div className="px-3 pb-2 text-sm font-semibold text-white">
+              <div className="px-3 pb-2 font-semibold text-white text-sm">
                 {displayName || "Google User"}
               </div>
               {displayEmail && (
-                <div className="px-3 pb-3 text-xs text-white/60">
+                <div className="px-3 pb-3 text-white/60 text-xs">
                   {displayEmail}
                 </div>
               )}
@@ -214,24 +211,24 @@ export function AuthAvatarMenu({
                 type="button"
                 role="menuitem"
                 onClick={onSignOut}
-                className="w-full rounded-xl bg-white/10 px-3 py-2 text-left text-white hover:bg-white/20"
+                className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl w-full text-white text-left"
               >
                 {signOutLabel}
               </button>
             </>
           ) : (
             <>
-              <div className="px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/50">
+              <div className="px-3 py-2 text-white/50 text-xs uppercase tracking-[0.2em]">
                 {signedInAsLabel}
               </div>
-              <div className="px-3 pb-3 text-xs text-white/70">
+              <div className="px-3 pb-3 text-white/70 text-xs">
                 {signInLabel}
               </div>
               <button
                 type="button"
                 role="menuitem"
                 onClick={onSignIn}
-                className="w-full rounded-xl bg-white px-3 py-2 text-left font-semibold text-slate-900 hover:bg-white/90"
+                className="bg-white hover:bg-white/90 px-3 py-2 rounded-xl w-full font-semibold text-slate-900 text-left"
               >
                 {signInLabel}
               </button>

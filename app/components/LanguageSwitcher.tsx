@@ -1,18 +1,15 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
-import { usePathname, useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
+import { buildLocalePath, getLocaleFromPathname } from "@/app/i18n/pathname";
 import {
   defaultLocale,
   localeCookie,
   localeSegments,
   type LocaleSegment,
 } from "@/app/i18n/settings";
-import {
-  buildLocalePath,
-  getLocaleFromPathname,
-} from "@/app/i18n/pathname";
+import { cn } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 const localeLabels: Record<LocaleSegment, string> = {
   "pt-br": "PT-BR",
@@ -20,7 +17,7 @@ const localeLabels: Record<LocaleSegment, string> = {
 };
 
 export default function LanguageSwitcher() {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const pathname = usePathname();
   const router = useRouter();
   const activeLocale = getLocaleFromPathname(pathname) ?? defaultLocale;
@@ -33,7 +30,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1 text-xs text-white">
+    <div className="inline-flex items-center gap-1 bg-white/10 p-1 border border-white/15 rounded-full text-white text-xs">
       <span className="sr-only">{t("language.switcher")}</span>
       {localeSegments.map((locale) => (
         <button
@@ -42,7 +39,7 @@ export default function LanguageSwitcher() {
           onClick={() => setLocale(locale)}
           aria-pressed={locale === activeLocale}
           className={cn(
-            "rounded-full px-2 py-1 font-semibold uppercase transition",
+            "px-2 py-1 rounded-full font-semibold uppercase transition",
             locale === activeLocale
               ? "bg-white text-slate-900"
               : "text-white/80 hover:text-white"

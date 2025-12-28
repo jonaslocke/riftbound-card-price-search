@@ -1,12 +1,12 @@
 "use client";
 
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import icon from "@/assets/icons/might-24.webp";
 import { cn } from "@/lib/utils";
 import { useCardDetails } from "./context";
-import { useTranslation } from "react-i18next";
 
 export default function UnitCardMight() {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const card = useCardDetails();
   const { might, rarity } = card;
 
@@ -15,7 +15,7 @@ export default function UnitCardMight() {
   return (
     <div
       className={cn(
-        "absolute p-0! select-none right-0 bottom-0",
+        "right-0 bottom-0 absolute p-0! select-none",
         "-translate-x-[30%] translate-y-[40%] sm:translate-x-[30%]"
       )}
       style={{
@@ -24,7 +24,7 @@ export default function UnitCardMight() {
     >
       <div
         className={cn(
-          "flex items-center gap-2 py-0.5 px-1.5 rounded border border-black/50",
+          "flex items-center gap-2 px-1.5 py-0.5 border border-black/50 rounded",
           rarity === "common"
             ? "bg-common"
             : rarity === "uncommon"

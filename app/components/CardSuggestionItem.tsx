@@ -3,7 +3,7 @@
 import type { Card } from "../types/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "react-i18next";
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 
 type CardSuggestionItemProps = {
   card: Card;
@@ -18,7 +18,7 @@ export default function CardSuggestionItem({
   className,
   isActive = false,
 }: CardSuggestionItemProps) {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
   const collector = card.collector_number ?? "";

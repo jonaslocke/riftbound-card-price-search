@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { getLocaleFromPathname } from "@/app/i18n/pathname";
 import { defaultLocale } from "@/app/i18n/settings";
 import { Button } from "@/components/ui/button";
@@ -9,13 +10,12 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   useCallback,
   useEffect,
-  useRef,
   useReducer,
+  useRef,
   useTransition,
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
 import type { Card } from "../types/card";
 import CardSuggestionItem from "./CardSuggestionItem";
 
@@ -154,7 +154,7 @@ export default function SearchForm({
   onCardSelect,
   variant = "default",
 }: SearchFormProps) {
-  const { t } = useTranslation("common");
+  const { t } = useI18nHelpers();
   const pathname = usePathname();
   const router = useRouter();
   const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
