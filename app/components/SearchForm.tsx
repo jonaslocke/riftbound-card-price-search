@@ -2,8 +2,9 @@
 
 import { getLocaleFromPathname } from "@/app/i18n/pathname";
 import { defaultLocale } from "@/app/i18n/settings";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Search } from "lucide-react";
+import { CircleX, Search } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   useCallback,
@@ -319,17 +320,18 @@ export default function SearchForm({
             }
           }}
         />
-        {query.length > 0 ? (
-          <button
-            type="button"
-            className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-transparent text-(--text-primary) transition hover:border-accent hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
+        {query.length > 0 && (
+          <Button
+            variant="outline"
+            size="icon-sm"
             aria-label={t("search.clear")}
             onClick={handleClear}
             disabled={isBlocked}
+            className="bg-transparent border-0 text-white/60"
           >
-            A-
-          </button>
-        ) : null}
+            <CircleX className="size-5" />
+          </Button>
+        )}
         <span
           className={`absolute right-11 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-border border-t-accent transition-opacity duration-100 ${
             loading ? "opacity-100 animate-spin" : "opacity-0"

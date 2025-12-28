@@ -1,6 +1,7 @@
 "use client";
 
 import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -63,7 +64,7 @@ export default function Home() {
   return (
     <main className="mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] flex w-full max-w-2xl flex-col gap-4 px-[clamp(16px,4vw,32px)]">
       {isAuthenticated && (
-        <div className="fixed right-4 top-4 z-20 hidden sm:block">
+        <div className="fixed right-4 top-4 z-20">
           <AuthAvatarMenu
             ariaLabel={t("brand.name")}
             avatarFallback="HC"
@@ -94,7 +95,7 @@ export default function Home() {
       </button>
 
       <h1 className="sr-only">{t("brand.name")}</h1>
-      <div className="flex justify-center">
+      <div className={cn("flex justify-center", isAuthenticated && "mt-12 sm:mt-0")}>
         <Image src={logo} alt={t("brand.name")} className="w-80 sm:w-96" />
       </div>
       <p className="text-sm leading-relaxed text-accent text-center">
