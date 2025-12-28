@@ -9,10 +9,6 @@ import Link from "next/link";
 
 type CardListingItemProps = CardPriceStoreDto & {
   locale: LocaleSegment;
-  visitStoreLabel: string;
-  unavailableLabel: string;
-  quantityLabel: string;
-  valueLabel: string;
   variant?: "default" | "highlighted";
   t: i18n["t"];
 };
@@ -27,10 +23,6 @@ export default function CardListingItem({
   cardUrl,
   currency,
   locale,
-  visitStoreLabel,
-  unavailableLabel,
-  quantityLabel,
-  valueLabel,
   variant = "default",
   t,
 }: CardListingItemProps) {

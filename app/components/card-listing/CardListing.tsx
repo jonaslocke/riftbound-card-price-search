@@ -68,10 +68,6 @@ export default async function CardListing({
               key={`${listing.storeName}-${index}`}
               {...listing}
               locale={locale}
-              visitStoreLabel={visitStoreLabel}
-              unavailableLabel={unavailableLabel}
-              quantityLabel={t("listing.quantity")}
-              valueLabel={t("listing.value")}
               variant={
                 listing.storeName === "tcgplayer" ? "highlighted" : "default"
               }
