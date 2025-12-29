@@ -16,6 +16,14 @@ let memoryFlowId: string | null = null;
 let memorySessionId: string | null = null;
 let memoryAnonymousId: string | null = null;
 
+function isAnalyticsEnabled() {
+  const flag =
+    process.env.NEXT_PUBLIC_ANALYTICS_ENABLED ??
+    process.env.ANALYTICS_ENABLED ??
+    "true";
+  return flag !== "false" && flag !== "0";
+}
+
 function getStorage(type: "local" | "session"): Storage | null {
   if (typeof window === "undefined") return null;
   try {
@@ -142,6 +150,7 @@ export function trackEvent<K extends AnalyticsEventName>(
   payload: AnalyticsEventPayloadMap[K],
   overrides?: EventOverrides
 ): boolean {
+  if (!isAnalyticsEnabled()) return false;
   const event = buildEvent(event_name, payload, overrides);
   const parsed = AnalyticsEventSchema.safeParse(event);
   if (!parsed.success) {
