@@ -44,9 +44,10 @@
 [x] api limit rate
 [x] mongodb conectivity
 [x] loading state not being shown
+[x] analytics flow plan
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
-[ ] analytics
+[ ] analytics implementation
