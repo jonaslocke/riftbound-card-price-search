@@ -11,8 +11,33 @@ import { fetchCard } from "@/services/fetchCard";
 import { fetchCardPrices } from "@/services/fetchCardPrices";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 type CardPageParams = { locale?: string; slug?: string };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<CardPageParams> | CardPageParams;
+}): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const slug = resolvedParams?.slug;
+  const { setId, collector } = parseSlug(slug);
+  if (!setId || !collector) return {};
+
+  const card = await fetchCard(setId, collector);
+  if (!card) return {};
+
+  const setLabel = card.set?.set_id ?? setId;
+  const collectorLabel =
+    card.collector_number != null
+      ? String(card.collector_number)
+      : String(collector);
+
+  return {
+    title: `${card.name} - ${setLabel}/${collectorLabel}`,
+  };
+}
 
 export default async function CardPage({
   params,

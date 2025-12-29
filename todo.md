@@ -47,9 +47,9 @@
 [x] analytics flow plan
 [x] expand stores list
 [x] analytics implementation
+[ ] change the title of page to reflect the currenct card in detail
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
-[ ] change the title of page to reflect the currenct card in detail
