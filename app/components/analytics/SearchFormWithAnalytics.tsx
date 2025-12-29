@@ -126,7 +126,7 @@ export default function SearchFormWithAnalytics(
   };
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className="w-full">
       <SearchForm {...props} onCardSelect={handleCardSelect} />
     </div>
   );
