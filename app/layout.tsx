@@ -10,6 +10,13 @@ import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import "./globals.css";
 
+const defaultLocaleTag = toLanguageTag(defaultLocale);
+const ogLocale = defaultLocaleTag.replace("-", "_");
+
+export const viewport = {
+  themeColor: "#0A0F1C",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
   title: {
@@ -18,7 +25,30 @@ export const metadata: Metadata = {
   },
   description: siteMetadata.shortDescription,
   keywords: siteMetadata.keywords,
-  manifest: "/site.webmanifest",
+  authors: [{ name: "Jonas Antunes" }],
+  creator: "Jonas Antunes",
+  publisher: "Jonas Antunes",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  other: {
+    "msapplication-TileColor": "#0A0F1C",
+    googlebot:
+      "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+    "apple-mobile-web-app-capable": "yes",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: siteMetadata.name,
+  },
+  formatDetection: {
+    telephone: false,
+    address: false,
+    email: false,
+  },
+  manifest: "/manifest.json",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -40,6 +70,7 @@ export const metadata: Metadata = {
     description:
       "Find and compare Riftbound card prices across multiple stores. Built for Riftbound players.",
     url: siteMetadata.url,
+    locale: ogLocale,
     images: [
       {
         url: siteMetadata.ogImage,
@@ -51,6 +82,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    creator: "@hextechindex",
     title: `${siteMetadata.name} - Riftbound Card Prices`,
     description:
       "Compare Riftbound card prices across stores. Find the best deals on Hextech Index.",

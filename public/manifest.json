@@ -1,0 +1,27 @@
+{
+  "name": "Hextech Index",
+  "short_name": "Hextech Index",
+  "description": "Hextech Index is a platform for discovering Riftbound cards, comparing prices across stores, and exploring card data. Built for players, collectors, and competitive buyers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0F1C",
+  "theme_color": "#b58e4f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment", "utilities"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
