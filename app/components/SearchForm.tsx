@@ -25,7 +25,7 @@ type SearchFormProps = {
   placeholder?: string;
   mobilePlaceholder?: string;
   name?: string;
-  onCardSelect?: (card: Card) => void;
+  onCardSelect?: (card: Card) => void | Promise<void>;
   variant?: "default" | "header";
 };
 
@@ -36,6 +36,7 @@ type SearchFormState = {
   loading: boolean;
   error: string | null;
   selectedId: string | null;
+  isSelecting: boolean;
   highlightedIndex: number;
   isOpen: boolean;
   showMinCharsHelper: boolean;
@@ -54,7 +55,8 @@ type SearchFormAction =
   | { type: "closeSuggestions"; clear?: boolean }
   | { type: "resetForEmptyQuery" }
   | { type: "resetForShortQuery" }
-  | { type: "selectCard"; id: string }
+  | { type: "selectStart"; id: string }
+  | { type: "selectEnd" }
   | { type: "clearAll" };
 
 const initialState: SearchFormState = {
@@ -64,6 +66,7 @@ const initialState: SearchFormState = {
   loading: false,
   error: null,
   selectedId: null,
+  isSelecting: false,
   highlightedIndex: -1,
   isOpen: false,
   showMinCharsHelper: false,
@@ -125,11 +128,14 @@ function reducer(
         selectedId: null,
         error: null,
         loading: false,
+        isSelecting: false,
         isOpen: false,
         showMinCharsHelper: false,
       };
-    case "selectCard":
-      return { ...state, selectedId: action.id };
+    case "selectStart":
+      return { ...state, selectedId: action.id, isSelecting: true };
+    case "selectEnd":
+      return { ...state, isSelecting: false };
     case "clearAll":
       return {
         ...state,
@@ -139,6 +145,7 @@ function reducer(
         selectedId: null,
         error: null,
         loading: false,
+        isSelecting: false,
         isOpen: false,
         showMinCharsHelper: false,
       };
@@ -168,6 +175,7 @@ export default function SearchForm({
     loading,
     error,
     selectedId,
+    isSelecting,
     highlightedIndex,
     isOpen,
     showMinCharsHelper,
@@ -179,7 +187,7 @@ export default function SearchForm({
   const formRef = useRef<HTMLFormElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isHeader = variant === "header";
-  const isBlocked = isNavigating;
+  const isBlocked = isNavigating || isSelecting;
 
   const clearTimers = useCallback(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -268,24 +276,40 @@ export default function SearchForm({
       startTransition(() => {
         router.push(`/${locale}/cards/${setId}-${collector}`);
       });
+      return true;
     }
+    return false;
   }
 
-  function handleSelect(card: Card) {
-    dispatch({ type: "selectCard", id: card.id });
+  async function handleSelect(card: Card) {
+    if (isBlocked) return;
+    dispatch({ type: "selectStart", id: card.id });
     dispatch({ type: "setQuery", value: "" });
     closeSuggestions({ clear: true });
-    onCardSelect?.(card);
-    navigateToCard(card);
+    try {
+      await Promise.resolve(onCardSelect?.(card));
+    } catch {
+      dispatch({ type: "selectEnd" });
+      return;
+    }
+    const didNavigate = navigateToCard(card);
+    if (!didNavigate) {
+      dispatch({ type: "selectEnd" });
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isBlocked) return;
     if (highlightedIndex < 0 || highlightedIndex >= suggestions.length) return;
-    handleSelect(suggestions[highlightedIndex]);
+    void handleSelect(suggestions[highlightedIndex]);
   }
 
   function handleKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
+    if (isBlocked) {
+      event.preventDefault();
+      return;
+    }
     if (event.key === "Escape") {
       closeSuggestions();
       return;
@@ -322,12 +346,12 @@ export default function SearchForm({
       });
     } else if (event.key === "Enter") {
       event.preventDefault();
-      if (
+    if (
         isOpen &&
         highlightedIndex >= 0 &&
         highlightedIndex < suggestions.length
       ) {
-        handleSelect(suggestions[highlightedIndex]);
+        void handleSelect(suggestions[highlightedIndex]);
       }
     }
   }
@@ -335,6 +359,7 @@ export default function SearchForm({
   const showSuggestions = isOpen && suggestions.length > 0;
 
   function handleClear() {
+    if (isBlocked) return;
     dispatch({ type: "clearAll" });
     clearTimers();
   }
@@ -462,7 +487,9 @@ export default function SearchForm({
         )}
         <span
           className={`absolute right-11 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-border border-t-accent transition-opacity duration-100 ${
-            loading ? "opacity-100 animate-spin" : "opacity-0"
+            loading || isSelecting || isNavigating
+              ? "opacity-100 animate-spin"
+              : "opacity-0"
           }`}
           aria-hidden="true"
         />

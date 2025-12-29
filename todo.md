@@ -43,6 +43,7 @@
 [x] second header mobile version
 [x] api limit rate
 [x] mongodb conectivity
+[x] loading state not being shown
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
