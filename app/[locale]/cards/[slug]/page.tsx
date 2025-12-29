@@ -40,7 +40,10 @@ export async function generateMetadata({
   const description =
     card.text?.plain ??
     `Compare prices and availability for ${card.name} on ${siteMetadata.name}.`;
-  const imageUrl = card.media?.image_url ?? siteMetadata.ogImage;
+  const rawImageUrl = card.media?.image_url ?? siteMetadata.ogImage;
+  const imageUrl = rawImageUrl.startsWith("http")
+    ? rawImageUrl
+    : `${siteMetadata.url}${rawImageUrl}`;
   const pageUrl = `/${locale}/cards/${slug}`;
 
   return {
@@ -51,6 +54,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "article",
+      siteName: siteMetadata.name,
       title,
       description,
       url: pageUrl,
@@ -65,7 +69,12 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          alt: `${card.name} card art`,
+        },
+      ],
     },
   };
 }
