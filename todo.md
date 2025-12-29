@@ -45,6 +45,7 @@
 [x] mongodb conectivity
 [x] loading state not being shown
 [x] analytics flow plan
+[ ] expand stores list
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
