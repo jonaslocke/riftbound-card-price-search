@@ -3,7 +3,7 @@ import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics"
 import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
 import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
-import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
+import { defaultLocale, isLocaleSegment, toLanguageTag } from "@/app/i18n/settings";
 import { authOptions } from "@/lib/auth";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
@@ -25,6 +25,7 @@ export async function generateMetadata({
   const slug = resolvedParams?.slug;
   const localeParam = resolvedParams?.locale;
   const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
+  const ogLocale = toLanguageTag(locale).replace("-", "_");
   const { setId, collector } = parseSlug(slug);
   if (!setId || !collector) return {};
 
@@ -46,20 +47,59 @@ export async function generateMetadata({
     : `${siteMetadata.url}${rawImageUrl}`;
   const imageWidth = 744;
   const imageHeight = 1039;
-  const pageUrl = `/${locale}/cards/${slug}`;
+  const pagePath = `/${locale}/cards/${slug}`;
+  const canonicalUrl = `${siteMetadata.url}${pagePath}`;
 
   return {
+    metadataBase: new URL(siteMetadata.url),
     title,
     description,
+    keywords: siteMetadata.keywords,
+    authors: [{ name: "Jonas Antunes" }],
+    creator: "Jonas Antunes",
+    publisher: "Jonas Antunes",
+    robots: {
+      index: true,
+      follow: true,
+    },
+    other: {
+      "msapplication-TileColor": "#0A0F1C",
+      googlebot:
+        "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+      "apple-mobile-web-app-capable": "yes",
+    },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: siteMetadata.name,
+    },
+    formatDetection: {
+      telephone: false,
+      address: false,
+      email: false,
+    },
+    manifest: "/manifest.json",
+    icons: {
+      icon: [
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      ],
+      apple: [
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      ],
+      shortcut: ["/favicon.ico"],
+    },
     alternates: {
-      canonical: pageUrl,
+      canonical: canonicalUrl,
     },
     openGraph: {
       type: "article",
       siteName: siteMetadata.name,
       title,
       description,
-      url: pageUrl,
+      url: canonicalUrl,
+      locale: ogLocale,
       images: [
         {
           url: imageUrl,
@@ -71,6 +111,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      creator: "@hextechindex",
       title,
       description,
       images: [
