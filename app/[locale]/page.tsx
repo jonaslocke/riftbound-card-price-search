@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
-import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import logo from "@/assets/brand/hextech-index-gradient.svg";
 import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";

@@ -1,11 +1,11 @@
 {
-  "name": "Hextech Codex",
-  "short_name": "Hextech Codex",
-  "description": "Hextech Codex is a Riftbound card comparison platform to find prices, stores, and availability across the Rift.",
+  "name": "Hextech Index",
+  "short_name": "Hextech Index",
+  "description": "Search and compare Riftbound card prices across multiple stores.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0b0e13",
-  "theme_color": "#0b0e13",
+  "background_color": "#0b0f1a",
+  "theme_color": "#0b0f1a",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

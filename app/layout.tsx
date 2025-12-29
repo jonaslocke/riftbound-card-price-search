@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: siteMetadata.name,
     title: `${siteMetadata.name} - Riftbound Card Price Comparison`,
     description:
-      "Find and compare Riftbound card prices across multiple stores. Built for Runeterra players.",
+      "Find and compare Riftbound card prices across multiple stores. Built for Riftbound players.",
     url: siteMetadata.url,
     images: [
       {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteMetadata.name} - Riftbound Card Prices`,
     description:
-      "Compare Riftbound card prices across stores. Find the best deals on Hextech Codex.",
+      "Compare Riftbound card prices across stores. Find the best deals on Hextech Index.",
     images: [siteMetadata.ogImage],
   },
 };

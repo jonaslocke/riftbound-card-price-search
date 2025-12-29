@@ -1,4 +1,4 @@
-const siteName = "Hextech Codex";
+const siteName = "Hextech Index";
 
 const siteNameAlternatives = [
   "Riftbound Codex",
@@ -9,17 +9,16 @@ const siteNameAlternatives = [
 ];
 
 const shortDescription =
-  "Hextech Codex is a Riftbound card comparison platform to find prices, stores, and availability across the Rift.";
+  "Hextech Index is a Riftbound card comparison platform to find prices, stores, and availability across the Rift.";
 
 const longDescription =
-  "Hextech Codex is a Runeterra-inspired platform for discovering Riftbound cards, comparing prices across stores, and exploring card data. Built for players, collectors, and competitive buyers.";
+  "Hextech Index is a platform for discovering Riftbound cards, comparing prices across stores, and exploring card data. Built for players, collectors, and competitive buyers.";
 
 const keywords = [
   "riftbound cards",
   "riftbound price comparison",
   "riftbound card prices",
   "riftbound marketplace",
-  "runeterra cards",
   "hextech codex",
   ...siteNameAlternatives.map((name) => name.toLowerCase()),
 ];

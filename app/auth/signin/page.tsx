@@ -1,8 +1,8 @@
 "use client";
 
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
-import logo from "@/assets/brand/hextech-codex-gradient.svg";
-import stamp from "@/assets/brand/icon-gradient.svg";
+import logo from "@/assets/brand/hextech-index-gradient.svg";
+import stamp from "@/assets/brand/hextech-index-hammer-gradient.svg";
 import { Button } from "@/components/ui/button";
 import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { signIn } from "next-auth/react";
@@ -31,7 +31,7 @@ export default function SignInPage() {
             priority
           />
           <div className="top-10 left-10 z-1 absolute flex flex-col gap-4">
-            <Image src={stamp} alt="Hextech Codex Logo" className="size-20" />
+            <Image src={stamp} alt="Hextech Index Logo" className="size-20" />
           </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.2),rgba(2,6,23,0.85)_60%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,16,0.95)_0%,rgba(5,8,16,0.75)_15%,rgba(5,8,16,0.12)_60%,rgba(5,8,16,0)_100%)]" />

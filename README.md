@@ -79,3 +79,6 @@ npm run dev
 - Selecting a card navigates to `/cards/{set}-{collector}` and clears the search box
 - Background imagery and gradients come from `globals.css`
 
+## Domain Registration
+- on namecheap
+- email j.onaslocke@gmail.com

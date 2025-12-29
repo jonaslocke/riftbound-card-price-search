@@ -3,7 +3,7 @@
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { getLocaleFromPathname, isLocaleRoot } from "@/app/i18n/pathname";
 import { defaultLocale } from "@/app/i18n/settings";
-import logo from "@/assets/brand/hextech-codex-gradient.svg";
+import logo from "@/assets/brand/hextech-index-gradient.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { readLastKnownPath } from "@/lib/lastKnownPath";
