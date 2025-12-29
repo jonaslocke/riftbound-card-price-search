@@ -38,6 +38,13 @@ Options:
 ```bash
 node scripts/update-store-metadata.js --file data/stores.json --timeout 20000 --dry-run
 ```
+## Analytics Test Script
+Send one of each analytics event to `/api/analytics`, verify persistence in MongoDB,
+and clean up the inserted documents.
+```bash
+node scripts/seed-analytics-events.mjs http://localhost:3000/api/analytics
+```
+Requires `CONNECT_DB` and `CLIENT_DB` to be set (the script loads `.env.local`).
 ## Setup
 1) Install dependencies:
 ```bash
