@@ -41,9 +41,11 @@
 [x] update card detail height in mobile version
 [x] card listing on mobile version
 [x] second header mobile version
+[x] api limit rate
+[x] mongodb conectivity
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
-[x] api limit rate
 [ ] add foil tag
+[ ] analytics
