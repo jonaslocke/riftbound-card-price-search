@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import SearchForm from "./SearchForm";
+import SearchFormWithAnalytics from "./analytics/SearchFormWithAnalytics";
 
 export default function GlobalHeader() {
   const { t } = useI18nHelpers();
@@ -78,7 +78,7 @@ export default function GlobalHeader() {
             </div>
           </div>
           <div className="flex items-center sm:mx-auto w-full">
-            <SearchForm
+            <SearchFormWithAnalytics
               placeholder={t("search.placeholder")}
               mobilePlaceholder={t("search.placeholder_mobile")}
               variant="header"

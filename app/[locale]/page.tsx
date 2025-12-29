@@ -10,7 +10,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AuthAvatarMenu } from "../components/GlobalHeader";
-import SearchForm from "../components/SearchForm";
+import SearchFormWithAnalytics from "../components/analytics/SearchFormWithAnalytics";
 import { getLocaleFromPathname } from "../i18n/pathname";
 import { defaultLocale } from "../i18n/settings";
 
@@ -110,7 +110,7 @@ export default function Home() {
         {t("home.tagline")}
       </p>
 
-      <SearchForm
+      <SearchFormWithAnalytics
         placeholder={t("search.placeholder")}
         mobilePlaceholder={t("search.placeholder_mobile")}
       />

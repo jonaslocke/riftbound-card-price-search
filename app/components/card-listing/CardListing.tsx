@@ -3,11 +3,13 @@ import type { LocaleSegment } from "@/app/i18n/settings";
 import type { CardPricesResponseDto } from "@/app/types/card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import CardListingItem from "./CardListingItem";
+import CardListingItemWithAnalytics from "../analytics/CardListingItemWithAnalytics";
 
 type CardListingProps = {
   prices: CardPricesResponseDto | null;
   locale: LocaleSegment;
+  cardId: string;
+  cardName: string;
 };
 
 const LISTING_HEADERS = [
@@ -20,6 +22,8 @@ const LISTING_HEADERS = [
 export default async function CardListing({
   prices,
   locale,
+  cardId,
+  cardName,
 }: CardListingProps) {
   const { t } = await getServerTranslation(locale);
   const listings = prices?.stores ?? [];
@@ -62,13 +66,16 @@ export default async function CardListing({
         </div>
         <div>
           {listings.map((listing, index) => (
-            <CardListingItem
+            <CardListingItemWithAnalytics
               key={`${listing.storeName}-${index}`}
               {...listing}
               currency={listing.storeName === "tcgplayer" ? "USD" : "BRL"}
               variant={
                 listing.storeName === "tcgplayer" ? "highlighted" : "default"
               }
+              cardId={cardId}
+              cardName={cardName}
+              position={index}
             />
           ))}
         </div>
