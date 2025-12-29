@@ -44,6 +44,8 @@ export async function generateMetadata({
   const imageUrl = rawImageUrl.startsWith("http")
     ? rawImageUrl
     : `${siteMetadata.url}${rawImageUrl}`;
+  const imageWidth = 744;
+  const imageHeight = 1039;
   const pageUrl = `/${locale}/cards/${slug}`;
 
   return {
@@ -61,6 +63,8 @@ export async function generateMetadata({
       images: [
         {
           url: imageUrl,
+          width: imageWidth,
+          height: imageHeight,
           alt: `${card.name} card art`,
         },
       ],
@@ -72,6 +76,8 @@ export async function generateMetadata({
       images: [
         {
           url: imageUrl,
+          width: imageWidth,
+          height: imageHeight,
           alt: `${card.name} card art`,
         },
       ],
