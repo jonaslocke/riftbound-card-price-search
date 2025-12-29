@@ -47,6 +47,7 @@
 [x] analytics flow plan
 [x] expand stores list
 [x] analytics implementation
+[x] SEO preview updates
 [ ] change the title of page to reflect the currenct card in detail
 [ ] change assets for svgs
 [ ] create other pritings section

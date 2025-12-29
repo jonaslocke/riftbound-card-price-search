@@ -24,12 +24,17 @@ const keywords = [
   ...siteNameAlternatives.map((name) => name.toLowerCase()),
 ];
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hextechcodex.gg";
+
+const ogImage = "/android-chrome-512x512.png";
+
 export const siteMetadata = {
   name: siteName,
   nameAlternatives: siteNameAlternatives,
   shortDescription,
   longDescription,
   keywords,
-  url: "https://hextechcodex.gg",
-  ogImage: "/og/default.png",
+  url: siteUrl,
+  ogImage,
 };

@@ -40,7 +40,14 @@ export const metadata: Metadata = {
     description:
       "Find and compare Riftbound card prices across multiple stores. Built for Runeterra players.",
     url: siteMetadata.url,
-    images: [siteMetadata.ogImage],
+    images: [
+      {
+        url: siteMetadata.ogImage,
+        width: 512,
+        height: 512,
+        alt: `${siteMetadata.name} preview`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

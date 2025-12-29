@@ -7,11 +7,12 @@ import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
 import { authOptions } from "@/lib/auth";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
+import { siteMetadata } from "@/lib/site-metadata";
 import { fetchCard } from "@/services/fetchCard";
 import { fetchCardPrices } from "@/services/fetchCardPrices";
+import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 
 type CardPageParams = { locale?: string; slug?: string };
 
@@ -22,6 +23,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams?.slug;
+  const localeParam = resolvedParams?.locale;
+  const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
   const { setId, collector } = parseSlug(slug);
   if (!setId || !collector) return {};
 
@@ -33,9 +36,37 @@ export async function generateMetadata({
     card.collector_number != null
       ? String(card.collector_number)
       : String(collector);
+  const title = `${card.name} - ${setLabel}/${collectorLabel}`;
+  const description =
+    card.text?.plain ??
+    `Compare prices and availability for ${card.name} on ${siteMetadata.name}.`;
+  const imageUrl = card.media?.image_url ?? siteMetadata.ogImage;
+  const pageUrl = `/${locale}/cards/${slug}`;
 
   return {
-    title: `${card.name} - ${setLabel}/${collectorLabel}`,
+    title,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: pageUrl,
+      images: [
+        {
+          url: imageUrl,
+          alt: `${card.name} card art`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
