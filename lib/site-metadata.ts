@@ -24,9 +24,11 @@ const keywords = [
 ];
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hextechcodex.gg";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hextechindex.com";
 
-const ogImage = "/android-chrome-512x512.png";
+const ogImage = "/og-image.webp";
+const ogImageWidth = 1600;
+const ogImageHeight = 630;
 
 export const siteMetadata = {
   name: siteName,
@@ -36,4 +38,6 @@ export const siteMetadata = {
   keywords,
   url: siteUrl,
   ogImage,
+  ogImageWidth,
+  ogImageHeight,
 };

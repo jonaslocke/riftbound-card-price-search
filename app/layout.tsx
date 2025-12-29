@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: siteMetadata.ogImage,
-        width: 512,
-        height: 512,
+        width: siteMetadata.ogImageWidth,
+        height: siteMetadata.ogImageHeight,
         alt: `${siteMetadata.name} preview`,
       },
     ],
@@ -54,7 +54,12 @@ export const metadata: Metadata = {
     title: `${siteMetadata.name} - Riftbound Card Prices`,
     description:
       "Compare Riftbound card prices across stores. Find the best deals on Hextech Index.",
-    images: [siteMetadata.ogImage],
+    images: [
+      {
+        url: siteMetadata.ogImage,
+        alt: `${siteMetadata.name} preview`,
+      },
+    ],
   },
 };
 
