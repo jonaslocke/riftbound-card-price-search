@@ -26,7 +26,7 @@
   {
     "storeName": "epic-games",
     "url": "https://www.epicgame.com.br",
-    "storeTitle": "Epic Game - A loja de card game mais \u0026Eacute;PICA do Brasil!",
+    "storeTitle": "Epic Game - A loja de card game mais ÉPICA do Brasil!",
     "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/461.jpg"
   },
   {
@@ -80,7 +80,37 @@
   {
     "storeName": "bird-games",
     "url": "https://www.birdgames.com.br",
-    "storeTitle": "Bem vindo \u0026agrave; Bird Games",
+    "storeTitle": "Bem vindo à Bird Games",
     "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/67c20e7fcb928-yrlgw-nls9f-90559334567c20e7fcb965.jpg"
+  },
+  {
+    "storeName": "collecte-play",
+    "url": "https://www.collecteplay.com.br",
+    "storeTitle": null,
+    "storeImage": null
+  },
+  {
+    "storeName": "deck-dorei",
+    "url": "https://www.deckdorei.com.br",
+    "storeTitle": null,
+    "storeImage": null
+  },
+  {
+    "storeName": "odisseia-neon",
+    "url": "https://www.odisseianeonloja.com.br",
+    "storeTitle": null,
+    "storeImage": null
+  },
+  {
+    "storeName": "shibuya-card-shop",
+    "url": "https://www.shibuyacardshop.com.br",
+    "storeTitle": null,
+    "storeImage": null
+  },
+  {
+    "storeName": "tamer-shop",
+    "url": "https://www.tamershop.com.br",
+    "storeTitle": null,
+    "storeImage": null
   }
 ]
