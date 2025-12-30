@@ -1,15 +1,16 @@
-<svg
+﻿<svg
   width="100"
   height="100"
   viewBox="0 0 100 100"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
 >
+  <path
+    d="M85.3555 14.6445L100 50L85.3555 85.3555L50 100L14.6445 85.3555L0 50L14.6445 14.6445L50 0L85.3555 14.6445ZM21.7158 21.7158L10 50L21.7158 78.2842L50 90L78.2842 78.2842L90 50L78.2842 21.7158L50 10L21.7158 21.7158Z"
+    fill="url(#paint0_linear_27_28)"
+  />
+
   <g transform-origin="50 50">
-    <!-- 180° Y-axis rotation illusion
-         Timeline (6s):
-         0s–2s : rotate to back (scaleX 1 → -1)
-         2s–6s : hold -->
     <animateTransform
       attributeName="transform"
       type="scale"
@@ -24,7 +25,6 @@
       "
     />
 
-    <!-- Perspective skew during rotation only -->
     <animateTransform
       attributeName="transform"
       type="skewY"
@@ -40,16 +40,20 @@
       "
     />
 
-    <!-- INNER SYMBOL -->
     <path
-      d="M53.6987 77.841L55.7948 83H45.1834L47.2795 77.841V26.5778H45.5328L38 33.1735V17L45.5328 19.0897H47.2795H53.6987H55.4454L63 17V33.1735L55.4454 26.5778H53.6987V77.841Z"
-      fill="white"
+      d="M54.6788 75.409L56.5938 80H43.0446L44.9595 75.409V28.0587H43.4011L36 33.3121V20L45.4011 21.3705L46.9595 22.019H52.6788L54.2372 21.3705L63 20.0736V33.3121L56.2372 28.0587H54.6788V75.409Z"
+      fill="url(#paint1_linear_27_28)"
     />
   </g>
 
-  <!-- OUTER SHAPE (static) -->
-  <path
-    d="M85.3555 14.6445L100 50L85.3555 85.3555L50 100L14.6445 85.3555L0 50L14.6445 14.6445L50 0L85.3555 14.6445ZM18.1807 18.1807L5 50L18.1807 81.8193L50 95L81.8193 81.8193L95 50L81.8193 18.1807L50 5L18.1807 18.1807Z"
-      fill="white"
-  />
+  <defs>
+    <linearGradient id="paint0_linear_27_28" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EED183" />
+      <stop offset="1" stop-color="#B38F53" />
+    </linearGradient>
+    <linearGradient id="paint1_linear_27_28" x1="49.5" y1="20" x2="49.5" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EED183" />
+      <stop offset="1" stop-color="#B38F53" />
+    </linearGradient>
+  </defs>
 </svg>
