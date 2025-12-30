@@ -76,9 +76,6 @@ export default function Home() {
             displayName={session?.user?.name ?? ""}
             displayEmail={session?.user?.email ?? ""}
             imageUrl={session?.user?.image ?? ""}
-            signInLabel={t("auth.sign_in")}
-            signOutLabel={t("auth.sign_out")}
-            signedInAsLabel={t("auth.signed_in_as")}
             onSignIn={handleSignIn}
             onSignOut={handleSignOut}
           />
