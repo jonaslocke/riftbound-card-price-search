@@ -61,12 +61,14 @@ The payload must match the shared Zod schema in `lib/analytics/schema.ts`.
 
 - prices_shown
   - card_id: string
+  - card_name: string
   - stores: [{ store_id, store_name, price, currency, quantity, position }]
   - price_count?: number
   - latency_ms?: number
 
 - store_clicked
   - card_id: string
+  - card_name: string
   - store_id: string
   - store_name: string
   - price: number

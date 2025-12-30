@@ -42,6 +42,7 @@ export default function CardListingItemWithAnalytics({
       if (!href || !cardUrl || href !== cardUrl) return;
       trackEvent("store_clicked", {
         card_id: cardId,
+        card_name: cardName,
         store_id: storeName,
         store_name: displayTitle,
         price,

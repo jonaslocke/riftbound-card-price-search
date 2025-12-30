@@ -24,7 +24,8 @@ export default function CardDetailAnalytics({
   const lastPricesKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const viewKey = `${cardId}:${authState}`;
+    if (authState === "authenticated" && !userId) return;
+    const viewKey = `${cardId}:${authState}:${userId ?? "anon"}`;
     if (lastViewKeyRef.current !== viewKey) {
       lastViewKeyRef.current = viewKey;
       trackEvent("card_detail_viewed", {
@@ -33,16 +34,18 @@ export default function CardDetailAnalytics({
         auth_state: authState,
       }, { user_id: userId });
     }
-  }, [cardId, cardName, authState]);
+  }, [cardId, cardName, authState, userId]);
 
   useEffect(() => {
     if (!prices) return;
+    if (authState === "authenticated" && !userId) return;
     const stores = prices.stores ?? [];
-    const pricesKey = `${cardId}:${stores.length}:${prices.inStockStores}`;
+    const pricesKey = `${cardId}:${stores.length}:${prices.inStockStores}:${userId ?? "anon"}`;
     if (lastPricesKeyRef.current === pricesKey) return;
     lastPricesKeyRef.current = pricesKey;
     trackEvent("prices_shown", {
       card_id: cardId,
+      card_name: cardName,
       stores: stores.map((store, index) => ({
         store_id: store.storeName,
         store_name: store.storeTitle || store.storeName,
@@ -53,7 +56,7 @@ export default function CardDetailAnalytics({
       })),
       price_count: stores.length,
     }, { user_id: userId });
-  }, [cardId, prices]);
+  }, [cardId, prices, authState, userId]);
 
   return null;
 }

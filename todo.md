@@ -50,16 +50,16 @@
 [x] SEO preview updates
 [x] change the title of page to reflect the current card in detail
 [x] after login redirect url
+[x] add cardName on the analytics events
+[x] Bug - analytics do not show user email on authenticated flow
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
 [ ] check https://rifty.app/ - benchmark
-[ ] add cardName on the analytics events
 [ ] share button
 [ ] analazye amazon/mercado livre metatags for social share
 [ ] other prints for cards logic
-[ ] Bug - analytics do not show user email on authenticated flow
 [ ] Loading state
 [ ] google crawler for stores

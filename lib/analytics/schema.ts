@@ -81,6 +81,7 @@ const PricesShownSchema = BaseEventSchema.extend({
   event_name: z.literal("prices_shown"),
   payload: z.object({
     card_id: z.string().min(1),
+    card_name: z.string().min(1),
     stores: z.array(StoreSchema),
     price_count: z.number().int().nonnegative().optional(),
     latency_ms: z.number().int().nonnegative().optional(),
@@ -91,6 +92,7 @@ const StoreClickedSchema = BaseEventSchema.extend({
   event_name: z.literal("store_clicked"),
   payload: z.object({
     card_id: z.string().min(1),
+    card_name: z.string().min(1),
     store_id: z.string().min(1),
     store_name: z.string().min(1),
     price: z.number().nonnegative(),
