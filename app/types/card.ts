@@ -38,6 +38,8 @@ export type Card = {
     overnumbered?: boolean;
     signature?: boolean;
   };
+  other_printings?: Card[];
+  is_primary?: boolean;
 };
 
 export type CardDomain = "body" | "calm" | "chaos" | "fury" | "mind" | "order";
