@@ -54,6 +54,7 @@
 [x] Bug - analytics do not show user email on authenticated flow
 [x] other prints for cards logic
 [x] suggestions only return primary card print
+[x] Loading state
 [ ] other prints new UI
 [ ] change assets for svgs
 [ ] create other pritings section
@@ -63,5 +64,4 @@
 [ ] check https://rifty.app/ - benchmark
 [ ] share button
 [ ] analazye amazon/mercado livre metatags for social share
-[ ] Loading state
 [ ] google crawler for stores
