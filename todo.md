@@ -48,9 +48,17 @@
 [x] expand stores list
 [x] analytics implementation
 [x] SEO preview updates
-[ ] change the title of page to reflect the currenct card in detail
+[x] change the title of page to reflect the current card in detail
+[x] after login redirect url
 [ ] change assets for svgs
 [ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
+[ ] check https://rifty.app/ - benchmark
+[ ] add cardName on the analytics events
+[ ] share button
+[ ] analazye amazon/mercado livre metatags for social share
+[ ] other prints for cards logic
+[ ] Bug - analytics do not show user email on authenticated flow
+[ ] Loading state
