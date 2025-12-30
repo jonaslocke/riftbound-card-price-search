@@ -62,3 +62,4 @@
 [ ] other prints for cards logic
 [ ] Bug - analytics do not show user email on authenticated flow
 [ ] Loading state
+[ ] google crawler for stores

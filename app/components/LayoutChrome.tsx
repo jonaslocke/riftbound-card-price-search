@@ -1,7 +1,7 @@
 "use client";
 
 import { writeLastKnownPath } from "@/lib/lastKnownPath";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 
@@ -17,7 +17,6 @@ export default function LayoutChrome({
   footer,
 }: LayoutChromeProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams?.toString();
   const hideFooter = pathname?.includes("/auth/signin");
@@ -35,17 +34,17 @@ export default function LayoutChrome({
         didStrip = true;
       });
     }
-    if (didStrip) {
-      const cleanedPath = params.toString()
-        ? `${pathname}?${params.toString()}`
-        : pathname;
-      router.replace(cleanedPath);
-    }
-    const fullPath = params.toString()
+    const cleanedPath = params.toString()
       ? `${pathname}?${params.toString()}`
       : pathname;
-    writeLastKnownPath(fullPath);
-  }, [pathname, router, search]);
+    if (didStrip && typeof window !== "undefined") {
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      if (currentPath !== cleanedPath) {
+        window.history.replaceState(null, "", cleanedPath);
+      }
+    }
+    writeLastKnownPath(cleanedPath);
+  }, [pathname, search]);
 
   return (
     <div className="flex min-h-screen w-full flex-col items-stretch">

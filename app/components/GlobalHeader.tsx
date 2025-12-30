@@ -58,9 +58,6 @@ export default function GlobalHeader() {
                   displayName={session?.user?.name ?? ""}
                   displayEmail={session?.user?.email ?? ""}
                   imageUrl={session?.user?.image ?? ""}
-                  signInLabel={t("auth.sign_in")}
-                  signOutLabel={t("auth.sign_out")}
-                  signedInAsLabel={t("auth.signed_in_as")}
                   onSignIn={handleSignIn}
                   onSignOut={handleSignOut}
                 />
@@ -94,9 +91,6 @@ export default function GlobalHeader() {
                 displayName={session?.user?.name ?? ""}
                 displayEmail={session?.user?.email ?? ""}
                 imageUrl={session?.user?.image ?? ""}
-                signInLabel={t("auth.sign_in")}
-                signOutLabel={t("auth.sign_out")}
-                signedInAsLabel={t("auth.signed_in_as")}
                 onSignIn={handleSignIn}
                 onSignOut={handleSignOut}
               />
@@ -126,9 +120,6 @@ type AuthAvatarMenuProps = {
   displayName: string;
   displayEmail: string;
   imageUrl: string;
-  signInLabel: string;
-  signOutLabel: string;
-  signedInAsLabel: string;
   onSignIn: () => void;
   onSignOut: () => void;
 };
@@ -141,12 +132,10 @@ export function AuthAvatarMenu({
   displayName,
   displayEmail,
   imageUrl,
-  signInLabel,
-  signOutLabel,
-  signedInAsLabel,
   onSignIn,
   onSignOut,
 }: AuthAvatarMenuProps) {
+  const { t } = useI18nHelpers();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const initials = useMemo(() => {
@@ -174,21 +163,14 @@ export function AuthAvatarMenu({
 
   return (
     <div ref={wrapperRef} className="relative">
-      <button
-        type="button"
-        aria-label={ariaLabel}
-        aria-haspopup="menu"
-        aria-expanded={isOpen}
-        onClick={() => setIsOpen((open) => !open)}
-        className="rounded-full hover:scale-[1.02] transition"
-      >
+      <Button variant="link" onClick={() => setIsOpen((open) => !open)}>
         <Avatar className={avatarSize}>
           <AvatarImage src={imageUrl || "/favicon-32x32.png"} alt={ariaLabel} />
           <AvatarFallback className="bg-transparent! border-2 border-amber-300/60 font-ui font-semibold text-amber-300 sm:text-sm tracking-wider">
             {initials}
           </AvatarFallback>
         </Avatar>
-      </button>
+      </Button>
       {isOpen && (
         <div
           role="menu"
@@ -197,7 +179,7 @@ export function AuthAvatarMenu({
           {isAuthenticated ? (
             <>
               <div className="px-3 py-2 text-white/50 text-xs uppercase tracking-[0.2em]">
-                {signedInAsLabel}
+                {t("auth.signed_in_as")}
               </div>
               <div className="px-3 pb-2 font-semibold text-white text-sm">
                 {displayName || "Google User"}
@@ -207,22 +189,17 @@ export function AuthAvatarMenu({
                   {displayEmail}
                 </div>
               )}
-              <button
-                type="button"
-                role="menuitem"
-                onClick={onSignOut}
-                className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl w-full text-white text-left"
-              >
-                {signOutLabel}
-              </button>
+              <Button variant="destructive" className="w-full" type="button" role="menuitem" onClick={onSignOut}>
+                {t("auth.sign_out")}
+              </Button>
             </>
           ) : (
             <>
               <div className="px-3 py-2 text-white/50 text-xs uppercase tracking-[0.2em]">
-                {signedInAsLabel}
+                {t("auth.signed_in_as")}
               </div>
               <div className="px-3 pb-3 text-white/70 text-xs">
-                {signInLabel}
+                {t("auth.sign_in")}
               </div>
               <button
                 type="button"
@@ -230,7 +207,7 @@ export function AuthAvatarMenu({
                 onClick={onSignIn}
                 className="bg-white hover:bg-white/90 px-3 py-2 rounded-xl w-full font-semibold text-slate-900 text-left"
               >
-                {signInLabel}
+                {t("auth.sign_in")}
               </button>
             </>
           )}
