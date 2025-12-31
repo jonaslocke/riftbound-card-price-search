@@ -100,7 +100,12 @@ export default function Home() {
 
       <h1 className="sr-only">{t("brand.name")}</h1>
       <div className={cn("flex justify-center pt-6")}>
-        <Image src={logo} alt={t("brand.name")} className="w-80 sm:w-96" />
+        <Image
+          src={logo}
+          alt={t("brand.name")}
+          className="w-80 sm:w-96"
+          loading="eager"
+        />
       </div>
       <p className="text-accent text-sm text-center leading-relaxed">
         {t("home.tagline")}
