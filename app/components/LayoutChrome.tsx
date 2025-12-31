@@ -15,10 +15,11 @@ export default function LayoutChrome({
 }: LayoutChromeProps) {
   const pathname = usePathname();
   const onlyContent = Boolean(pathname?.includes("/auth/signin"));
+  const isHome = pathname === "/pt-br";
 
   return (
     <>
-      {!onlyContent && header}
+      {!onlyContent && !isHome && header}
       <>{children}</>
       {!onlyContent && footer}
     </>
