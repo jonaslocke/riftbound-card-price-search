@@ -1,6 +1,5 @@
 import CardSummary from "@/app/components/CardSummary";
 import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics";
-import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
 import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
 import {

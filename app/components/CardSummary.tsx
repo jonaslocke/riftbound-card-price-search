@@ -2,12 +2,12 @@
 
 import type { CardDetailsDto } from "@/app/types/card";
 import { Badge } from "@/components/ui/badge";
+import { CardCostUi } from "@/features/card-preview/components/card-details/CardCost";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { CardCostUi } from "./card-details/CardCost";
 
 const DETAILS_ROOT_ID = "card-details-root";
 
