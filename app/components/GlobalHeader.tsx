@@ -38,13 +38,13 @@ export default function GlobalHeader() {
         "z-50 fixed items-center gap-3 bg-slate-900/85 backdrop-blur-lg border-slate-400/20 border-b w-full container-padding"
       )}
     >
-      <div className="flex flex-wrap sm:flex-nowrap items-center mx-auto w-full max-w-5xl h-34 sm:h-20">
-        <div className="flex order-1 w-3/4 sm:w-2/6">
+      <div className="flex flex-wrap sm:flex-nowrap gap-y-3 mx-auto py-3 sm:pt-4 w-full max-w-5xl">
+        <div className="flex items-center order-1 w-3/4 sm:w-2/6">
           <Link href={`/${locale}`} className="order-1">
-            <Image src={logo} alt={t("brand.name")} className="w-full h-13" />
+            <Image src={logo} alt={t("brand.name")} className="w-full h-13 sm:h-12" />
           </Link>
         </div>
-        <div className="order-3 sm:order-2 w-full sm:w-3/6">
+        <div className="flex items-center order-3 sm:order-2 w-full sm:w-3/6">
           <SearchFormWithAnalytics
             placeholder={t("search.placeholder")}
             mobilePlaceholder={t("search.placeholder_mobile")}
