@@ -1,11 +1,11 @@
 ﻿"use client";
 
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { MAX_HEIGHT_CARD_DETAILS } from "../contants";
 import { useCardDetails } from "../state/context";
+import { cn } from "@/lib/utils";
 
 export default function CardImage() {
-  const { imageUrl, name } = useCardDetails();
+  const { imageUrl, name, type } = useCardDetails();
 
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -30,21 +30,19 @@ export default function CardImage() {
 
   return (
     <div
-      className="z-1 relative w-80"
+      className={cn(
+        "z-1 relative order-1 sm:order-2 w-80",
+        type === "battlefield" ? "" : "h-[392] sm:h-[446]"
+      )}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ perspective: "900px", height: MAX_HEIGHT_CARD_DETAILS }}
+      style={{ perspective: "900px" }}
     >
-      <div
-        className="w-80 h-[446]"
-        style={{
-          height: MAX_HEIGHT_CARD_DETAILS,
-        }}
-      />
+      <div className="hidden sm:block w-80 h-[392] sm:h-[446]" />
       <motion.img
         src={imageUrl}
         alt={name}
-        className="-top-5 left-5 absolute w-full"
+        className="sm:-top-5 sm:left-5 sm:absolute w-full"
         style={{
           rotateX: smoothTiltX,
           rotateY: smoothTiltY,

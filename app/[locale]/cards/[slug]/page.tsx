@@ -163,20 +163,8 @@ export default async function CardPage({
         authState={session ? "authenticated" : "anonymous"}
         prices={prices}
       />
-      <CardSummary details={details} />
-      <CardDetails card={card}>
-        <CardDetails.Image />
-        <CardDetails.Panel>
-          <CardDetails.Title />
-          <CardDetails.MainInfo />
-          <CardDetails.Types />
-          <CardDetails.Description />
-          <CardDetails.NumberSet />
-          <CardDetails.Illustrator />
-          <CardDetails.Might />
-        </CardDetails.Panel>
-      </CardDetails>
-      <CardPreview card={card} className="mt-10">
+      {/* <CardSummary details={details} /> */}
+      <CardPreview card={card} className="mt-26 sm:mt-16">
         <CardPreview.OtherPrintings />
         <CardPreview.Image />
         <CardPreview.Details>

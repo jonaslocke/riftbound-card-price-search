@@ -17,15 +17,14 @@ export default function CardPreview({ card, children, className }: Props) {
 
   return (
     <CardDetailsProvider value={{ ...cardDetails, otherPrintings }}>
-      {/* <div
+      <div
         className={cn(
-          "relative flex sm:flex-row flex-col items-center sm:items-stretch mt-26 sm:mt-6 mb-4",
+          "flex sm:flex-row flex-col items-center sm:items-stretch gap-4 sm:gap-0",
           className
         )}
       >
         {children}
-      </div> */}
-      <div className={cn("flex", className)}>{children}</div>
+      </div>
     </CardDetailsProvider>
   );
 }
