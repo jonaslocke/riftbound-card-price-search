@@ -9,7 +9,7 @@ import CardTitle from "./components/card-details/CardTitle";
 import CardTypes from "./components/card-details/CardTypes";
 import CardWrapper from "./components/card-details/CardWrapper";
 import CardImage from "./components/CardImage";
-import CardOtherPrintings from "./components/CardOtherPrintings";
+import CardOtherPrintings from "./components/card-other-pritings";
 import CardPreviewRoot from "./components/CardPreview";
 
 const CardPreview = Object.assign(CardPreviewRoot, {
