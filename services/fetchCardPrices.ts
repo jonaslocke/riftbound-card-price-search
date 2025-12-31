@@ -3,17 +3,23 @@ import { headers } from "next/headers";
 
 export async function fetchCardPrices(
   setId: string,
-  collector: number | string
+  collector: number | string | null,
+  riftboundId?: string | null
 ) {
   const headersList = await headers();
   const host = headersList.get("host");
   if (!host) return null;
   const protocol = headersList.get("x-forwarded-proto") ?? "http";
   const cookie = headersList.get("cookie");
-  const number = encodeURIComponent(collector.toString());
-  const url = `${protocol}://${host}/api/cards/prices?set=${encodeURIComponent(
-    setId
-  )}&number=${number}`;
+  const params = new URLSearchParams({ set: setId });
+  if (riftboundId) {
+    params.set("riftbound_id", riftboundId);
+  } else if (collector != null) {
+    params.set("number", collector.toString());
+  } else {
+    return null;
+  }
+  const url = `${protocol}://${host}/api/cards/prices?${params.toString()}`;
 
   try {
     const res = await fetch(url, {

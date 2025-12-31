@@ -10,6 +10,7 @@ import type { OtherPrintTile } from "./types";
 import Link from "next/link";
 
 const OtherPrintTile: FC<OtherPrintTile> = ({
+  href,
   image_url,
   name,
   public_code,
@@ -20,7 +21,10 @@ const OtherPrintTile: FC<OtherPrintTile> = ({
 }) => {
   const { t } = useI18nHelpers();
   return (
-    <Link href="#" className={cn("block", isSelected && "pointer-events-none")}>
+    <Link
+      href={href}
+      className={cn("block", isSelected && "pointer-events-none")}
+    >
       <motion.div
         className={cn(
           "relative flex flex-col items-center gap-1 bg-white border-2 border-white rounded",

@@ -81,14 +81,18 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const set = searchParams.get("set")?.trim();
   const numberRaw = searchParams.get("number")?.trim();
+  const riftboundIdRaw = searchParams.get("riftbound_id")?.trim();
 
-  if (!set || !numberRaw) {
+  if (!set || (!numberRaw && !riftboundIdRaw)) {
     return NextResponse.json(
-      { error: "Missing query params: 'set' and 'number' are required." },
+      {
+        error:
+          "Missing query params: 'set' and one of 'number' or 'riftbound_id' are required.",
+      },
       { status: 400 }
     );
   }
-  if (numberRaw.includes("/")) {
+  if (numberRaw && numberRaw.includes("/")) {
     return NextResponse.json(
       { error: "Invalid card number format." },
       { status: 400 }
@@ -104,7 +108,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const card = await loadCard(setId, numberRaw);
+  const card = await loadCard(setId, numberRaw, riftboundIdRaw);
   if (!card) {
     return NextResponse.json({ error: "Card not found." }, { status: 404 });
   }
@@ -147,7 +151,8 @@ export async function GET(req: NextRequest) {
 
 async function loadCard(
   setId: string,
-  numberRaw: string
+  numberRaw?: string | null,
+  riftboundIdRaw?: string | null
 ): Promise<Card | null> {
   const filePath = path.join(DATA_DIR, `${setId.toLowerCase()}.json`);
   let cards: Card[] = [];
@@ -160,6 +165,17 @@ async function loadCard(
     return null;
   }
 
+  if (riftboundIdRaw) {
+    const riftboundUpper = riftboundIdRaw.toUpperCase();
+    return (
+      cards.find(
+        (item) =>
+          item.riftbound_id?.toUpperCase() === riftboundUpper
+      ) ?? null
+    );
+  }
+
+  if (!numberRaw) return null;
   const collectorNumber = parseCollectorNumber(numberRaw);
   if (collectorNumber === null) return null;
 

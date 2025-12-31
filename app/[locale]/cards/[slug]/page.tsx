@@ -30,10 +30,10 @@ export async function generateMetadata({
   const localeParam = resolvedParams?.locale;
   const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
   const ogLocale = toLanguageTag(locale).replace("-", "_");
-  const { setId, collector } = parseSlug(slug);
+  const { setId, collector, riftboundId } = parseSlug(slug);
   if (!setId || !collector) return {};
 
-  const card = await fetchCard(setId, collector);
+  const card = await fetchCard(setId, collector, riftboundId);
   if (!card) return {};
 
   const setLabel = card.set?.set_id ?? setId;
@@ -139,17 +139,19 @@ export default async function CardPage({
   const slug = resolvedParams?.slug;
   const localeParam = resolvedParams?.locale;
   const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
-  const { setId, collector } = parseSlug(slug);
-  if (!setId || !collector) {
+  const { setId, collector, riftboundId } = parseSlug(slug);
+  if (!setId || (!collector && !riftboundId)) {
     notFound();
   }
 
-  const card = await fetchCard(setId, collector);
+  const card = await fetchCard(setId, collector, riftboundId);
   if (!card) notFound();
   const details = toCardDetailsDto(card);
   const analyticsCardId = card.riftbound_id ?? card.id;
   const session = await getServerSession(authOptions);
-  const prices = session ? await fetchCardPrices(setId, collector) : null;
+  const prices = session
+    ? await fetchCardPrices(setId, collector, riftboundId)
+    : null;
   const signInUrl = `/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
     `/${locale}/cards/${slug}`
   )}`;
