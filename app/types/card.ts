@@ -90,6 +90,7 @@ export interface CardDetailsDto {
   setLabel: string;
   cardNumber: string;
   normalizedCardNumber?: string;
+  riftboundId?: string;
 }
 
 export interface CardPriceStoreDto {

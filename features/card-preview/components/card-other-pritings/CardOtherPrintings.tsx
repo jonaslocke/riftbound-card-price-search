@@ -14,6 +14,7 @@ export default function CardOtherPrintings() {
   const pathParts = pathname.split("/");
   const locale = pathParts[1] || "";
   const currentCard = pathParts[pathParts.length - 1] || "";
+  const currentCardLower = currentCard.toLowerCase();
   const cardBasePath = locale ? `/${locale}/cards` : "/cards";
 
   const baseHref = card.normalizedCardNumber
@@ -23,8 +24,6 @@ export default function CardOtherPrintings() {
   if (otherPrintings.length < 1) {
     return null;
   }
-
-  console.log({ otherPrintings });
 
   return (
     <div className="flex flex-col order-2 sm:order-1">
@@ -38,7 +37,10 @@ export default function CardOtherPrintings() {
           name={card.name}
           image_url={card.imageUrl}
           public_code={card.cardNumber}
-          isSelected={currentCard === card.normalizedCardNumber}
+          isSelected={
+            currentCardLower === card.normalizedCardNumber?.toLowerCase() ||
+            currentCardLower === card.riftboundId?.toLowerCase()
+          }
           isAlteredArt={false}
           isSignature={false}
           isOverNumbered={false}
@@ -54,7 +56,7 @@ export default function CardOtherPrintings() {
               isAlteredArt={metadata?.alternate_art}
               isOverNumbered={metadata?.overnumbered}
               isSignature={metadata?.signature}
-              isSelected={currentCard === buildVariantSlug(riftbound_id)}
+              isSelected={currentCardLower === buildVariantSlug(riftbound_id)}
             />
           )
         )}

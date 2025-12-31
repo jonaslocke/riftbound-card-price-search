@@ -42,6 +42,7 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
     setLabel: card.set?.label ?? card.set?.set_id ?? "Unknown",
     cardNumber: card.public_code ?? "Unknown",
     normalizedCardNumber: `${card.set?.set_id}-${card.collector_number}`,
+    riftboundId: card.riftbound_id?.toLowerCase(),
   };
 }
 
