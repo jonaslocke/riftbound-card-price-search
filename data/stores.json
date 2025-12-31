@@ -112,5 +112,29 @@
     "url": "https://www.tamershop.com.br",
     "storeTitle": "Tamer Shop Hobby Store",
     "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/128385_1764442954.jpg"
+  },
+  {
+    "storeName": "millenniumcg",
+    "url": "https://www.millenniumcg.com.br",
+    "storeTitle": "Millenium Card Games",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/6328cbc8b4530-ns8zb-50ywa-10783695166328cbc8b4570.jpg"
+  },
+  {
+    "storeName": "bruno-pokecartas",
+    "url": "https://www.brunopokecartas.com.br",
+    "storeTitle": "Bruno PokeCartas",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/305666_1744766434.jpg"
+  },
+  {
+    "storeName": "bolsa-do-infinito",
+    "url": "https://www.bolsadoinfinito.com.br",
+    "storeTitle": "Bolsa do Infinito",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/62850bba1fcda-ut3v0-3xk1j-138784713462850bba1fd71.jpg"
+  },
+  {
+    "storeName": "mtg-brasil",
+    "url": "https://www.mtgbrasil.com.br",
+    "storeTitle": "MTG Brasil",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/home/g/694454083f182-psoi8-zs30y-1740717138694454083f18e.png"
   }
 ]
