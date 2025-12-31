@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion, useMotionValue, useSpring } from "motion/react";
+import { MAX_HEIGHT_CARD_DETAILS } from "../contants";
 import { useCardDetails } from "../state/context";
 
 export default function CardImage() {
@@ -29,12 +30,17 @@ export default function CardImage() {
 
   return (
     <div
-      className="z-1 relative w-80 h-[446]"
+      className="z-1 relative w-80"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ perspective: "900px" }}
+      style={{ perspective: "900px", height: MAX_HEIGHT_CARD_DETAILS }}
     >
-      <div className="w-80 h-[446]" />
+      <div
+        className="w-80 h-[446]"
+        style={{
+          height: MAX_HEIGHT_CARD_DETAILS,
+        }}
+      />
       <motion.img
         src={imageUrl}
         alt={name}

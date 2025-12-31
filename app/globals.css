@@ -292,6 +292,28 @@ body::after {
     @apply grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-center;
   }
   .tiny-font {
-    @apply font-mono text-[8px] leading-[8px] tracking-[0.01em] font-medium antialiased;
+    @apply font-mono text-[8px] leading-[100%] tracking-[0.01em] font-medium antialiased;
+  }
+}
+
+@layer utilities {
+  .scrollbar-compact {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(251, 191, 36, 0.7) var(--panel-strong);
+  }
+  .scrollbar-compact::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-compact::-webkit-scrollbar-track {
+    background: var(--panel-strong);
+    border-radius: 9999px;
+  }
+  .scrollbar-compact::-webkit-scrollbar-thumb {
+    background: rgba(251, 191, 36, 0.7);
+    border-radius: 9999px;
+    border: 1px solid rgba(15, 23, 42, 0.5);
+  }
+  .scrollbar-compact::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 191, 36, 0.9);
   }
 }

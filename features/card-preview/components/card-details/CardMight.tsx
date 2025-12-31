@@ -29,16 +29,18 @@ export default function CardMight() {
           "flex items-center gap-2 px-1.5 py-0.5 border border-black/50 rounded",
           rarity === "common" && "bg-common",
           rarity === "uncommon" && "bg-uncommon",
-          rarity === "rare" && "bg-rare"
+          (rarity === "rare" || rarity === "epic" || rarity === "showcase") &&
+            "bg-rare"
         )}
       >
         <div className="size-5">
-          <img src={icon.src} alt={t("card.might_symbol")} className="invert" />
-          {/* <Image
+          <Image
             src={icon.src}
             alt={t("card.might_symbol")}
             className="invert"
-          /> */}
+            width={20}
+            height={20}
+          />
         </div>
         <div className="text-lg">{might}</div>
       </div>

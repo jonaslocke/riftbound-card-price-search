@@ -1,13 +1,15 @@
 "use client";
 
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { cn } from "@/lib/utils";
+import { CirclePlus } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
-import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
+import { MAX_HEIGHT_CARD_DETAILS } from "../contants";
 import { useCardDetails } from "../state/context";
-import { CirclePlus, Plus } from "lucide-react";
 
 const WIDTH = 63;
 const HEIGHT = 86;
@@ -29,7 +31,12 @@ export default function CardOtherPrintings() {
         <CirclePlus className="size-3" />
         <span className="leading-3">{t("card.other_printings")}</span>
       </div>
-      <div className="flex flex-col gap-2 p-2 border-2 border-primary border-t-0 rounded-b-lg">
+      <div
+        className="flex flex-col gap-2 p-2 border-2 border-primary border-t-0 rounded-b-lg overflow-y-auto scrollbar-compact"
+        style={{
+          maxHeight: MAX_HEIGHT_CARD_DETAILS * 0.9,
+        }}
+      >
         <OtherPrintTile
           name={card.name}
           image_url={card.imageUrl}
@@ -80,11 +87,17 @@ const OtherPrintIndicator: FC<
   Pick<OtherPrintTile, "isAlteredArt" | "isOverNumbered" | "isSignature">
 > = ({ isAlteredArt, isOverNumbered, isSignature }) => {
   const { t } = useI18nHelpers();
+
+  if (!isAlteredArt && !isOverNumbered && !isSignature) {
+    return null;
+  }
+
   const label = t(
     indicatorLabelKey[
       isAlteredArt ? "altered" : isOverNumbered ? "overnumbered" : "signature"
     ]
   );
+
   return (
     <div
       className={cn(
@@ -114,38 +127,43 @@ const OtherPrintTile: FC<OtherPrintTile> = ({
 }) => {
   const { t } = useI18nHelpers();
   return (
-    <Link
-      href="#"
-      className={cn(
-        "relative flex flex-col items-center gap-1 bg-white border-2 border-white rounded",
-        isSelected && "ring-3 ring-amber-500/80 pointer-events-none"
-      )}
-      style={{
-        width: WIDTH,
-        height: HEIGHT,
-      }}
-    >
-      <OtherPrintIndicator
-        isAlteredArt={isAlteredArt}
-        isOverNumbered={isOverNumbered}
-        isSignature={isSignature}
-      />
-      {image_url && (
-        <Image
-          src={image_url}
-          alt={t("card.art_alt", { name })}
-          width={WIDTH}
-          height={HEIGHT}
-        />
-      )}
-      <div
-        className="bottom-0 absolute flex justify-center items-end bg-linear-to-t from-55% from-white to-white/20 w-full text-black/80 uppercase tiny-font"
+    <Link href="#" className={cn("block", isSelected && "pointer-events-none")}>
+      <motion.div
+        className={cn(
+          "relative flex flex-col items-center gap-1 bg-white border-2 border-white rounded",
+          isSelected && "ring-3 ring-amber-500/80"
+        )}
         style={{
-          height: OFF_SET,
+          width: WIDTH,
+          height: HEIGHT,
         }}
+        initial={false}
+        animate={{ x: 0 }}
+        whileHover={isSelected ? undefined : { x: 4 }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
       >
-        <span className="pb-px">{public_code}</span>
-      </div>
+        <OtherPrintIndicator
+          isAlteredArt={isAlteredArt}
+          isOverNumbered={isOverNumbered}
+          isSignature={isSignature}
+        />
+        {image_url && (
+          <Image
+            src={image_url}
+            alt={t("card.art_alt", { name })}
+            width={WIDTH}
+            height={HEIGHT}
+          />
+        )}
+        <div
+          className="bottom-0 absolute flex justify-center items-end bg-linear-to-t from-55% from-white to-white/20 w-full text-black/80 uppercase tiny-font"
+          style={{
+            height: OFF_SET,
+          }}
+        >
+          <span className="pb-px">{public_code}</span>
+        </div>
+      </motion.div>
     </Link>
   );
 };
