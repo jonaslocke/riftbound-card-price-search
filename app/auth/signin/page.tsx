@@ -27,6 +27,7 @@ export default function SignInPage() {
             src="/mystic-poro.webp"
             alt={t("auth.sign_in_hero_alt")}
             fill
+            sizes="(min-width: 768px) 55vw, 0vw"
             className="object-cover"
             priority
           />

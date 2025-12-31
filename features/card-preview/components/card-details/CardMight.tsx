@@ -22,7 +22,6 @@ export default function CardMight() {
       style={{
         filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
       }}
-      id="card-might"
     >
       <div
         className={cn(

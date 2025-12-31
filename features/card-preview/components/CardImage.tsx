@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useCardDetails } from "../state/context";
 import { cn } from "@/lib/utils";
+import { DETAILS_ROOT_ID } from "../contants";
 
 export default function CardImage() {
   const { imageUrl, name, type } = useCardDetails();
@@ -37,6 +38,7 @@ export default function CardImage() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "900px" }}
+      id={DETAILS_ROOT_ID}
     >
       <div className="hidden sm:block w-80 h-[392] sm:h-[446]" />
       <motion.img

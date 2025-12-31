@@ -9,10 +9,12 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AuthAvatarMenu } from "../components/GlobalHeader";
+
 import SearchFormWithAnalytics from "../components/analytics/SearchFormWithAnalytics";
 import { getLocaleFromPathname } from "../i18n/pathname";
 import { defaultLocale } from "../i18n/settings";
+import { Button } from "@/components/ui/button";
+import { SignInSignOut } from "../components/SignInSignOut";
 
 export default function Home() {
   const { t } = useI18nHelpers();
@@ -65,42 +67,39 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col gap-4 mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] px-[clamp(16px,4vw,32px)] w-full max-w-2xl">
+    <main className="flex flex-col gap-6 mx-auto w-full max-w-2xl min-h-screen container-padding">
       {isAuthenticated && (
-        <div className="top-4 right-4 z-20 fixed">
-          <AuthAvatarMenu
-            ariaLabel={t("brand.name")}
-            avatarFallback="HC"
-            avatarSize="size-11"
-            isAuthenticated={isAuthenticated}
-            displayName={session?.user?.name ?? ""}
-            displayEmail={session?.user?.email ?? ""}
-            imageUrl={session?.user?.image ?? ""}
-            onSignIn={handleSignIn}
-            onSignOut={handleSignOut}
-          />
-        </div>
+        <SignInSignOut
+          displayName={session?.user?.name ?? ""}
+          displayEmail={session?.user?.email ?? ""}
+          imageUrl={session?.user?.image ?? ""}
+          onSignOut={handleSignOut}
+          onSignIn={handleSignIn}
+          isAuthenticated={isAuthenticated}
+          className="top-[clamp(16px,4vw,32px)] right-[clamp(16px,4vw,32px)] fixed cursor-pointer"
+          options={{
+            avatar: {
+              className: "size-10",
+            },
+          }}
+        />
       )}
-      <button
-        className="fixed right-4 bottom-4 z-20 rounded-full border border-border bg-(--panel) px-3 py-2 text-(--text-primary) shadow-(--shadow) transition hover:-translate-y-px hover:border-accent hover:bg-(--panel-strong) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
-        type="button"
+      <Button
+        variant="outline"
+        size="icon-sm"
         onClick={toggleTheme}
         aria-label={
           theme === "dark"
             ? t("theme.switch_to_light")
             : t("theme.switch_to_dark")
         }
+        className="right-[clamp(16px,4vw,32px)] bottom-[clamp(16px,4vw,32px)] fixed"
       >
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-      </button>
+      </Button>
 
       <h1 className="sr-only">{t("brand.name")}</h1>
-      <div
-        className={cn(
-          "flex justify-center",
-          isAuthenticated && "mt-12 sm:mt-0"
-        )}
-      >
+      <div className={cn("flex justify-center pt-6")}>
         <Image src={logo} alt={t("brand.name")} className="w-80 sm:w-96" />
       </div>
       <p className="text-accent text-sm text-center leading-relaxed">

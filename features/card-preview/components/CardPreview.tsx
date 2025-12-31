@@ -3,8 +3,8 @@
 import type { Card } from "@/app/types/card";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { cn } from "@/lib/utils";
-import { CardDetailsProvider } from "../state/context";
 import { PropsWithChildren } from "react";
+import { CardDetailsProvider } from "../state/context";
 
 interface Props extends PropsWithChildren {
   card: Card;
@@ -19,7 +19,7 @@ export default function CardPreview({ card, children, className }: Props) {
     <CardDetailsProvider value={{ ...cardDetails, otherPrintings }}>
       <div
         className={cn(
-          "flex sm:flex-row flex-col items-center sm:items-stretch gap-4 sm:gap-0",
+          "flex sm:flex-row flex-col items-center sm:items-stretch gap-6 sm:gap-0",
           className
         )}
       >

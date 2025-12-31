@@ -11,8 +11,17 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  ComponentProps,
+  FC,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import SearchFormWithAnalytics from "./analytics/SearchFormWithAnalytics";
+import { cn } from "@/lib/utils";
+import { SignInSignOut } from "./SignInSignOut";
 
 export default function GlobalHeader() {
   const { t } = useI18nHelpers();
@@ -37,84 +46,89 @@ export default function GlobalHeader() {
   };
 
   return (
-    <>
-      <header className="top-0 z-40 fixed inset-x-0 flex flex-col gap-3 bg-slate-900/85 backdrop-blur-lg px-4 md:px-6 py-3 border-slate-400/20 border-b md:h-16">
-        <div className="flex flex-col sm:items-center gap-3 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,520px)_minmax(0,1fr)] mx-auto w-full max-w-6xl">
-          <div className="flex justify-between sm:justify-start items-center">
-            <Link href={`/${locale}`} className="flex-1 sm:flex-none">
-              <Image
-                src={logo}
-                alt={t("brand.name")}
-                className="w-auto h-10 sm:h-8"
-              />
-            </Link>
-            <div className="sm:hidden flex items-center gap-2">
-              {isAuthenticated ? (
-                <AuthAvatarMenu
-                  ariaLabel={t("brand.name")}
-                  avatarFallback="HC"
-                  avatarSize="size-11"
-                  isAuthenticated={isAuthenticated}
-                  displayName={session?.user?.name ?? ""}
-                  displayEmail={session?.user?.email ?? ""}
-                  imageUrl={session?.user?.image ?? ""}
-                  onSignIn={handleSignIn}
-                  onSignOut={handleSignOut}
-                />
-              ) : (
-                <Button asChild size="sm">
-                  <Link
-                    href={`/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-                      signInCallbackUrl
-                    )}`}
-                  >
-                    {t("auth.sign_in")}
-                  </Link>
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center sm:mx-auto w-full">
-            <SearchFormWithAnalytics
-              placeholder={t("search.placeholder")}
-              mobilePlaceholder={t("search.placeholder_mobile")}
-              variant="header"
-            />
-          </div>
-          <div className="hidden sm:flex justify-end items-center gap-3">
-            {isAuthenticated ? (
-              <AuthAvatarMenu
-                ariaLabel={t("brand.name")}
-                avatarFallback="HC"
-                avatarSize="size-9"
-                isAuthenticated={isAuthenticated}
-                displayName={session?.user?.name ?? ""}
-                displayEmail={session?.user?.email ?? ""}
-                imageUrl={session?.user?.image ?? ""}
-                onSignIn={handleSignIn}
-                onSignOut={handleSignOut}
-              />
-            ) : (
-              <Button asChild size="sm">
-                <Link
-                  href={`/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-                    signInCallbackUrl
-                  )}`}
-                >
-                  {t("auth.sign_in")}
-                </Link>
-              </Button>
-            )}
-          </div>
+    <header
+      className={cn(
+        "z-50 fixed items-center gap-3 bg-slate-900/85 backdrop-blur-lg border-slate-400/20 border-b w-full container-padding"
+      )}
+    >
+      <div className="flex flex-wrap sm:flex-nowrap items-center mx-auto w-full max-w-5xl h-34 sm:h-20">
+        <div className="flex order-1 w-3/4 sm:w-2/6">
+          <Link href={`/${locale}`} className="order-1">
+            <Image src={logo} alt={t("brand.name")} className="w-full h-13" />
+          </Link>
         </div>
-      </header>
-    </>
+        <div className="order-3 sm:order-2 w-full sm:w-3/6">
+          <SearchFormWithAnalytics
+            placeholder={t("search.placeholder")}
+            mobilePlaceholder={t("search.placeholder_mobile")}
+            variant="header"
+          />
+        </div>
+        <div className="flex justify-end order-2 sm:order-3 w-1/4 sm:w-1/6">
+          <SignInSignOut
+            isAuthenticated={isAuthenticated}
+            displayName={session?.user?.name ?? ""}
+            displayEmail={session?.user?.email ?? ""}
+            imageUrl={session?.user?.image ?? ""}
+            onSignIn={handleSignIn}
+            onSignOut={handleSignOut}
+            className="cursor-pointer"
+            options={{
+              avatar: {
+                className: "size-10",
+              },
+            }}
+          />
+        </div>
+      </div>
+    </header>
+  );
+
+  return (
+    <header
+      className={cn(
+        "z-50 fixed items-center gap-3 bg-slate-900/85 backdrop-blur-lg border-slate-400/20 border-b w-full container-padding"
+      )}
+    >
+      <div
+        className={cn(
+          "flex flex-wrap items-center sm:gap-20",
+          "mx-auto w-full max-w-5xl",
+          "h-[112] sm:h-20"
+        )}
+      >
+        <Link href={`/${locale}`} className="order-1">
+          <Image src={logo} alt={t("brand.name")} className="w-full h-12" />
+        </Link>
+        <div className="sm:flex-1 order-3 sm:order-2 sm:px-10">
+          <SearchFormWithAnalytics
+            placeholder={t("search.placeholder")}
+            mobilePlaceholder={t("search.placeholder_mobile")}
+            variant="header"
+          />
+        </div>
+        <div className="order-2 sm:order-3">
+          <SignInSignOut
+            isAuthenticated={isAuthenticated}
+            displayName={session?.user?.name ?? ""}
+            displayEmail={session?.user?.email ?? ""}
+            imageUrl={session?.user?.image ?? ""}
+            onSignIn={handleSignIn}
+            onSignOut={handleSignOut}
+            className="cursor-pointer"
+            options={{
+              avatar: {
+                className: "size-10",
+              },
+            }}
+          />
+        </div>
+      </div>
+    </header>
   );
 }
 
 type AuthAvatarMenuProps = {
-  ariaLabel: string;
-  avatarFallback: string;
   avatarSize: string;
   isAuthenticated: boolean;
   displayName: string;
@@ -125,8 +139,6 @@ type AuthAvatarMenuProps = {
 };
 
 export function AuthAvatarMenu({
-  ariaLabel,
-  avatarFallback,
   avatarSize,
   isAuthenticated,
   displayName,
@@ -140,14 +152,14 @@ export function AuthAvatarMenu({
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const initials = useMemo(() => {
     const name = displayName?.trim();
-    if (!name) return avatarFallback;
+    if (!name) return "HC";
     return name
       .split(" ")
       .slice(0, 2)
       .map((part) => part.charAt(0))
       .join("")
       .toUpperCase();
-  }, [displayName, avatarFallback]);
+  }, [displayName]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -165,7 +177,10 @@ export function AuthAvatarMenu({
     <div ref={wrapperRef} className="relative">
       <Button variant="link" onClick={() => setIsOpen((open) => !open)}>
         <Avatar className={avatarSize}>
-          <AvatarImage src={imageUrl || "/favicon-32x32.png"} alt={ariaLabel} />
+          <AvatarImage
+            src={imageUrl || "/favicon-32x32.png"}
+            alt={t("brand.name")}
+          />
           <AvatarFallback className="bg-transparent! border-2 border-amber-300/60 font-ui font-semibold text-amber-300 sm:text-sm tracking-wider">
             {initials}
           </AvatarFallback>
@@ -189,7 +204,13 @@ export function AuthAvatarMenu({
                   {displayEmail}
                 </div>
               )}
-              <Button variant="destructive" className="w-full" type="button" role="menuitem" onClick={onSignOut}>
+              <Button
+                variant="destructive"
+                className="w-full"
+                type="button"
+                role="menuitem"
+                onClick={onSignOut}
+              >
                 {t("auth.sign_out")}
               </Button>
             </>

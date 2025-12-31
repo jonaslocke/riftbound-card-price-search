@@ -27,3 +27,5 @@ export const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
   fury: "border-t-fury border-b-fury",
   mind: "border-t-mind border-b-mind",
 };
+
+export const DETAILS_ROOT_ID = "card-details-root";

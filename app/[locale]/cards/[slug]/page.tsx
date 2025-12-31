@@ -155,15 +155,15 @@ export default async function CardPage({
   )}`;
 
   return (
-    <main className="flex flex-col mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] px-[clamp(16px,4vw,32px)] w-full max-w-4xl">
+    <main className="flex flex-col flex-1 gap-6 mx-auto mt-34 sm:mt-20 w-full max-w-4xl container-padding">
       <CardDetailAnalytics
         cardId={analyticsCardId}
         cardName={card.name}
         authState={session ? "authenticated" : "anonymous"}
         prices={prices}
       />
-      {/* <CardSummary details={details} /> */}
-      <CardPreview card={card} className="mt-26 sm:mt-16">
+      <CardSummary details={details} />
+      <CardPreview card={card} className="mt-6 sm:mt-12">
         <CardPreview.OtherPrintings />
         <CardPreview.Image />
         <CardPreview.Details>

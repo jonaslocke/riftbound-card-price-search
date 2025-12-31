@@ -22,9 +22,8 @@ export default function CardWrapper({ children, className }: Props) {
 
   return (
     <div
-      id="card-wrapper"
       className={cn(
-        "relative flex flex-col flex-1 order-3 bg-white/75 border border-t-3 border-b-0 text-black",
+        "relative flex flex-col flex-1 order-3 bg-white/75 border border-t-3 border-b-0 w-full text-black",
         "*:py-2 *:pr-3 sm:*:pl-8 *:pl-3 *:border-b *:border-b-black/10",
         !hasGradient && primaryDomain
           ? domainBorderColors[primaryDomain]

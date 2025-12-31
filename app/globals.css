@@ -294,6 +294,9 @@ body::after {
   .tiny-font {
     @apply font-mono text-[8px] leading-[100%] tracking-[0.01em] font-medium antialiased;
   }
+  .container-padding {
+    @apply px-[clamp(16px,4vw,32px)];
+  }
 }
 
 @layer utilities {
