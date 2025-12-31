@@ -24,14 +24,6 @@ export default async function LocaleLayout({
 
   return (
     <AppProviders locale={locale}>
-      <GlobalHeader />
-      {children}
-      <SiteFooter locale={locale} />
-    </AppProviders>
-  );
-
-  return (
-    <AppProviders locale={locale}>
       <LayoutChrome
         header={<GlobalHeader />}
         footer={<SiteFooter locale={locale} />}

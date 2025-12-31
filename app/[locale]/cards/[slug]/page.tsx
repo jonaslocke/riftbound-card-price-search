@@ -155,7 +155,7 @@ export default async function CardPage({
   )}`;
 
   return (
-    <main className="flex flex-col flex-1 gap-6 mx-auto mt-34 sm:mt-20 w-full max-w-4xl container-padding">
+    <main className="flex flex-col flex-1 gap-6 mx-auto mt-34 sm:mt-20 w-full max-w-4xl min-h-screen container-padding">
       <CardDetailAnalytics
         cardId={analyticsCardId}
         cardName={card.name}

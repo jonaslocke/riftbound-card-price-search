@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Globe, MessageCircle, Youtube } from "lucide-react";
+import { headers } from "next/headers";
 import { getServerTranslation } from "@/app/i18n/server";
 import type { LocaleSegment } from "@/app/i18n/settings";
 
@@ -10,10 +11,8 @@ type SiteFooterProps = {
 export default async function SiteFooter({ locale }: SiteFooterProps) {
   const { t } = await getServerTranslation(locale);
 
-  //TODO  I need to render this conditionally, if it is on route of login, is it possible to do that without "use client"?
-
   return (
-    <footer className="bg-slate-950/85 mt-10 px-4 py-10 border-slate-400/20 border-t w-full text-white/70 text-sm">
+    <footer className="bg-slate-950/85 mt-6 px-4 py-10 border-slate-400/20 border-t w-full text-white/70 text-sm">
       <div className="flex flex-col gap-6 mx-auto w-full max-w-5xl">
         <div className="flex flex-wrap items-center gap-3 text-white/80">
           <div className="text-xs uppercase tracking-[0.2em]">
