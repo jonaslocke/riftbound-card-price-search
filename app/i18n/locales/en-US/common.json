@@ -32,7 +32,16 @@
     "unavailable": "Unavailable"
   },
   "card": {
-    "might_symbol": "Might symbol"
+    "might_symbol": "Might symbol",
+    "illustrated_by": "Illustrated by: {{artist}}",
+    "domain_image_alt": "Domain image: {{domain}}",
+    "other_printings": "Other Printings",
+    "print_indicator": {
+      "altered": "Altered",
+      "overnumbered": "Overnumber",
+      "signature": "Signature"
+    },
+    "art_alt": "{{name}} art"
   },
   "language": {
     "switcher": "Switch language"

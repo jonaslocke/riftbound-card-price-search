@@ -66,3 +66,4 @@
 [ ] analazye amazon/mercado livre metatags for social share
 [ ] google crawler for stores
 [ ] card detail prices stream response / user feedback
+[ ] fix Aphelios description card text

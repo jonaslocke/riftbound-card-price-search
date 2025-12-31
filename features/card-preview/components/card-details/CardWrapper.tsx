@@ -2,34 +2,15 @@
 
 import type { CardDomain } from "@/app/types/card";
 import { cn } from "@/lib/utils";
-import { useCardDetails } from "./context";
+import { useCardDetails } from "../../state/context";
+import { PropsWithChildren } from "react";
+import { domainBorderColors, domainColorVars } from "../../contants";
 
-type DomainBorderClass = `border-t-${CardDomain} border-b-${CardDomain}`;
-
-const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
-  order: "border-t-order border-b-order",
-  body: "border-t-body border-b-body",
-  calm: "border-t-calm border-b-calm",
-  chaos: "border-t-chaos border-b-chaos",
-  fury: "border-t-fury border-b-fury",
-  mind: "border-t-mind border-b-mind",
-};
-
-const domainColorVars: Record<CardDomain, string> = {
-  order: "var(--color-order)",
-  body: "var(--color-body)",
-  calm: "var(--color-calm)",
-  chaos: "var(--color-chaos)",
-  fury: "var(--color-fury)",
-  mind: "var(--color-mind)",
-};
-
-type Props = {
-  children: React.ReactNode;
+interface Props extends PropsWithChildren {
   className?: string;
-};
+}
 
-export default function CardDetailsPanel({ children, className }: Props) {
+export default function CardWrapper({ children, className }: Props) {
   const { domains } = useCardDetails();
   const primaryDomain = domains[0];
   const secondaryDomain = domains[1];
@@ -38,6 +19,21 @@ export default function CardDetailsPanel({ children, className }: Props) {
     hasGradient && primaryDomain && secondaryDomain
       ? `linear-gradient(90deg, ${domainColorVars[primaryDomain]}, ${domainColorVars[secondaryDomain]})`
       : null;
+
+  return (
+    <div
+      id="card-wrapper"
+      className={cn(
+        "relative flex flex-col flex-1 bg-white/75 mt-6 sm:mt-0 border border-t-3 border-b-0 text-black",
+        "*:py-2 *:pr-3 sm:*:pl-8 *:pl-3 *:border-b *:border-b-black/10",
+        !hasGradient && primaryDomain
+          ? domainBorderColors[primaryDomain]
+          : "border-slate-400"
+      )}
+    >
+      {children}
+    </div>
+  );
 
   return (
     <div

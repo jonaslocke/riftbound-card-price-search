@@ -11,8 +11,6 @@ export default function OtherPrintings() {
     return null;
   }
 
-  console.log({ otherPrintings });
-
   return (
     <div className="flex gap-2 mt-6 text-white">
       {otherPrintings.map((priting) => (

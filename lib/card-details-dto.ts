@@ -41,6 +41,7 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
     artistLabel: card.media?.artist ?? "Unknown",
     setLabel: card.set?.label ?? card.set?.set_id ?? "Unknown",
     cardNumber: card.public_code ?? "Unknown",
+    normalizedCardNumber: `${card.set?.set_id}-${card.collector_number}`,
   };
 }
 

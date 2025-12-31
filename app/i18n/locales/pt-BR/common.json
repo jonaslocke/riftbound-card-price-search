@@ -32,7 +32,16 @@
     "unavailable": "Indisponível"
   },
   "card": {
-    "might_symbol": "Símbolo de poder"
+    "might_symbol": "Símbolo de poder",
+    "illustrated_by": "Ilustrado por: {{artist}}",
+    "domain_image_alt": "Imagem do domínio: {{domain}}",
+    "other_printings": "Impressões",
+    "print_indicator": {
+      "altered": "Arte alterada",
+      "overnumbered": "Overnumber",
+      "signature": "Assinada"
+    },
+    "art_alt": "Arte de {{name}}"
   },
   "language": {
     "switcher": "Mudar idioma"

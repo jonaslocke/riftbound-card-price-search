@@ -89,6 +89,7 @@ export interface CardDetailsDto {
   artistLabel: string;
   setLabel: string;
   cardNumber: string;
+  normalizedCardNumber?: string;
 }
 
 export interface CardPriceStoreDto {

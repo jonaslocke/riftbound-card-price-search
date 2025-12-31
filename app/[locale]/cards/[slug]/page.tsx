@@ -3,7 +3,12 @@ import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics"
 import CardDetails from "@/app/components/card-details";
 import CardListing from "@/app/components/card-listing";
 import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
-import { defaultLocale, isLocaleSegment, toLanguageTag } from "@/app/i18n/settings";
+import {
+  defaultLocale,
+  isLocaleSegment,
+  toLanguageTag,
+} from "@/app/i18n/settings";
+import CardPreview from "@/features/card-preview";
 import { authOptions } from "@/lib/auth";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { parseSlug } from "@/lib/parseSlug";
@@ -151,7 +156,7 @@ export default async function CardPage({
   )}`;
 
   return (
-    <main className="flex flex-col mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] px-[clamp(16px,4vw,32px)] w-full max-w-2xl">
+    <main className="flex flex-col mx-auto mt-[clamp(24px,6vw,56px)] mb-[clamp(24px,8vw,64px)] px-[clamp(16px,4vw,32px)] w-full max-w-4xl">
       <CardDetailAnalytics
         cardId={analyticsCardId}
         cardName={card.name}
@@ -171,6 +176,19 @@ export default async function CardPage({
           <CardDetails.Might />
         </CardDetails.Panel>
       </CardDetails>
+      <CardPreview card={card} className="mt-10">
+        <CardPreview.OtherPrintings />
+        <CardPreview.Image />
+        <CardPreview.Details>
+          <CardPreview.Details.Title />
+          <CardPreview.Details.SuperTypes />
+          <CardPreview.Details.Types />
+          <CardPreview.Details.Description />
+          <CardPreview.Details.SetAndNumber />
+          <CardPreview.Details.Illustrator />
+          <CardPreview.Details.Might />
+        </CardPreview.Details>
+      </CardPreview>
       {session ? (
         <CardListing
           prices={prices}
