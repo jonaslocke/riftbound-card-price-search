@@ -32,11 +32,6 @@ const USER_AGENT =
   "Mozilla/5.0 (compatible; RiftboundBot/1.0; +https://example.com)";
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
 const RATE_LIMIT_WINDOW_MS = 1000;
-const SET_EDICAO: Record<string, number> = {
-  OGN: 1,
-  OGS: 2,
-  SFD: 5,
-};
 const lastRequestBySession = new Map<string, number>();
 
 function getSessionKey(req: NextRequest, session: Session | null) {
@@ -100,14 +95,6 @@ export async function GET(req: NextRequest) {
   }
 
   const setId = set.toUpperCase();
-  const edicao = SET_EDICAO[setId];
-  if (!edicao) {
-    return NextResponse.json(
-      { error: "Unsupported set for pricing." },
-      { status: 400 }
-    );
-  }
-
   const card = await loadCard(setId, numberRaw, riftboundIdRaw);
   if (!card) {
     return NextResponse.json({ error: "Card not found." }, { status: 404 });
@@ -122,9 +109,7 @@ export async function GET(req: NextRequest) {
   }
   const ligamagicId = card.ligamagic_id ?? null;
 
-  const tasks = STORE_LIST.map((store) =>
-    fetchStorePrice(store, edicao, collector, ligamagicId)
-  );
+  const tasks = STORE_LIST.map((store) => fetchStorePrice(store, ligamagicId));
   const [stores, tcgplayerEntry] = await Promise.all([
     Promise.all(tasks),
     fetchTcgplayerEntry(card),
@@ -194,13 +179,11 @@ function parseCollectorNumber(value: string) {
 
 async function fetchStorePrice(
   store: Store,
-  edicao: number,
-  collector: number,
   ligamagicId: string | null
 ): Promise<StorePrice> {
   const storeUrl = store.url.replace(/\/+$/, "");
   const cardUrl = ligamagicId
-    ? `${storeUrl}/?view=ecom/item&tcg=19&edicao=${edicao}&cardID=${collector}&card=${ligamagicId}`
+    ? `${storeUrl}/?view=ecom/item&tcg=19&card=${ligamagicId}`
     : null;
 
   if (!cardUrl) {
