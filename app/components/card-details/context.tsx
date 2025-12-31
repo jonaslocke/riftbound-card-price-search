@@ -1,14 +1,18 @@
 "use client";
 import { createContext, useContext } from "react";
-import type { CardDetailsDto } from "@/app/types/card";
+import type { Card, CardDetailsDto } from "@/app/types/card";
 
-const CardDetailsContext = createContext<CardDetailsDto | null>(null);
+type CardDetailsContextValue = CardDetailsDto & {
+  otherPrintings: Card[];
+};
+
+const CardDetailsContext = createContext<CardDetailsContextValue | null>(null);
 
 export function CardDetailsProvider({
   value,
   children,
 }: {
-  value: CardDetailsDto;
+  value: CardDetailsContextValue;
   children: React.ReactNode;
 }) {
   return (

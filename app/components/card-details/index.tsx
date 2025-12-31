@@ -8,6 +8,7 @@ import CardDescription from "./CardDescription";
 import CardNumberSet from "./CardNumberSet";
 import CardIllustrator from "./CardIllustrator";
 import UnitCardMight from "./UnitCardMight";
+import OtherPrintings from "./OtherPrintings";
 
 const CardDetails = Object.assign(CardDetailsRoot, {
   Image: CardImage,
@@ -19,6 +20,7 @@ const CardDetails = Object.assign(CardDetailsRoot, {
   NumberSet: CardNumberSet,
   Illustrator: CardIllustrator,
   Might: UnitCardMight,
+  OtherPrintings,
 });
 
 export default CardDetails;
@@ -33,4 +35,5 @@ export {
   CardNumberSet,
   CardIllustrator,
   UnitCardMight,
+  OtherPrintings,
 };

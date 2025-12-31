@@ -13,9 +13,10 @@ type Props = {
 
 export default function CardDetailsRoot({ card, children, className }: Props) {
   const cardDetails = toCardDetailsDto(card);
+  const otherPrintings = card.other_printings ?? [];
 
   return (
-    <CardDetailsProvider value={cardDetails}>
+    <CardDetailsProvider value={{ ...cardDetails, otherPrintings }}>
       <div
         id="card-details-root"
         className={cn(
