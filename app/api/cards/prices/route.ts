@@ -114,10 +114,44 @@ export async function GET(req: NextRequest) {
     Promise.all(tasks),
     fetchTcgplayerEntry(card),
   ]);
+  if (stores.length === 0) {
+    console.error("[prices] No stores loaded from stores.json", {
+      set: setId,
+      number: collector,
+    });
+  }
+  const storeErrors = stores.filter((store) => store.error);
+  if (storeErrors.length > 0) {
+    console.error("[prices] Store fetch errors", {
+      set: setId,
+      number: collector,
+      errors: storeErrors.map((store) => ({
+        storeName: store.storeName,
+        cardUrl: store.cardUrl,
+        error: store.error,
+      })),
+    });
+  }
+  if (tcgplayerEntry.error) {
+    console.error("[prices] TCGplayer fetch error", {
+      set: setId,
+      number: collector,
+      cardUrl: tcgplayerEntry.cardUrl,
+      error: tcgplayerEntry.error,
+    });
+  }
   const allStores = [tcgplayerEntry, ...stores].filter(
     (store) => store.quantity > 0
   );
   const inStockStores = allStores.length;
+  if (inStockStores === 0) {
+    console.error("[prices] No in-stock results returned", {
+      set: setId,
+      number: collector,
+      storeCount: stores.length,
+      tcgplayerError: tcgplayerEntry.error ?? null,
+    });
+  }
   const tcgplayerStore = allStores.find(
     (store) => store.storeName === "tcgplayer"
   );
