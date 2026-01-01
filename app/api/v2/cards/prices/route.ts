@@ -50,6 +50,13 @@ function getLastKnownPriceByStore(
   return map;
 }
 
+function hasOnlyTcgplayerStore(
+  payload: Pick<CardPricesResponse, "stores"> | null
+) {
+  if (!payload || payload.stores.length !== 1) return false;
+  return payload.stores[0]?.storeName === "tcgplayer";
+}
+
 export async function GET(req: NextRequest) {
   const session = (await getServerSession(authOptions)) as Session | null;
   if (!session) {
@@ -95,7 +102,11 @@ export async function GET(req: NextRequest) {
   }
 
   const cachedSnapshot = await getCachedPrices(riftboundIdRaw);
-  if (cachedSnapshot && isCacheFresh(cachedSnapshot.cachedAt)) {
+  if (
+    cachedSnapshot &&
+    isCacheFresh(cachedSnapshot.cachedAt) &&
+    !hasOnlyTcgplayerStore(cachedSnapshot.payload)
+  ) {
     return NextResponse.json(cachedSnapshot.payload);
   }
 
