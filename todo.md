@@ -55,15 +55,21 @@
 [x] other prints for cards logic
 [x] suggestions only return primary card print
 [x] Loading state
-[ ] other prints new UI
+[x] other prints new UI
+[x] google crawler for stores
+[x] create other pritings section
+[x] analytics flow_id reset
+[x] fix Aphelios description card text
 [ ] change assets for svgs
-[ ] create other pritings section
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
 [ ] check https://rifty.app/ - benchmark
 [ ] share button
 [ ] analazye amazon/mercado livre metatags for social share
-[ ] google crawler for stores
 [ ] card detail prices stream response / user feedback
-[ ] fix Aphelios description card text
+[ ] paginated prices api
+[ ] card price calculations modal
+[ ] resize header on scrolled mode
+[ ] improve suggestions items UX
+[ ] axios + tanstack query

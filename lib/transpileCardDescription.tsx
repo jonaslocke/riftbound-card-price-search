@@ -60,7 +60,7 @@ export function transpileCardDescription(
     if (energyMatch) {
       return (
         <span
-          className="inline-flex justify-center items-center size-5 rounded-full bg-black/10 text-xs"
+          className="inline-flex justify-center items-center bg-black/10 rounded-full size-5 text-xs"
           data-token="rb"
           key={nextTokenKey("energy", energyMatch[1])}
         >
@@ -75,7 +75,7 @@ export function transpileCardDescription(
           src={exhaustIcon.src}
           alt="exhaust"
           data-token="rb"
-          className="inline-block h-4 w-4 object-contain align-middle invert"
+          className="inline-block invert w-4 h-4 object-contain align-middle"
           key={nextTokenKey("exhaust")}
         />
       );
@@ -87,7 +87,7 @@ export function transpileCardDescription(
           src={mightIcon.src}
           alt="might"
           data-token="rb"
-          className="inline-block h-4 w-4 object-contain align-middle invert"
+          className="inline-block invert w-4 h-4 object-contain align-middle"
           key={nextTokenKey("might")}
         />
       );
@@ -111,7 +111,7 @@ export function transpileCardDescription(
             src={rune.src}
             alt={`${runeMatch[1]} rune`}
             data-token="rb"
-            className="inline-block h-4 w-4 object-contain align-middle"
+            className="inline-block w-4 h-4 object-contain align-middle"
             key={nextTokenKey("rune", runeMatch[1])}
           />
         );
@@ -149,8 +149,7 @@ export function transpileCardDescription(
   const pushPiece = (piece: React.ReactNode) => {
     parts.push(piece);
     if (typeof piece === "string") {
-      lastWasTokenSeparator =
-        lastWasToken && piece.trimStart().startsWith(":");
+      lastWasTokenSeparator = lastWasToken && piece.trimStart().startsWith(":");
       lastWasToken = false;
       if (piece.trim().length > 0) {
         hasContent = true;
@@ -191,9 +190,9 @@ export function transpileCardDescription(
         className="inline-flex items-center gap-1 align-middle"
         key={`${keyword}-${parts.length}`}
       >
-        <img src={src} alt={keyword} className="h-4 w-auto object-contain" />
+        <img src={src} alt={keyword} className="w-auto h-4 object-contain" />
         {count ? (
-          <span className="flex justify-center items-center size-5 rounded-full bg-black/10 text-xs">
+          <span className="flex justify-center items-center bg-black/10 rounded-full size-5 text-xs">
             {count}
           </span>
         ) : null}
@@ -267,9 +266,13 @@ export function transpileCardDescription(
               className="inline-flex items-center gap-1 align-middle"
               key={`${keyword}-node-${nodes.length}`}
             >
-              <img src={src} alt={keyword} className="h-4 w-auto object-contain" />
+              <img
+                src={src}
+                alt={keyword}
+                className="w-auto h-4 object-contain"
+              />
               {count ? (
-                <span className="flex justify-center items-center size-5 rounded-full bg-black/10 text-xs">
+                <span className="flex justify-center items-center bg-black/10 rounded-full size-5 text-xs">
                   {count}
                 </span>
               ) : null}
@@ -429,6 +432,30 @@ export function transpileCardDescription(
     };
   };
 
+  const splitSentenceListItems = (value: string) => {
+    const dashIndex = value.indexOf(emDash);
+    if (dashIndex === -1) {
+      return null;
+    }
+    const tail = value.slice(dashIndex + 1);
+    if (tail.includes("*")) {
+      return null;
+    }
+    const sentenceRegex = /[^.]+(?:\.|$)/g;
+    const matches = tail.match(sentenceRegex);
+    if (!matches) {
+      return null;
+    }
+    const items = matches.map((item) => item.trim()).filter(Boolean);
+    if (items.length < 2) {
+      return null;
+    }
+    return {
+      before: value.slice(0, dashIndex + 1),
+      items,
+    };
+  };
+
   const pushNonListText = (value: string) => {
     const firstNonSpaceIndex = findFirstNonSpaceIndex(value);
     if (
@@ -485,7 +512,7 @@ export function transpileCardDescription(
       if (segment.startsWith("(") && segment.endsWith(")")) {
         parts.push(
           <span
-            className="text-xs italic text-slate-600"
+            className="text-slate-600 text-xs italic"
             key={`paren-${parts.length}-${segmentIndex}`}
           >
             {renderInlineNodes(segment)}
@@ -505,8 +532,32 @@ export function transpileCardDescription(
               pushBreak();
             }
             parts.push(
-              <ul className="list-disc pl-4" key={`list-${parts.length}`}>
+              <ul className="pl-4 list-disc" key={`list-${parts.length}`}>
                 {listData.items.map((item, index) => (
+                  <li key={`list-item-${parts.length}-${index}`}>
+                    {renderInlineNodes(item.trim())}
+                  </li>
+                ))}
+              </ul>
+            );
+            hasContent = true;
+            lastWasBreak = false;
+          }
+          return;
+        }
+
+        const sentenceListData = splitSentenceListItems(segment);
+        if (sentenceListData) {
+          if (sentenceListData.before) {
+            pushNonListText(sentenceListData.before);
+          }
+          if (sentenceListData.items.length > 0) {
+            if (hasContent && !lastWasBreak) {
+              pushBreak();
+            }
+            parts.push(
+              <ul className="list-disc pl-4" key={`list-${parts.length}`}>
+                {sentenceListData.items.map((item, index) => (
                   <li key={`list-item-${parts.length}-${index}`}>
                     {renderInlineNodes(item.trim())}
                   </li>
