@@ -11,6 +11,8 @@ const ANALYTICS_ENDPOINT = "/api/analytics";
 const FLOW_ID_KEY = "analytics_flow_id";
 const SESSION_ID_KEY = "analytics_session_id";
 const ANON_ID_KEY = "analytics_anonymous_id";
+const FLOW_LAST_ACTIVE_KEY = "analytics_flow_last_active";
+const FLOW_IDLE_RESET_MS = 30 * 60 * 1000;
 
 let memoryFlowId: string | null = null;
 let memorySessionId: string | null = null;
@@ -50,6 +52,15 @@ function getOrCreateId(
 
 export function getOrCreateFlowId() {
   const storage = getStorage("session");
+  const now = Date.now();
+  if (storage) {
+    const lastActiveRaw = storage.getItem(FLOW_LAST_ACTIVE_KEY);
+    const lastActive = lastActiveRaw ? Number(lastActiveRaw) : 0;
+    if (!Number.isNaN(lastActive) && now - lastActive > FLOW_IDLE_RESET_MS) {
+      storage.removeItem(FLOW_ID_KEY);
+    }
+    storage.setItem(FLOW_LAST_ACTIVE_KEY, String(now));
+  }
   const value = getOrCreateId(FLOW_ID_KEY, storage, memoryFlowId);
   memoryFlowId = value;
   return value;
@@ -58,7 +69,10 @@ export function getOrCreateFlowId() {
 export function resetFlowId() {
   const storage = getStorage("session");
   const created = crypto.randomUUID();
-  if (storage) storage.setItem(FLOW_ID_KEY, created);
+  if (storage) {
+    storage.setItem(FLOW_ID_KEY, created);
+    storage.setItem(FLOW_LAST_ACTIVE_KEY, String(Date.now()));
+  }
   memoryFlowId = created;
   return created;
 }
