@@ -28,6 +28,7 @@
     "value": "Value",
     "go_to": "Go To",
     "empty": "No listings available yet.",
+    "lastUpdated": "Updated {{date, DD/MM/YY HH:mm}}",
     "visit_store": "Visit",
     "unavailable": "Unavailable"
   },

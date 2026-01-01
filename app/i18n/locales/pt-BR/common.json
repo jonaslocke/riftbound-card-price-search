@@ -28,6 +28,7 @@
     "value": "Valor",
     "go_to": "Ir para",
     "empty": "Nenhuma listagem disponível ainda.",
+    "lastUpdated": "Atualizado em {{date, DD/MM/YY HH:mm}}",
     "visit_store": "Visitar",
     "unavailable": "Indisponível"
   },

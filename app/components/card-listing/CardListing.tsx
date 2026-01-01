@@ -40,13 +40,20 @@ export default async function CardListing({
   return (
     <Card className="gap-0 bg-white/75 mt-3 sm:mt-6 py-3 border-slate-400 text-black">
       <CardHeader className="px-3 py-0! border-black/10 border-b">
-        <CardTitle className="flex justify-between items-center font-semibold text-lg">
+        <CardTitle className="flex justify-between items-center gap-3 font-semibold text-lg">
           <h2>{t("listing.title")}</h2>
-          {inStockStores > 0 && (
-            <p className="text-black/50 text-xs">
-              {t("listing.in_stock", { count: inStockStores })}
-            </p>
-          )}
+          <div className="text-end">
+            {inStockStores > 0 && (
+              <p className="text-black/60 text-xs">
+                {t("listing.in_stock", { count: inStockStores })}
+              </p>
+            )}
+            {prices?.lastUpdated && (
+              <p className="text-black/40 text-xs">
+                {t("listing.lastUpdated", { date: prices.lastUpdated })}
+              </p>
+            )}
+          </div>
         </CardTitle>
       </CardHeader>
 
