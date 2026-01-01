@@ -19,7 +19,7 @@ export async function fetchCardPrices(
   } else {
     return null;
   }
-  const url = `${protocol}://${host}/api/cards/prices?${params.toString()}`;
+  const url = `${protocol}://${host}/api/v1/cards/prices?${params.toString()}`;
 
   try {
     const res = await fetch(url, {

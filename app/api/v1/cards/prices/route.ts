@@ -7,7 +7,7 @@ import { promises as fs } from "fs";
 import { getServerSession, type Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-import type { Card } from "../../../types/card";
+import type { Card } from "../../../../types/card";
 
 type Store = {
   storeName: string;
@@ -36,11 +36,7 @@ const lastRequestBySession = new Map<string, number>();
 
 function getSessionKey(req: NextRequest, session: Session | null) {
   const sessionUser = session?.user;
-  if (
-    sessionUser &&
-    "id" in sessionUser &&
-    typeof sessionUser.id === "string"
-  ) {
+  if (sessionUser && "id" in sessionUser && typeof sessionUser.id === "string") {
     return sessionUser.id;
   }
   if (sessionUser?.email) return sessionUser.email;
@@ -188,8 +184,7 @@ async function loadCard(
     const riftboundUpper = riftboundIdRaw.toUpperCase();
     return (
       cards.find(
-        (item) =>
-          item.riftbound_id?.toUpperCase() === riftboundUpper
+        (item) => item.riftbound_id?.toUpperCase() === riftboundUpper
       ) ?? null
     );
   }
