@@ -25,6 +25,16 @@ const formatDateWithPattern = (date: Date, pattern: string) => {
 const toDate = (value: unknown) => {
   if (value instanceof Date) return value;
   if (typeof value === "string" || typeof value === "number") {
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      const hasTimezone = /([zZ]|[+-]\d{2}:?\d{2})$/.test(trimmed);
+      const normalized = trimmed.includes("T")
+        ? trimmed
+        : trimmed.replace(" ", "T");
+      const withTimezone = hasTimezone ? normalized : `${normalized}Z`;
+      const parsed = new Date(withTimezone);
+      if (!Number.isNaN(parsed.getTime())) return parsed;
+    }
     const parsed = new Date(value);
     if (!Number.isNaN(parsed.getTime())) return parsed;
   }
