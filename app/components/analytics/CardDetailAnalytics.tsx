@@ -49,7 +49,7 @@ export default function CardDetailAnalytics({
       stores: stores.map((store, index) => ({
         store_id: store.storeName,
         store_name: store.storeTitle || store.storeName,
-        price: store.price,
+        price: store.currentPrice,
         currency: store.currency,
         quantity: store.quantity,
         position: index,

@@ -24,7 +24,8 @@ export default function CardListingItemWithAnalytics({
   storeUrl,
   cardUrl,
   quantity,
-  price,
+  currentPrice,
+  lastKnownPrice,
   variant,
   storeImage,
 }: CardListingItemWithAnalyticsProps) {
@@ -45,13 +46,22 @@ export default function CardListingItemWithAnalytics({
         card_name: cardName,
         store_id: storeName,
         store_name: displayTitle,
-        price,
+        price: currentPrice,
         currency: currency ?? "BRL",
         quantity,
         position,
       }, { user_id: userId });
     },
-    [cardId, storeName, displayTitle, price, currency, quantity, position, cardUrl]
+    [
+      cardId,
+      storeName,
+      displayTitle,
+      currentPrice,
+      currency,
+      quantity,
+      position,
+      cardUrl,
+    ]
   );
 
   return (
@@ -63,7 +73,8 @@ export default function CardListingItemWithAnalytics({
         storeUrl={storeUrl}
         cardUrl={cardUrl}
         quantity={quantity}
-        price={price}
+        currentPrice={currentPrice}
+        lastKnownPrice={lastKnownPrice}
         currency={currency}
         variant={variant}
       />

@@ -14,7 +14,7 @@ type CardListingItemProps = Omit<CardPriceStoreDto, "currency"> & {
 };
 
 export default function CardListingItem({
-  price,
+  currentPrice,
   quantity,
   storeName,
   storeTitle,
@@ -31,7 +31,8 @@ export default function CardListingItem({
   });
   const displayTitle = storeTitle || storeName;
   const isHighlighted = variant === "highlighted";
-  const formattedPrice = price > 0 ? numberFormatter().format(price) : "-";
+  const formattedPrice =
+    currentPrice > 0 ? numberFormatter().format(currentPrice) : "-";
   const storeInitials = displayTitle.slice(0, 2).toUpperCase();
 
   return (

@@ -100,7 +100,8 @@ export interface CardPriceStoreDto {
   storeImage: string | null;
   cardUrl: string | null;
   quantity: number;
-  price: number;
+  currentPrice: number;
+  lastKnownPrice: number | null;
   currency: "brl" | "usd";
   error?: string;
 }
@@ -110,4 +111,5 @@ export interface CardPricesResponseDto {
   number: number;
   inStockStores: number;
   stores: CardPriceStoreDto[];
+  lastUpdated: string;
 }

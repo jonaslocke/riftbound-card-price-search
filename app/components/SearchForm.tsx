@@ -269,12 +269,10 @@ export default function SearchForm({
   }
 
   function navigateToCard(card: Card) {
-    const setId = card.set?.set_id;
-    const collector = card.collector_number ?? null;
-
-    if (setId && collector !== null) {
+    const riftboundId = card.riftbound_id?.trim();
+    if (riftboundId) {
       startTransition(() => {
-        router.push(`/${locale}/cards/${setId}-${collector}`);
+        router.push(`/${locale}/cards/${riftboundId.toLowerCase()}`);
       });
       return true;
     }

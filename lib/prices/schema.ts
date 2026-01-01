@@ -20,7 +20,7 @@ export const CardPricesResponseSchema = z.object({
   number: z.number().int().nonnegative(),
   inStockStores: z.number().int().nonnegative(),
   stores: z.array(PriceStoreSchema),
-  isoDate: z.string().min(1),
+  lastUpdated: z.string().min(1),
 });
 
 export type PriceStore = z.infer<typeof PriceStoreSchema>;

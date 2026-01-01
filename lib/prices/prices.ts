@@ -12,7 +12,7 @@ interface Store
 }
 
 interface CachedPricesSnapshot extends Pick<CardPriceDoc, "cachedAt"> {
-  payload: Omit<CardPriceDoc, "cachedAt">;
+  payload: Pick<CardPriceDoc, keyof CardPricesResponse>;
 }
 
 const STORE_LIST: Store[] = stores as Store[];
@@ -20,15 +20,20 @@ const USER_AGENT =
   "Mozilla/5.0 (compatible; RiftboundBot/1.0; +https://example.com)";
 
 export async function getCachedPrices(
-  setId: CardPricesResponse["set"],
-  number: number
+  riftboundId: string
 ): Promise<CachedPricesSnapshot | null> {
   try {
     const { cardPrices } = await getCollections();
-    const doc = await cardPrices.findOne({ set: setId, number });
+    const doc = await cardPrices.findOne({ riftboundId });
     if (!doc?.cachedAt) return null;
-    const { cachedAt, ...payload } = doc;
-    return { payload, cachedAt };
+    const payload = {
+      set: doc.set,
+      number: doc.number,
+      inStockStores: doc.inStockStores,
+      stores: doc.stores,
+      lastUpdated: doc.lastUpdated,
+    };
+    return { payload, cachedAt: doc.cachedAt };
   } catch {
     return null;
   }
@@ -77,7 +82,7 @@ export async function fetchLivePrices(
     number: collector,
     inStockStores,
     stores: storesWithLastKnown,
-    isoDate: new Date().toISOString(),
+    lastUpdated: new Date().toISOString(),
   };
 }
 

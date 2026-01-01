@@ -94,7 +94,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const cachedSnapshot = await getCachedPrices(setId, collector);
+  const cachedSnapshot = await getCachedPrices(riftboundIdRaw);
   if (cachedSnapshot && isCacheFresh(cachedSnapshot.cachedAt)) {
     return NextResponse.json(cachedSnapshot.payload);
   }
@@ -112,8 +112,15 @@ export async function GET(req: NextRequest) {
   try {
     const { cardPrices } = await getCollections();
     await cardPrices.updateOne(
-      { set: setId, number: collector },
-      { $set: { ...response, cachedAt: new Date() } },
+      { riftboundId: riftboundIdRaw },
+      {
+        $set: {
+          ...response,
+          cachedAt: new Date(),
+          riftboundId: riftboundIdRaw,
+          cardName: card.name,
+        },
+      },
       { upsert: true }
     );
   } catch {

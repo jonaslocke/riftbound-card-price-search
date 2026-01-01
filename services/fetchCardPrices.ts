@@ -2,8 +2,8 @@ import type { CardPricesResponseDto } from "@/app/types/card";
 import { headers } from "next/headers";
 
 export async function fetchCardPrices(
-  setId: string,
-  collector: number | string | null,
+  _setId: string,
+  _collector: number | string | null,
   riftboundId?: string | null
 ) {
   const headersList = await headers();
@@ -11,15 +11,9 @@ export async function fetchCardPrices(
   if (!host) return null;
   const protocol = headersList.get("x-forwarded-proto") ?? "http";
   const cookie = headersList.get("cookie");
-  const params = new URLSearchParams({ set: setId });
-  if (riftboundId) {
-    params.set("riftbound_id", riftboundId);
-  } else if (collector != null) {
-    params.set("number", collector.toString());
-  } else {
-    return null;
-  }
-  const url = `${protocol}://${host}/api/v1/cards/prices?${params.toString()}`;
+  if (!riftboundId) return null;
+  const params = new URLSearchParams({ riftbound_id: riftboundId });
+  const url = `${protocol}://${host}/api/v2/cards/prices?${params.toString()}`;
 
   try {
     const res = await fetch(url, {

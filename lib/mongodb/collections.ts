@@ -4,6 +4,8 @@ import type { CardPricesResponse } from "@/lib/prices/schema";
 
 export interface CardPriceDoc extends CardPricesResponse {
   cachedAt: Date;
+  riftboundId: string;
+  cardName: string;
 }
 
 const COLLECTIONS = {
