@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     url: "https://a.co/d/eAcVivS",
     images: [
       {
-        url: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
+        url: "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
         secureUrl:
-          "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
+          "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
         width: 744,
         height: 1039,
         alt: "Kindle 16 GB (Geração mais recente) - Cor Preta",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Kindle 16 GB (Geração mais recente) - Leve e compacto, com tela antirreflexo, trocas de página mais rápidas, luz frontal ajustável e bateria de longa duração - Cor Preta",
     images: [
-      "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
+      "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
     ],
   },
 };
