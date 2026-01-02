@@ -18,8 +18,8 @@ export const metadata: Metadata = {
         url: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
         secureUrl:
           "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png",
-        width: 1500,
-        height: 1500,
+        width: 744,
+        height: 1039,
         alt: "Kindle 16 GB (Geração mais recente) - Cor Preta",
       },
     ],
