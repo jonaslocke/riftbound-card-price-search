@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     url: "https://a.co/d/eAcVivS",
     images: [
       {
-        url: "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.jpg",
+        url: "https://hextechindex.com/kaisa.jpg",
         secureUrl:
-          "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.jpg",
-        width: 744,
-        height: 1039,
+          "https://hextechindex.com/kaisa.jpg",
+        width: 1500,
+        height: 1500,
         alt: "Kindle 16 GB (Geração mais recente) - Cor Preta",
       },
     ],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Kindle 16 GB (Geração mais recente) - Leve e compacto, com tela antirreflexo, trocas de página mais rápidas, luz frontal ajustável e bateria de longa duração - Cor Preta",
     images: [
-      "https://hextechindex.com/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.jpg",
+      "https://hextechindex.com/kaisa.jpg",
     ],
   },
 };
