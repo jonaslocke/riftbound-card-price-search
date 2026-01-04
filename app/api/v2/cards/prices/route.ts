@@ -134,15 +134,29 @@ export async function GET(req: NextRequest) {
     collector,
     lastKnownPriceByStore
   );
+  const shouldUpdateCache =
+    !hasOnlyTcgplayerStore(response) || !cachedSnapshot?.payload;
+  const lastKnownUpdate = shouldUpdateCache
+    ? response.lastUpdated
+    : cachedSnapshot?.payload?.lastKnownUpdate ?? null;
+  const responseWithLastKnown = {
+    ...response,
+    lastKnownUpdate,
+  };
 
-  if (!hasOnlyTcgplayerStore(response) || !cachedSnapshot?.payload) {
+  const responseForCache = {
+    ...response,
+    lastKnownUpdate,
+  };
+
+  if (shouldUpdateCache) {
     try {
       const { cardPrices } = await getCollections();
       await cardPrices.updateOne(
         { riftboundId: riftboundIdRaw },
         {
           $set: {
-            ...response,
+            ...responseForCache,
             cachedAt: new Date(),
             riftboundId: riftboundIdRaw,
             cardName: card.name,
@@ -155,7 +169,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return NextResponse.json(response);
+  return NextResponse.json(responseWithLastKnown);
 }
 
 async function loadCardByRiftboundId(riftboundId: string) {

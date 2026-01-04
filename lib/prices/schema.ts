@@ -20,6 +20,7 @@ export const CardPricesResponseSchema = z.object({
   number: z.number().int().nonnegative(),
   inStockStores: z.number().int().nonnegative(),
   stores: z.array(PriceStoreSchema),
+  lastKnownUpdate: z.string().min(1).nullable(),
   lastUpdated: z.string().min(1),
 });
 

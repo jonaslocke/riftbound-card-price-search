@@ -112,5 +112,6 @@ export interface CardPricesResponseDto {
   number: number;
   inStockStores: number;
   stores: CardPriceStoreDto[];
+  lastKnownUpdate: string | null;
   lastUpdated: string;
 }

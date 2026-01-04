@@ -58,6 +58,7 @@ export async function getCachedPrices(
       number: doc.number,
       inStockStores: doc.inStockStores,
       stores: doc.stores,
+      lastKnownUpdate: doc.lastKnownUpdate ?? doc.cachedAt.toISOString(),
       lastUpdated: doc.lastUpdated,
     };
     return { payload, cachedAt: doc.cachedAt };
@@ -107,6 +108,7 @@ export async function fetchLivePrices(
     number: collector,
     inStockStores,
     stores: storesWithLastKnown,
+    lastKnownUpdate: null,
     lastUpdated: new Date().toISOString(),
   };
 }
