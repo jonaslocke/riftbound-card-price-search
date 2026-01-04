@@ -136,8 +136,9 @@ export async function GET(req: NextRequest) {
   );
   const shouldUpdateCache =
     !hasOnlyTcgplayerStore(response) || !cachedSnapshot?.payload;
+  const persistedLastUpdated = cachedSnapshot?.payload?.lastUpdated ?? null;
   const lastKnownUpdate = shouldUpdateCache
-    ? response.lastUpdated
+    ? persistedLastUpdated
     : cachedSnapshot?.payload?.lastKnownUpdate ?? null;
   const responseWithLastKnown = {
     ...response,
@@ -146,7 +147,7 @@ export async function GET(req: NextRequest) {
 
   const responseForCache = {
     ...response,
-    lastKnownUpdate,
+    lastKnownUpdate: persistedLastUpdated,
   };
 
   if (shouldUpdateCache) {
