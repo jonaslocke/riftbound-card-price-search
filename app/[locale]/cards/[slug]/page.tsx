@@ -1,4 +1,5 @@
 import CardSummary from "@/app/components/CardSummary";
+import RoleGuard from "@/app/components/RoleGuard";
 import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics";
 import CardListing from "@/app/components/card-listing";
 import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
@@ -91,16 +92,20 @@ export default async function CardPage({
           <CardPreview.Details.Might />
         </CardPreview.Details>
       </CardPreview>
-      {session ? (
-        <CardListing
-          prices={prices}
-          locale={locale}
-          cardId={analyticsCardId}
-          cardName={card.name}
-        />
-      ) : (
-        <CardListingAuthPrompt locale={locale} signInUrl={signInUrl} />
-      )}
+      <RoleGuard
+        isLogged
+        fallback={
+          <CardListingAuthPrompt locale={locale} signInUrl={signInUrl} />
+        }
+        children={
+          <CardListing
+            prices={prices}
+            locale={locale}
+            cardId={analyticsCardId}
+            cardName={card.name}
+          />
+        }
+      />
     </main>
   );
 }
