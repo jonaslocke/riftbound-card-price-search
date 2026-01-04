@@ -61,6 +61,7 @@ export default async function CardPage({
   const details = toCardDetailsDto(card);
   const analyticsCardId = card.riftbound_id ?? card.id;
   const session = await getServerSession(authOptions);
+  console.log(session);
   const prices = session
     ? await fetchCardPrices(setId, collector, riftboundId)
     : null;

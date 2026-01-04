@@ -31,4 +31,35 @@ export const userAuthCallbacks: NextAuthOptions["callbacks"] = {
 
     return true;
   },
+  async jwt({ token, user, account }) {
+    const tokenWithRole = token as typeof token & { userRole?: string };
+    const email = token.email ?? user?.email;
+
+    if (!email) {
+      return token;
+    }
+
+    if (!tokenWithRole.userRole) {
+      const { users } = await getCollections();
+      const existingUser = await users.findOne({ email });
+      tokenWithRole.userRole = existingUser?.userRole ?? "user";
+    }
+
+    if (user && account?.provider === "google") {
+      token.name = user.name;
+      token.email = user.email;
+      token.picture = user.image;
+    }
+
+    return token;
+  },
+  async session({ session, token }) {
+    const tokenWithRole = token as typeof token & { userRole?: string };
+
+    if (session.user) {
+      session.user.userRole = tokenWithRole.userRole ?? "user";
+    }
+
+    return session;
+  },
 };
