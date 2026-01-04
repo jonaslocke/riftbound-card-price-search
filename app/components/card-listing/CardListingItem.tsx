@@ -87,33 +87,31 @@ export default function CardListingItem({
           : "hover:bg-black/5"
       )}
     >
-      <div onClick={onClick}>
-        <Link
-          href={storeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3"
+      <Link
+        href={storeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3"
+      >
+        <Avatar
+          className={cn(
+            "bg-black/20 border-2 size-12",
+            isHighlighted ? "border-amber-400/70" : "border-black/5"
+          )}
         >
-          <Avatar
-            className={cn(
-              "bg-black/20 border-2 size-12",
-              isHighlighted ? "border-amber-400/70" : "border-black/5"
-            )}
-          >
-            {storeImage && (
-              <AvatarImage
-                src={storeImage}
-                alt={displayTitle}
-                className="object-cover"
-              />
-            )}
-            <AvatarFallback className="bg-black/10 font-medium text-white/90">
-              {storeInitials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="font-medium truncate">{displayTitle}</div>
-        </Link>
-      </div>
+          {storeImage && (
+            <AvatarImage
+              src={storeImage}
+              alt={displayTitle}
+              className="object-cover"
+            />
+          )}
+          <AvatarFallback className="bg-black/10 font-medium text-white/90">
+            {storeInitials}
+          </AvatarFallback>
+        </Avatar>
+        <div className="font-medium truncate">{displayTitle}</div>
+      </Link>
       <div>{quantity}</div>
       <div className="flex sm:flex-row flex-col items-end sm:items-center gap-0.5 sm:gap-1.5">
         <div className="flex justify-between items-center gap-1.5 min-w-[80px]">
