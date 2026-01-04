@@ -51,6 +51,7 @@ export default function CardImage() {
           transformStyle: "preserve-3d",
           filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
         }}
+        loading="lazy"
       />
     </div>
   );
