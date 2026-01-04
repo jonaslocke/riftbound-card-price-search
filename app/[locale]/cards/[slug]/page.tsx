@@ -1,8 +1,6 @@
 import CardSummary from "@/app/components/CardSummary";
-import RoleGuard from "@/app/components/RoleGuard";
 import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics";
-import CardListing from "@/app/components/card-listing";
-import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
+import CardListing from "@/app/components/card-listing/CardListing";
 import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
 import CardPreview from "@/features/card-preview";
 import { authOptions } from "@/lib/auth";
@@ -62,13 +60,9 @@ export default async function CardPage({
   const details = toCardDetailsDto(card);
   const analyticsCardId = card.riftbound_id ?? card.id;
   const session = await getServerSession(authOptions);
-  console.log(session);
   const prices = session
     ? await fetchCardPrices(setId, collector, riftboundId)
     : null;
-  const signInUrl = `/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-    `/${locale}/cards/${slug}`
-  )}`;
 
   return (
     <main className="flex flex-col flex-1 gap-6 mx-auto mt-17 sm:mt-19 border-transparent border-t w-full max-w-4xl min-h-screen container-padding">
@@ -92,19 +86,11 @@ export default async function CardPage({
           <CardPreview.Details.Might />
         </CardPreview.Details>
       </CardPreview>
-      <RoleGuard
-        isLogged
-        fallback={
-          <CardListingAuthPrompt locale={locale} signInUrl={signInUrl} />
-        }
-        children={
-          <CardListing
-            prices={prices}
-            locale={locale}
-            cardId={analyticsCardId}
-            cardName={card.name}
-          />
-        }
+      <CardListing
+        prices={prices}
+        locale={locale}
+        cardId={analyticsCardId}
+        cardName={card.name}
       />
     </main>
   );

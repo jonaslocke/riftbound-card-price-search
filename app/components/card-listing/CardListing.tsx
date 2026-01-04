@@ -2,8 +2,10 @@ import { getServerTranslation } from "@/app/i18n/server";
 import type { LocaleSegment } from "@/app/i18n/settings";
 import type { CardPricesResponseDto } from "@/app/types/card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { withRoleGuard } from "@/lib/users/withRoleGuard";
 import { cn } from "@/lib/utils";
 import CardListingItemWithAnalytics from "../analytics/CardListingItemWithAnalytics";
+import CardListingAuthPrompt from "./CardListingAuthPrompt";
 
 const MOCK = [
   {
@@ -83,7 +85,7 @@ const LISTING_HEADERS = [
   "listing.go_to",
 ];
 
-export default async function CardListing({
+async function CardListing({
   prices,
   locale,
   cardId,
@@ -134,7 +136,7 @@ export default async function CardListing({
         </div>
         <div className="flex flex-col gap-2">
           {/* {MOCK.map((listing, index) => ( */}
-           {listings.map((listing, index) => (
+          {listings.map((listing, index) => (
             <CardListingItemWithAnalytics
               key={`${listing.storeName}-${index}`}
               {...listing}
@@ -153,3 +155,8 @@ export default async function CardListing({
     </Card>
   );
 }
+
+export default withRoleGuard(CardListing, {
+  isLogged: true,
+  fallback: <CardListingAuthPrompt />,
+});
