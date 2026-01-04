@@ -1,8 +1,6 @@
-import { NextResponse } from "next/server";
 import { AnalyticsEventSchema } from "@/lib/analytics/schema";
-import { getDb } from "@/lib/mongodb";
-
-const ANALYTICS_COLLECTION = "analytics_events";
+import { getCollections } from "@/lib/mongodb/collections";
+import { NextResponse } from "next/server";
 
 function isAnalyticsEnabled() {
   const flag = process.env.ANALYTICS_ENABLED ?? "true";
@@ -18,7 +16,10 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON payload." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid JSON payload." },
+      { status: 400 }
+    );
   }
 
   const parsed = AnalyticsEventSchema.safeParse(body);
@@ -30,8 +31,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const db = await getDb();
-    await db.collection(ANALYTICS_COLLECTION).insertOne({
+    const { analyticsEvents } = await getCollections();
+    await analyticsEvents.insertOne({
       ...parsed.data,
       received_at: new Date().toISOString(),
     });

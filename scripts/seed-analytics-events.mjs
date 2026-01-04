@@ -135,13 +135,20 @@ const events = [
   ),
   build(
     "prices_shown",
-    { card_id: "card-1", stores, price_count: stores.length, latency_ms: 240 },
+    {
+      card_id: "card-1",
+      card_name: "Alpha Strike",
+      stores,
+      price_count: stores.length,
+      latency_ms: 240,
+    },
     { user_id: "user-123" }
   ),
   build(
     "store_clicked",
     {
       card_id: "card-1",
+      card_name: "Alpha Strike",
       store_id: "store-1",
       store_name: "tcgplayer",
       price: 12.34,

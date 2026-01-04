@@ -77,3 +77,4 @@
 [ ] improve suggestions items UX
 [ ] analytics analysis
 [ ] advanced search
+[ ] persit users data on mongodb
