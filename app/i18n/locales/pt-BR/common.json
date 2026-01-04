@@ -24,7 +24,7 @@
     "in_stock_one": "{{count}} loja vendendo esta carta",
     "in_stock_other": "{{count}} lojas vendendo esta carta",
     "store_name": "Loja",
-    "quantity": "Quantidade",
+    "quantity": "Qtd",
     "value": "Valor",
     "go_to": "Ir para",
     "empty": "Nenhuma listagem disponível ainda.",

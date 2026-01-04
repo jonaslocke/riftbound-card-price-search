@@ -289,7 +289,7 @@ body::after {
     width: min(95vw, 720px);
   }
   .card-listings-grid {
-    @apply grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-center;
+    @apply grid grid-cols-[minmax(0,2fr)_minmax(0,5ch)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-2 sm:gap-4 *:text-center *:first:text-start *:last:text-end px-3 py-2;
   }
   .tiny-font {
     @apply font-mono text-[8px] leading-[100%] tracking-[0.01em] font-medium antialiased;

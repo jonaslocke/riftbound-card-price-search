@@ -62,16 +62,13 @@ export default async function CardListing({
           {LISTING_HEADERS.map((head, index) => (
             <div
               key={index}
-              className={cn(
-                "px-3 py-2 font-semibold text-black/70 text-sm",
-                index !== 0 && "text-center"
-              )}
+              className={cn("font-semibold text-black/70 text-sm")}
             >
               {t(head)}
             </div>
           ))}
         </div>
-        <div>
+        <div className="flex flex-col gap-2">
           {listings.map((listing, index) => (
             <CardListingItemWithAnalytics
               key={`${listing.storeName}-${index}`}

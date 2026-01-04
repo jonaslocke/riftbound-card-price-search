@@ -24,7 +24,7 @@
     "in_stock_one": "{{count}} store currently selling this card",
     "in_stock_other": "{{count}} stores currently selling this card",
     "store_name": "Store Name",
-    "quantity": "Quantity",
+    "quantity": "Qty",
     "value": "Value",
     "go_to": "Go To",
     "empty": "No listings available yet.",

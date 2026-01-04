@@ -71,7 +71,7 @@ export default function CardListingItemWithAnalytics({
   );
 
   return (
-    <div onClick={handleClickCapture}>
+    <>
       <CardListingItem
         storeName={storeName}
         storeTitle={storeTitle}
@@ -84,7 +84,8 @@ export default function CardListingItemWithAnalytics({
         lastKnownUpdate={lastKnownUpdate}
         currency={currency}
         variant={variant}
+        onClick={handleClickCapture}
       />
-    </div>
+    </>
   );
 }
