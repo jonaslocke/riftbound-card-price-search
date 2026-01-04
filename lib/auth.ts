@@ -1,3 +1,4 @@
+import { userAuthCallbacks } from "@/lib/users/auth-callbacks";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -13,4 +14,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
+  callbacks: userAuthCallbacks,
 };
