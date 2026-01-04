@@ -72,7 +72,7 @@ export default function CardSummary({ details }: Props) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
       }}
       className={cn(
-        "top-31 sm:top-16 z-30 fixed inset-x-0 flex flex-col gap-3 bg-slate-700/85 backdrop-blur-lg px-4 md:px-6 py-3 border-slate-400/20 border-b",
+        "top-17 sm:top-16 z-30 fixed inset-x-0 flex flex-col gap-3 bg-slate-700/85 backdrop-blur-lg px-4 md:px-6 py-3 border-slate-400/20 border-b",
         showSummary ? "pointer-events-auto" : "pointer-events-none"
       )}
     >
