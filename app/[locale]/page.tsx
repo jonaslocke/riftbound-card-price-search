@@ -2,6 +2,7 @@
 
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import logo from "@/assets/brand/hextech-index-gradient.svg";
+import { Button } from "@/components/ui/button";
 import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";
@@ -9,12 +10,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import SearchFormWithAnalytics from "../components/analytics/SearchFormWithAnalytics";
+import { SignInSignOut } from "../components/SignInSignOut";
 import { getLocaleFromPathname } from "../i18n/pathname";
 import { defaultLocale } from "../i18n/settings";
-import { Button } from "@/components/ui/button";
-import { SignInSignOut } from "../components/SignInSignOut";
 
 export default function Home() {
   const { t } = useI18nHelpers();
