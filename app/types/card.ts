@@ -92,6 +92,9 @@ export interface CardDetailsDto {
   cardNumber: string;
   normalizedCardNumber?: string;
   riftboundId?: string;
+  isAlteredArt: boolean;
+  isOverNumbered: boolean;
+  isSignature: boolean;
 }
 
 export interface CardPriceStoreDto {

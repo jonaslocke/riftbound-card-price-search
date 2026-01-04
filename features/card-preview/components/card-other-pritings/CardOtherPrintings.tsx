@@ -41,9 +41,9 @@ export default function CardOtherPrintings() {
             currentCardLower === card.normalizedCardNumber?.toLowerCase() ||
             currentCardLower === card.riftboundId?.toLowerCase()
           }
-          isAlteredArt={false}
-          isSignature={false}
-          isOverNumbered={false}
+          isAlteredArt={card.isAlteredArt}
+          isSignature={card.isSignature}
+          isOverNumbered={card.isOverNumbered}
         />
         {otherPrintings.map(
           ({ riftbound_id, name, media, public_code, metadata }) => (

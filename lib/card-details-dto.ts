@@ -44,6 +44,9 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
     cardNumber: card.public_code ?? "Unknown",
     normalizedCardNumber: `${card.set?.set_id}-${card.collector_number}`,
     riftboundId: card.riftbound_id?.toLowerCase(),
+    isAlteredArt: card.metadata?.alternate_art ?? false,
+    isOverNumbered: card.metadata?.overnumbered ?? false,
+    isSignature: card.metadata?.signature ?? false,
   };
 }
 
