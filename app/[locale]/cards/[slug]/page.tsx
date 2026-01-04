@@ -2,17 +2,12 @@ import CardSummary from "@/app/components/CardSummary";
 import CardDetailAnalytics from "@/app/components/analytics/CardDetailAnalytics";
 import CardListing from "@/app/components/card-listing";
 import CardListingAuthPrompt from "@/app/components/card-listing/CardListingAuthPrompt";
-import {
-  defaultLocale,
-  isLocaleSegment,
-  toLanguageTag,
-} from "@/app/i18n/settings";
+import { defaultLocale, isLocaleSegment } from "@/app/i18n/settings";
 import CardPreview from "@/features/card-preview";
 import { authOptions } from "@/lib/auth";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
 import { createCardMetadata } from "@/lib/metadata/create-card-metadata";
 import { parseSlug } from "@/lib/parseSlug";
-import { siteMetadata } from "@/lib/site-metadata";
 import { fetchCard } from "@/services/fetchCard";
 import { fetchCardPrices } from "@/services/fetchCardPrices";
 import type { Metadata } from "next";

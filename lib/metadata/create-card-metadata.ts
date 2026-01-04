@@ -10,8 +10,7 @@ const SITE_NAME = "Hextech Index";
 const SITE_URL = "https://hextechindex.com";
 
 function buildTitle(card: Card): string {
-  const code = card.public_code ? ` - ${card.public_code}` : "";
-  return `${card.name}${code} | ${SITE_NAME}`;
+  return card.public_code ? `${card.name} - ${card.public_code}` : card.name;
 }
 
 function buildDescription(card: Card): string {
