@@ -1,7 +1,11 @@
-import type { Card } from "@/app/types/card";
 import CardPreviewLab from "@/app/components/CardPreviewLab";
+import type { Card } from "@/app/types/card";
+import { authOptions } from "@/lib/auth";
 import { cardPreviewGroups } from "@/lib/cardPreviewGroups";
+import { requireRole } from "@/lib/users/authorization";
 import { fetchCard } from "@/services/fetchCard";
+import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
 
 type CardLookup = {
   setId: string;
@@ -21,6 +25,13 @@ function parseCardCode(code: string): CardLookup | null {
 }
 
 export default async function CardPreviewsPage() {
+  const session = await getServerSession(authOptions);
+  try {
+    requireRole(session, ["god"]);
+  } catch {
+    notFound();
+  }
+
   const codes = Array.from(
     new Set(cardPreviewGroups.flatMap((group) => group.cards))
   );

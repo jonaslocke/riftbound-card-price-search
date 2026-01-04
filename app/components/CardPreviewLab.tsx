@@ -62,8 +62,8 @@ export default function CardPreviewLab({ cardsByCode }: Props) {
             );
           }
           return (
-            <div className="px-4 py-3 *:min-h-[348]">
-              <CardPreview card={card} key={code}>
+            <div className="px-4 py-3 *:min-h-[348]" key={code}>
+              <CardPreview card={card}>
                 <CardPreview.Details>
                   <CardPreview.Details.Title />
                   <CardPreview.Details.SuperTypes />
