@@ -1,8 +1,12 @@
 import { authOptions } from "@/lib/auth";
 import { getCollections } from "@/lib/mongodb/collections";
-import { fetchLivePrices, getCachedPrices } from "@/lib/prices/prices";
-import { CardPricesResponseSchema } from "@/lib/prices/schema";
+import {
+  fetchLivePrices,
+  getCachedPrices,
+  getStoreKeyCandidates,
+} from "@/lib/prices/prices";
 import type { CardPricesResponse } from "@/lib/prices/schema";
+import { CardPricesResponseSchema } from "@/lib/prices/schema";
 import { isRateLimited } from "@/lib/rateLimit";
 import { promises as fs } from "fs";
 import { getServerSession, type Session } from "next-auth";
@@ -37,14 +41,25 @@ function isCacheFresh(cachedAt: Date) {
   return Date.now() - cachedAt.getTime() <= CACHE_TTL_MS;
 }
 
+function coercePrice(value: unknown) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+  if (value == null) return null;
+  const parsed = Number.parseFloat(String(value));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
 function getLastKnownPriceByStore(
   payload: Pick<CardPricesResponse, "stores"> | null
 ) {
   const map = new Map<string, number>();
   if (!payload) return map;
   for (const store of payload.stores ?? []) {
-    if (Number.isFinite(store.currentPrice)) {
-      map.set(store.storeName, store.currentPrice);
+    const price = coercePrice(store.currentPrice);
+    if (price == null) continue;
+    for (const key of getStoreKeyCandidates(store)) {
+      if (!map.has(key)) map.set(key, price);
     }
   }
   return map;
@@ -120,22 +135,24 @@ export async function GET(req: NextRequest) {
     lastKnownPriceByStore
   );
 
-  try {
-    const { cardPrices } = await getCollections();
-    await cardPrices.updateOne(
-      { riftboundId: riftboundIdRaw },
-      {
-        $set: {
-          ...response,
-          cachedAt: new Date(),
-          riftboundId: riftboundIdRaw,
-          cardName: card.name,
+  if (!hasOnlyTcgplayerStore(response) || !cachedSnapshot?.payload) {
+    try {
+      const { cardPrices } = await getCollections();
+      await cardPrices.updateOne(
+        { riftboundId: riftboundIdRaw },
+        {
+          $set: {
+            ...response,
+            cachedAt: new Date(),
+            riftboundId: riftboundIdRaw,
+            cardName: card.name,
+          },
         },
-      },
-      { upsert: true }
-    );
-  } catch {
-    // Best-effort cache write; no logging by request.
+        { upsert: true }
+      );
+    } catch {
+      // Best-effort cache write; no logging by request.
+    }
   }
 
   return NextResponse.json(response);
@@ -165,9 +182,8 @@ async function loadCardByRiftboundId(riftboundId: string) {
     }
 
     const card =
-      cards.find(
-        (item) => item.riftbound_id?.toUpperCase() === normalized
-      ) ?? null;
+      cards.find((item) => item.riftbound_id?.toUpperCase() === normalized) ??
+      null;
     if (!card) continue;
 
     const fileSetId = file.replace(/\.json$/i, "").toUpperCase();

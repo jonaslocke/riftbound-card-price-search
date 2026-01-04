@@ -73,3 +73,5 @@
 [ ] resize header on scrolled mode
 [ ] improve suggestions items UX
 [ ] axios + tanstack query
+[ ] change the globalheader on scroll on mobile
+[ ] lastknow price is not working properly

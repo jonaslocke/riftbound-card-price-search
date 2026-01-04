@@ -1,10 +1,10 @@
+import type { Card } from "@/app/types/card";
 import stores from "@/data/stores.json";
-import { getCollections } from "@/lib/mongodb/collections";
 import type { CardPriceDoc } from "@/lib/mongodb/collections";
+import { getCollections } from "@/lib/mongodb/collections";
 import type { CardPricesResponse, PriceStore } from "@/lib/prices/schema";
 import { load, type Cheerio, type CheerioAPI } from "cheerio";
 import type { Element } from "domhandler";
-import type { Card } from "@/app/types/card";
 
 interface Store
   extends Pick<PriceStore, "storeName" | "storeTitle" | "storeImage"> {
@@ -18,6 +18,33 @@ interface CachedPricesSnapshot extends Pick<CardPriceDoc, "cachedAt"> {
 const STORE_LIST: Store[] = stores as Store[];
 const USER_AGENT =
   "Mozilla/5.0 (compatible; RiftboundBot/1.0; +https://example.com)";
+
+type StoreKeySource = Pick<PriceStore, "storeName" | "storeTitle">;
+
+export function getStoreKeyCandidates(store: StoreKeySource): string[] {
+  const keys: string[] = [];
+  const addKey = (value: string | null | undefined) => {
+    if (!value) return;
+    const key = value.trim().toLowerCase();
+    if (!key || keys.includes(key)) return;
+    keys.push(key);
+  };
+  addKey(store.storeName);
+  addKey(store.storeTitle);
+  return keys;
+}
+
+function resolveLastKnownPrice(
+  lastKnownPriceByStore: Map<string, number> | undefined,
+  store: StoreKeySource
+): number | null {
+  if (!lastKnownPriceByStore) return null;
+  for (const key of getStoreKeyCandidates(store)) {
+    const price = lastKnownPriceByStore.get(key);
+    if (price !== undefined) return price;
+  }
+  return null;
+}
 
 export async function getCachedPrices(
   riftboundId: string
@@ -72,9 +99,7 @@ export async function fetchLivePrices(
 
   const storesWithLastKnown = sortedStores.map((store) => ({
     ...store,
-    lastKnownPrice: lastKnownPriceByStore?.has(store.storeName)
-      ? lastKnownPriceByStore.get(store.storeName) ?? null
-      : null,
+    lastKnownPrice: resolveLastKnownPrice(lastKnownPriceByStore, store),
   }));
 
   return {
