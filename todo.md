@@ -60,18 +60,18 @@
 [x] create other pritings section
 [x] analytics flow_id reset
 [x] fix Aphelios description card text
+[x] lastknow price is not working properly
+[x] analazye amazon/mercado livre metatags for social share
+[x] resize header on scrolled mode
+[x] axios + tanstack query
+[x] change the globalheader on scroll on mobile
 [ ] change assets for svgs
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
 [ ] add foil tag
 [ ] check https://rifty.app/ - benchmark
 [ ] share button
-[ ] analazye amazon/mercado livre metatags for social share
 [ ] card detail prices stream response / user feedback
 [ ] paginated prices api
 [ ] card price calculations modal
-[ ] resize header on scrolled mode
 [ ] improve suggestions items UX
-[ ] axios + tanstack query
-[ ] change the globalheader on scroll on mobile
-[ ] lastknow price is not working properly
