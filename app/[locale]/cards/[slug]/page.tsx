@@ -10,6 +10,7 @@ import {
 import CardPreview from "@/features/card-preview";
 import { authOptions } from "@/lib/auth";
 import { toCardDetailsDto } from "@/lib/card-details-dto";
+import { createCardMetadata } from "@/lib/metadata/create-card-metadata";
 import { parseSlug } from "@/lib/parseSlug";
 import { siteMetadata } from "@/lib/site-metadata";
 import { fetchCard } from "@/services/fetchCard";
@@ -23,111 +24,27 @@ type CardPageParams = { locale?: string; slug?: string };
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<CardPageParams> | CardPageParams;
+  params: Promise<{ locale: string; slug?: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params);
-  const slug = resolvedParams?.slug;
-  const localeParam = resolvedParams?.locale;
-  const locale = isLocaleSegment(localeParam) ? localeParam : defaultLocale;
-  const ogLocale = toLanguageTag(locale).replace("-", "_");
-  const { setId, collector, riftboundId } = parseSlug(slug);
-  if (!setId || !collector) return {};
+  const { locale, slug } = await params;
 
-  const card = await fetchCard(setId, collector, riftboundId);
-  if (!card) return {};
+  const riftboundId = slug ?? "";
 
-  const setLabel = card.set?.set_id ?? setId;
-  const collectorLabel =
-    card.collector_number != null
-      ? String(card.collector_number)
-      : String(collector);
-  const title = `${card.name} - ${setLabel}/${collectorLabel}`;
-  const description =
-    card.text?.plain ??
-    `Compare prices and availability for ${card.name} on ${siteMetadata.name}.`;
-  const rawImageUrl = card.media?.image_url ?? siteMetadata.ogImage;
-  const imageUrl = rawImageUrl.startsWith("http")
-    ? rawImageUrl
-    : `${siteMetadata.url}${rawImageUrl}`;
-  const imageWidth = 744;
-  const imageHeight = 1039;
-  const pagePath = `/${locale}/cards/${slug}`;
-  const canonicalUrl = `${siteMetadata.url}${pagePath}`;
+  const setId = riftboundId.slice(0, 3).toUpperCase();
 
-  return {
-    metadataBase: new URL(siteMetadata.url),
-    title,
-    description,
-    keywords: siteMetadata.keywords,
-    authors: [{ name: "Jonas Antunes" }],
-    creator: "Jonas Antunes",
-    publisher: "Jonas Antunes",
-    robots: {
-      index: true,
-      follow: true,
-    },
-    other: {
-      "msapplication-TileColor": "#0A0F1C",
-      googlebot:
-        "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
-      "apple-mobile-web-app-capable": "yes",
-    },
-    appleWebApp: {
-      capable: true,
-      statusBarStyle: "default",
-      title: siteMetadata.name,
-    },
-    formatDetection: {
-      telephone: false,
-      address: false,
-      email: false,
-    },
-    manifest: "/manifest.json",
-    icons: {
-      icon: [
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
-      ],
-      apple: [
-        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      ],
-      shortcut: ["/favicon.ico"],
-    },
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    openGraph: {
-      type: "article",
-      siteName: siteMetadata.name,
-      title,
-      description,
-      url: canonicalUrl,
-      locale: ogLocale,
-      images: [
-        {
-          url: imageUrl,
-          width: imageWidth,
-          height: imageHeight,
-          alt: `${card.name} card art`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      creator: "@hextechindex",
-      title,
-      description,
-      images: [
-        {
-          url: imageUrl,
-          width: imageWidth,
-          height: imageHeight,
-          alt: `${card.name} card art`,
-        },
-      ],
-    },
-  };
+  const card = await fetchCard(setId, 0, riftboundId);
+
+  if (!card) {
+    return {
+      title: `Card not found | Hextech Index`,
+      description: "Card not found.",
+    };
+  }
+
+  return createCardMetadata({
+    card,
+    locale,
+  });
 }
 
 export default async function CardPage({

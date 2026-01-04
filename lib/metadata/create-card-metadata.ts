@@ -10,12 +10,16 @@ const SITE_NAME = "Hextech Index";
 const SITE_URL = "https://hextechindex.com";
 
 function buildTitle(card: Card): string {
-  const publicCode = card.public_code ? ` - ${card.public_code}` : "";
-  return `${card.name}${publicCode} | ${SITE_NAME}`;
+  const code = card.public_code ? ` - ${card.public_code}` : "";
+  return `${card.name}${code} | ${SITE_NAME}`;
 }
 
 function buildDescription(card: Card): string {
   return `Price and availability information for ${card.name}.`;
+}
+
+function buildImageAlt(card: Card): string {
+  return card.public_code ? `${card.name} - ${card.public_code}` : card.name;
 }
 
 export function createCardMetadata({
@@ -27,31 +31,28 @@ export function createCardMetadata({
   const title = buildTitle(card);
   const description = buildDescription(card);
 
-  const url = `${SITE_URL}/${locale}/cards/${riftboundId}`;
-
+  const canonicalUrl = `${SITE_URL}/${locale}/cards/${riftboundId}`;
   const ogImageUrl = `${SITE_URL}/api/images/cards/${riftboundId}.jpg`;
-
-  const imageAlt =
-    card.media?.accessibility_text ||
-    `${card.name}${card.public_code ? ` - ${card.public_code}` : ""}`;
 
   return {
     title,
     description,
-
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
       title,
       description,
-      url,
+      url: canonicalUrl,
       images: [
         {
           url: ogImageUrl,
           secureUrl: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: imageAlt,
+          alt: buildImageAlt(card),
         },
       ],
     },
