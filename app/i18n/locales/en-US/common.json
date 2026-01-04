@@ -29,8 +29,15 @@
     "go_to": "Go To",
     "empty": "No listings available yet.",
     "lastUpdated": "Updated {{date, DD/MM/YY HH:mm}}",
+    "lastKnownUpdate": "Last update {{date, DD/MM/YY HH:mm}}",
     "visit_store": "Visit",
-    "unavailable": "Unavailable"
+    "unavailable": "Unavailable",
+    "price_trend": {
+      "new": "New listing",
+      "up": "Price up",
+      "down": "Price down",
+      "stable": "Price stable"
+    }
   },
   "card": {
     "might_symbol": "Might symbol",

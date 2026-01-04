@@ -80,6 +80,7 @@ export default async function CardListing({
               variant={
                 listing.storeName === "tcgplayer" ? "highlighted" : "default"
               }
+              lastKnownUpdate={prices?.lastKnownUpdate ?? null}
               cardId={cardId}
               cardName={cardName}
               position={index}

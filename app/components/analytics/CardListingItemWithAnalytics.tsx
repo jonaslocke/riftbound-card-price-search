@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, type MouseEvent } from "react";
-import type { CardPriceStoreDto } from "@/app/types/card";
 import CardListingItem from "@/app/components/card-listing/CardListingItem";
+import type { CardPriceStoreDto } from "@/app/types/card";
 import { trackEvent } from "@/lib/analytics";
 import { useSession } from "next-auth/react";
+import { useCallback, type MouseEvent } from "react";
 
 type CardListingItemWithAnalyticsProps = Omit<CardPriceStoreDto, "currency"> & {
   cardId: string;
@@ -12,6 +12,7 @@ type CardListingItemWithAnalyticsProps = Omit<CardPriceStoreDto, "currency"> & {
   position: number;
   currency?: "BRL" | "USD";
   variant?: "default" | "highlighted";
+  lastKnownUpdate?: string | null;
 };
 
 export default function CardListingItemWithAnalytics({
@@ -28,6 +29,7 @@ export default function CardListingItemWithAnalytics({
   lastKnownPrice,
   variant,
   storeImage,
+  lastKnownUpdate,
 }: CardListingItemWithAnalyticsProps) {
   const { data: session } = useSession();
   const userId = session?.user?.email ?? null;
@@ -41,16 +43,20 @@ export default function CardListingItemWithAnalytics({
       if (!anchor) return;
       const href = anchor.getAttribute("href");
       if (!href || !cardUrl || href !== cardUrl) return;
-      trackEvent("store_clicked", {
-        card_id: cardId,
-        card_name: cardName,
-        store_id: storeName,
-        store_name: displayTitle,
-        price: currentPrice,
-        currency: currency ?? "BRL",
-        quantity,
-        position,
-      }, { user_id: userId });
+      trackEvent(
+        "store_clicked",
+        {
+          card_id: cardId,
+          card_name: cardName,
+          store_id: storeName,
+          store_name: displayTitle,
+          price: currentPrice,
+          currency: currency ?? "BRL",
+          quantity,
+          position,
+        },
+        { user_id: userId }
+      );
     },
     [
       cardId,
@@ -75,6 +81,7 @@ export default function CardListingItemWithAnalytics({
         quantity={quantity}
         currentPrice={currentPrice}
         lastKnownPrice={lastKnownPrice}
+        lastKnownUpdate={lastKnownUpdate}
         currency={currency}
         variant={variant}
       />
