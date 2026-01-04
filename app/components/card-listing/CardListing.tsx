@@ -5,6 +5,70 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import CardListingItemWithAnalytics from "../analytics/CardListingItemWithAnalytics";
 
+const MOCK = [
+  {
+    storeName: "tcgplayer",
+    storeUrl: "https://www.tcgplayer.com",
+    storeTitle: "TCGplayer",
+    storeImage: "/tcg-player-logo.svg",
+    cardUrl: "https://www.tcgplayer.com/product/652940",
+    quantity: 173,
+    currentPrice: 4.54,
+    lastKnownPrice: 5.6,
+    currency: "usd",
+  },
+  {
+    storeName: "epic-games",
+    storeUrl: "https://www.epicgame.com.br",
+    storeTitle: "Epic Game - A loja de card game mais ÉPICA do Brasil!",
+    storeImage:
+      "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/461.jpg",
+    cardUrl: "https://www.epicgame.com.br/?view=ecom/item&tcg=19&card=155",
+    quantity: 12,
+    currentPrice: 79.9,
+    lastKnownPrice: 74.9,
+    currency: "brl",
+  },
+  {
+    storeName: "miragem",
+    storeUrl: "https://www.miragemhobby.com.br",
+    storeTitle: "Miragem Hobby Store: Trading Card Games",
+    storeImage:
+      "https://repositorio.sbrauble.com/arquivos/up/ecom/facebook/62881.jpg",
+    cardUrl: "https://www.miragemhobby.com.br/?view=ecom/item&tcg=19&card=155",
+    quantity: 3,
+    currentPrice: 79.75,
+    lastKnownPrice: 79.75,
+    currency: "brl",
+  },
+  {
+    storeName: "infinity",
+    storeUrl: "https://www.infinityshoptcg.com.br",
+    storeTitle: "Infinity Shop",
+    storeImage:
+      "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/630dc56559d7f-ya684-1e7jg-1836392754630dc56559dca.jpg",
+    cardUrl:
+      "https://www.infinityshoptcg.com.br/?view=ecom/item&tcg=19&card=155",
+    quantity: 2,
+    currentPrice: 99.94,
+    lastKnownPrice: null,
+    currency: "brl",
+  },
+  {
+    storeName: "bolsa-do-infinito",
+    storeUrl: "https://www.bolsadoinfinito.com.br",
+    storeTitle: "Bolsa do Infinito",
+    storeImage:
+      "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/62850bba1fcda-ut3v0-3xk1j-138784713462850bba1fd71.jpg",
+    cardUrl:
+      "https://www.bolsadoinfinito.com.br/?view=ecom/item&tcg=19&card=155",
+    quantity: 2,
+    currentPrice: 109.95,
+    lastKnownPrice: 119.95,
+    currency: "brl",
+  },
+];
+
 type CardListingProps = {
   prices: CardPricesResponseDto | null;
   locale: LocaleSegment;
@@ -69,7 +133,8 @@ export default async function CardListing({
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          {listings.map((listing, index) => (
+          {MOCK.map((listing, index) => (
+          // {listings.map((listing, index) => (
             <CardListingItemWithAnalytics
               key={`${listing.storeName}-${index}`}
               {...listing}

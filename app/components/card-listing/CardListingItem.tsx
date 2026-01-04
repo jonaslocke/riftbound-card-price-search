@@ -5,15 +5,12 @@ import { CardPriceStoreDto } from "@/app/types/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  ExternalLinkIcon,
-  MinusIcon,
-  SparklesIcon,
-  TrendingDown,
-  TrendingUp,
-} from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-import { FC, MouseEvent, useCallback } from "react";
+import { MouseEvent, useCallback } from "react";
+import { TrendIcon } from "./TrendIcon";
+import { trendColor } from "./constants";
+import type { Trend } from "./types";
 
 type CardListingItemProps = Omit<CardPriceStoreDto, "currency"> & {
   variant?: "default" | "highlighted";
@@ -21,8 +18,6 @@ type CardListingItemProps = Omit<CardPriceStoreDto, "currency"> & {
   lastKnownUpdate?: string | null;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 };
-
-type Trend = "new" | "up" | "down" | "stable";
 
 const getPricesTrend = (
   currentPrice: number,
@@ -43,46 +38,6 @@ const getPricesTrend = (
     trend: trend as Trend,
     delta,
   };
-};
-
-const trendColor: Record<Trend, string> = {
-  up: "text-rose-600 border-rose-600",
-  new: "text-emerald-600 border-emerald-600",
-  stable: "border-black/40",
-  down: "text-emerald-600 border-emerald-600",
-};
-
-const TrendIcon: FC<{ trend: Trend }> = ({ trend }) => {
-  const classes = cn(
-    "flex justify-center items-center bg-white/20 border rounded size-4 sm:size-5 *:size-3",
-    trendColor[trend]
-  );
-  switch (trend) {
-    case "new":
-      return (
-        <div className={cn(classes)}>
-          <SparklesIcon />
-        </div>
-      );
-    case "up":
-      return (
-        <div className={cn(classes)}>
-          <TrendingUp />
-        </div>
-      );
-    case "down":
-      return (
-        <div className={cn(classes)}>
-          <TrendingDown />
-        </div>
-      );
-    default:
-      return (
-        <div className={cn(classes)}>
-          <MinusIcon />
-        </div>
-      );
-  }
 };
 
 export default function CardListingItem({
@@ -161,7 +116,7 @@ export default function CardListingItem({
       </div>
       <div>{quantity}</div>
       <div className="flex sm:flex-row flex-col items-end sm:items-center gap-0.5 sm:gap-1.5">
-        <div className="flex items-center gap-1.5">
+        <div className="flex justify-between items-center gap-1.5 min-w-[80px]">
           <TrendIcon trend={trend} />
           <span className={cn(trendColor[trend])}>
             {priceFormatter(currentPrice)}
