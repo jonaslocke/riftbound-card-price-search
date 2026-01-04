@@ -133,8 +133,8 @@ export default async function CardListing({
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          {MOCK.map((listing, index) => (
-          // {listings.map((listing, index) => (
+          {/* {MOCK.map((listing, index) => ( */}
+           {listings.map((listing, index) => (
             <CardListingItemWithAnalytics
               key={`${listing.storeName}-${index}`}
               {...listing}
