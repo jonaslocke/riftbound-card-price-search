@@ -50,6 +50,7 @@ const OtherPrintTile: FC<OtherPrintTile> = ({
             alt={t("card.art_alt", { name })}
             width={WIDTH}
             height={HEIGHT}
+            unoptimized
           />
         )}
         <div

@@ -36,7 +36,7 @@ export default function CardSummary({ details }: Props) {
   }, []);
 
   const showSummary = !detailsVisible;
-  const { name, imageUrl, energy, domains, type, rarity } = details;
+  const { name, imageThumbnailUrl, energy, domains, type, rarity } = details;
   const { domainImg, rarityImg, typeImg } = getCardInfoAssets({
     domains,
     type,
@@ -77,16 +77,16 @@ export default function CardSummary({ details }: Props) {
       )}
     >
       <div className="flex items-center gap-3 mx-auto py-2 w-full max-w-2xl">
-        {imageUrl && (
+        {imageThumbnailUrl && (
           <Image
-            src={imageUrl}
+            src={imageThumbnailUrl}
             alt={"brand.name"}
-            width={744}
-            height={1039}
+            width={48}
+            height={67}
             className={cn(
-              "w-10 sm:w-12",
               type === "battlefield" ? "aspect-88/63" : "aspect-63/88"
             )}
+            unoptimized
           />
         )}
         <div className="flex flex-col flex-1 justify-center gap-1">

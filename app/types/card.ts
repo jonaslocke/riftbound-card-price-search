@@ -78,6 +78,7 @@ export type Sets = "OGN" | "OGS" | "SFD";
 export interface CardDetailsDto {
   name: string;
   imageUrl?: string;
+  imageThumbnailUrl?: string;
   domains: CardDomain[];
   tags: string[];
   energy: number | null;

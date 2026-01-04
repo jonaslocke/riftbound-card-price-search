@@ -29,7 +29,8 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
 
   return {
     name: card.name,
-    imageUrl: card.media?.image_url,
+    imageUrl: `/api/images/cards/${card.riftbound_id}.png`,
+    imageThumbnailUrl: `/api/images/cards/${card.riftbound_id}.webp`,
     domains,
     tags: card.tags ?? [],
     energy,
