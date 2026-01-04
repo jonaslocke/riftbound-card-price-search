@@ -132,7 +132,7 @@ export async function GET(
       }
 
       case "jpg": {
-        const cardBuf = await sharp(input).resize({ height: 630 }).toBuffer();
+        const cardBuf = await sharp(input).resize({ height: 546 }).toBuffer();
 
         outputBuffer = await sharp({
           create: {
