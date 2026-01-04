@@ -75,3 +75,5 @@
 [ ] paginated prices api
 [ ] card price calculations modal
 [ ] improve suggestions items UX
+[ ] analytics analysis
+[ ] advanced search

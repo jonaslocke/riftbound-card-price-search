@@ -23,7 +23,7 @@ export default function CardWrapper({ children, className }: Props) {
   return (
     <div
       className={cn(
-        "relative flex flex-col flex-1 order-3 bg-white/75 border border-t-3 border-b-0 w-full text-black",
+        "relative flex flex-col flex-1 order-3 bg-white/75 border-t-3 border-b-0 w-full text-black",
         "*:py-2 *:pr-3 sm:*:pl-8 *:pl-3 *:border-b *:border-b-black/10",
         !hasGradient && primaryDomain
           ? domainBorderColors[primaryDomain]
@@ -33,7 +33,6 @@ export default function CardWrapper({ children, className }: Props) {
         borderGradient
           ? {
               borderImage: `${borderGradient} 1`,
-              borderImageSlice: 1,
             }
           : undefined
       }

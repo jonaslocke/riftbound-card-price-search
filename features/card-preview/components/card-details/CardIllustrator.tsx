@@ -25,7 +25,7 @@ export default function CardIllustrator() {
     <div
       className={cn(
         backgroundColor,
-        "-mx-px flex items-center gap-2 pl-3!",
+        "-mx-px flex items-center gap-2 pl-3! border-0!",
         useLightText && "text-white"
       )}
       style={
