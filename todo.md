@@ -69,15 +69,15 @@
 [x] grab list of OG users
 
 [ ] advanced search
-    [ ] setup zod schemas
-    [ ] setup mongodb collection
+    [x] setup zod schemas
+    [x] setup mongodb collection
     [ ] create endpoint
         [ ] pagination
         [ ] facet
         [ ] filters
-    [ ] create ingestion strategy
-        [ ] create tag extraction based on keywords
-    [ ] ingest data
+    [x] create ingestion strategy
+        [x] create tag extraction based on keywords
+    [x] ingest data
 
 [ ] change assets for svgs
 [ ] update power cost on signature spells

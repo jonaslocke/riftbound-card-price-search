@@ -1,3 +1,4 @@
+import { upsertAllCardsFromJson } from "@/scripts/ingestion/upsert-cards-from-json";
 import { NextRequest, NextResponse } from "next/server";
 
 const ORIGNAL_USERS = [
@@ -20,5 +21,9 @@ const ORIGNAL_USERS = [
 ];
 
 export async function GET(req: NextRequest) {
+  // upsertAllCardsFromJson().catch((err) => {
+  //   console.error(err);
+  //   process.exit(1);
+  // });
   return NextResponse.json({ message: "I'm Alive" });
 }

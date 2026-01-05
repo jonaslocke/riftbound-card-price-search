@@ -1,5 +1,5 @@
 import { CardSchema } from "@/app/types/card.schemas";
-import { extractKeywordsFromPlainText } from "./keywords";
+import { extractKeywordsFromPlainText } from "./extractKeywordsFromPlainText";
 
 export function normalizeAndValidateCard(raw: unknown) {
   // best effort: treat as any object for normalization step only
