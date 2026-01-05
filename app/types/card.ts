@@ -1,47 +1,64 @@
 export type Card = {
   id: string;
   name: string;
-  riftbound_id?: string;
-  tcgplayer_id?: string;
-  ligamagic_id?: string | null;
-  public_code?: string;
-  collector_number?: number;
-  attributes?: {
-    energy?: number | null;
-    might?: number | null;
-    power?: number | null;
+  riftbound_id: string;
+  tcgplayer_id: string | null;
+  ligamagic_id: string | null;
+  public_code: string;
+  collector_number: number;
+  attributes: {
+    energy: number | null;
+    might: number | null;
+    power: number | null;
   };
-  classification?: {
-    type?: CardType | null;
-    supertype?: CardSupertype | null;
-    rarity?: CardRarity | null;
-    domain?: CardDomain[] | null;
+  classification: {
+    type: CardType;
+    supertype: CardSupertype | null;
+    rarity: CardRarity;
+    domain: CardDomain[];
   };
-  text?: {
-    rich?: string;
-    plain?: string;
+  text: {
+    rich: string;
+    plain: string;
   };
-  set?: {
-    set_id?: Sets;
-    label?: string;
+  set: {
+    set_id: Sets;
+    label: string;
   };
-  media?: {
-    image_url?: string;
-    artist?: string;
-    accessibility_text?: string;
+  media: {
+    image_url: string;
+    artist: string;
+    accessibility_text: string;
   };
-  tags?: string[];
-  orientation?: string;
-  metadata?: {
-    clean_name?: string;
-    alternate_art?: boolean;
-    overnumbered?: boolean;
-    signature?: boolean;
+  tags: string[];
+  orientation: "portrait" | "landscape";
+  metadata: {
+    clean_name: string;
+    alternate_art: boolean;
+    overnumbered: boolean;
+    signature: boolean;
   };
   other_printings?: Card[];
   is_primary?: boolean;
 };
 
+export type RawCardDomain =
+  | "Body"
+  | "Calm"
+  | "Chaos"
+  | "Colorless"
+  | "Fury"
+  | "Mind"
+  | "Order";
+export type RawCardType =
+  | "Battlefield"
+  | "Gear"
+  | "Legend"
+  | "Rune"
+  | "Spell"
+  | "Unit";
+export type RawCardSupertype = "Champion" | "Signature" | "Token" | "Basic";
+export type RawCardRarity = "Common" | "Epic" | "Rare" | "Showcase" | "Uncommon";
 export type CardDomain = "body" | "calm" | "chaos" | "fury" | "mind" | "order";
 export type CardType =
   | "battlefield"
