@@ -91,3 +91,4 @@
 [ ] improve suggestions items UX
 [ ] analytics analysis
 [ ] deck builder
+[ ] tcgplayer price fetches prefer foil version, change it to regular one
