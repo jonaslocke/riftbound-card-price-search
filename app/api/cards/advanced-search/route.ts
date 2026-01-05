@@ -1,18 +1,17 @@
+import type { Card } from "@/app/types/card.schemas"; // adjust if your canonical Card type lives elsewhere
+import { getCollections } from "@/lib/mongodb/collections";
 import {
   advancedSearchQuerySchema,
   type AdvancedSearchQuery,
 } from "@/src/lib/cards/advanced-search.schema";
 import { buildCardsFilter } from "@/src/lib/cards/buildCardsFilter";
-import { buildFacetStages, type FacetsDto } from "@/src/lib/cards/facets";
-import type { Document } from "mongodb";
-import { NextResponse } from "next/server";
-
-import { Card } from "@/app/types/card.schemas";
-import { getCollections } from "@/lib/mongodb/collections";
 import {
   CardDetailsDto,
   toCardDetailsDto,
 } from "@/src/lib/cards/card-details-dto";
+import { buildFacetStages, type FacetsDto } from "@/src/lib/cards/facets";
+import type { Document } from "mongodb";
+import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
@@ -29,7 +28,6 @@ function buildSort(query: AdvancedSearchQuery): Document {
   if (query.sort === "relevance" && query.q) {
     return { score: { $meta: "textScore" }, name: 1 };
   }
-
   const dir = query.order === "desc" ? -1 : 1;
   return { name: dir };
 }
@@ -64,8 +62,9 @@ export async function GET(req: Request) {
   const { cards } = await getCollections();
 
   const filter = buildCardsFilter(query);
-
   const skip = (query.page - 1) * query.limit;
+
+  const facetStages = buildFacetStages();
 
   const pipeline: Document[] = [
     { $match: filter },
@@ -80,11 +79,8 @@ export async function GET(req: Request) {
           { $limit: query.limit },
         ],
         total: [{ $count: "value" }],
-        facets: [
-          {
-            $facet: buildFacetStages(),
-          },
-        ],
+
+        ...facetStages,
       },
     },
   ];
@@ -97,7 +93,17 @@ export async function GET(req: Request) {
 
   const items = ((result?.items ?? []) as Card[]).map(toCardDetailsDto);
 
-  const facets = (result?.facets?.[0] as FacetsDto | undefined) ?? EMPTY_FACETS;
+  const facets: FacetsDto = {
+    sets: result?.sets ?? EMPTY_FACETS.sets,
+    types: result?.types ?? EMPTY_FACETS.types,
+    supertypes: result?.supertypes ?? EMPTY_FACETS.supertypes,
+    rarities: result?.rarities ?? EMPTY_FACETS.rarities,
+    domains: result?.domains ?? EMPTY_FACETS.domains,
+    keywords: result?.keywords ?? EMPTY_FACETS.keywords,
+    alternateArt: result?.alternateArt ?? EMPTY_FACETS.alternateArt,
+    overNumbered: result?.overNumbered ?? EMPTY_FACETS.overNumbered,
+    signature: result?.signature ?? EMPTY_FACETS.signature,
+  };
 
   const response: AdvancedSearchResponse = {
     items,
