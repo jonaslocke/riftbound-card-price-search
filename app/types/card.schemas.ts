@@ -74,10 +74,15 @@ export const CARD_ORIENTATION = ["portrait", "landscape"] as const;
 export const CardOrientationSchema = z.enum(CARD_ORIENTATION);
 export type CardOrientation = z.infer<typeof CardOrientationSchema>;
 
-/*
-CardDomain, CardType, CardSuperType and CardRarity are in .jsons with capitalized values
-but on the ingestion we will make them lowercase
-*/
+const TYPE_DISPLAY_VALUES = [
+  ...CARD_TYPES,
+  ...CARD_SUPERTYPES.flatMap((supertype) =>
+    CARD_TYPES.map((type) => `${supertype} ${type}` as const)
+  ),
+] as const;
+
+export const CardTypeDisplaySchema = z.enum(TYPE_DISPLAY_VALUES);
+export type CardTypeDisplay = z.infer<typeof CardTypeDisplaySchema>;
 
 export const CardSchema = z.object({
   id: z.string().min(1),
