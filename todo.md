@@ -65,6 +65,20 @@
 [x] resize header on scrolled mode
 [x] axios + tanstack query
 [x] change the globalheader on scroll on mobile
+[x] persit users data on mongodb
+[x] grab list of OG users
+
+[ ] advanced search
+    [ ] setup zod schemas
+    [ ] setup mongodb collection
+    [ ] create endpoint
+        [ ] pagination
+        [ ] facet
+        [ ] filters
+    [ ] create ingestion strategy
+        [ ] create tag extraction based on keywords
+    [ ] ingest data
+
 [ ] change assets for svgs
 [ ] update power cost on signature spells
 [ ] validate light/dark mode
@@ -76,5 +90,4 @@
 [ ] card price calculations modal
 [ ] improve suggestions items UX
 [ ] analytics analysis
-[ ] advanced search
-[ ] persit users data on mongodb
+[ ] deck builder
