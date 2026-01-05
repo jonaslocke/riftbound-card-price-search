@@ -1,4 +1,4 @@
-import type { CardPricesResponseDto } from "@/app/types/card";
+import { CardPricesResponseDto } from "@/app/components/analytics/CardDetailAnalytics";
 import { headers } from "next/headers";
 
 export async function fetchCardPrices(

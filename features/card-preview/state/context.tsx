@@ -1,5 +1,6 @@
 "use client";
-import type { Card, CardDetailsDto } from "@/app/types/card";
+import type { Card } from "@/app/types/card.schemas";
+import { CardDetailsDto } from "@/src/lib/cards/card-details-dto";
 import { createContext, useContext } from "react";
 
 export type CardDetailsContextValue = CardDetailsDto & {

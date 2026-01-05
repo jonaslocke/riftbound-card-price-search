@@ -35,8 +35,8 @@ export default function CardOtherPrintings() {
         <OtherPrintTile
           href={baseHref}
           name={card.name}
-          image_url={card.imageUrl}
-          public_code={card.cardNumber}
+          imageUrl={card.imageUrl}
+          normalizedCardNumber={card.normalizedCardNumber}
           isSelected={
             currentCardLower === card.normalizedCardNumber?.toLowerCase() ||
             currentCardLower === card.riftboundId?.toLowerCase()
@@ -51,8 +51,8 @@ export default function CardOtherPrintings() {
               key={riftbound_id}
               href={buildVariantHref(cardBasePath, riftbound_id)}
               name={name}
-              image_url={media?.image_url}
-              public_code={public_code}
+              imageUrl={media?.image_url}
+              normalizedCardNumber={public_code}
               isAlteredArt={metadata?.alternate_art}
               isOverNumbered={metadata?.overnumbered}
               isSignature={metadata?.signature}

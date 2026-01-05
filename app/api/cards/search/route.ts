@@ -1,8 +1,8 @@
+import { Card } from "@/app/types/card.schemas";
 import { getSetOrderIndex } from "@/lib/set-order";
 import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-import type { Card } from "../../../types/card";
 
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
 const MIN_SIZE = 10;

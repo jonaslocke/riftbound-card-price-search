@@ -13,6 +13,7 @@ export default function CardWrapper({ children, className }: Props) {
   const { domains } = useCardDetails();
   const primaryDomain = domains[0];
   const secondaryDomain = domains[1];
+
   const hasGradient = Boolean(primaryDomain && secondaryDomain);
   const borderGradient =
     hasGradient && primaryDomain && secondaryDomain

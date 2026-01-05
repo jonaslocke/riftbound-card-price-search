@@ -1,9 +1,9 @@
 import { getServerTranslation } from "@/app/i18n/server";
 import type { LocaleSegment } from "@/app/i18n/settings";
-import type { CardPricesResponseDto } from "@/app/types/card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { withRoleGuard } from "@/features/authentication/withRoleGuard";
 import { cn } from "@/lib/utils";
+import { CardPricesResponseDto } from "../analytics/CardDetailAnalytics";
 import CardListingItemWithAnalytics from "../analytics/CardListingItemWithAnalytics";
 import CardListingAuthPrompt from "./CardListingAuthPrompt";
 

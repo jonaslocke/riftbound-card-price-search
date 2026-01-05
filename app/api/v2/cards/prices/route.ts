@@ -1,4 +1,4 @@
-import type { Card } from "@/app/types/card";
+import { Card } from "@/app/types/card.schemas";
 import { authOptions } from "@/features/authentication/auth";
 import { getCollections } from "@/lib/mongodb/collections";
 import {

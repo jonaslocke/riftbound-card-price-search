@@ -1,4 +1,4 @@
-import { CardDomain } from "@/app/types/card";
+import { CardDomain } from "@/app/types/card.schemas";
 import { DomainBorderClass } from "./types";
 
 export const backgroundColorMap: Record<CardDomain, string> = {
@@ -8,6 +8,7 @@ export const backgroundColorMap: Record<CardDomain, string> = {
   chaos: "bg-chaos",
   fury: "bg-fury",
   mind: "bg-mind",
+  colorless: "bg-black",
 };
 
 export const domainColorVars: Record<CardDomain, string> = {
@@ -17,6 +18,7 @@ export const domainColorVars: Record<CardDomain, string> = {
   chaos: "var(--color-chaos)",
   fury: "var(--color-fury)",
   mind: "var(--color-mind)",
+  colorless: "var(--color-colorless)",
 };
 
 export const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
@@ -26,6 +28,7 @@ export const domainBorderColors: Record<CardDomain, DomainBorderClass> = {
   chaos: "border-t-chaos border-b-chaos",
   fury: "border-t-fury border-b-fury",
   mind: "border-t-mind border-b-mind",
+  colorless: "border-t-colorless border-b-colorless",
 };
 
 export const DETAILS_ROOT_ID = "card-details-root";

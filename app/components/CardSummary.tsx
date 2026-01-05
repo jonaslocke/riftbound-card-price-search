@@ -1,11 +1,11 @@
 "use client";
 
-import type { CardDetailsDto } from "@/app/types/card";
 import { Badge } from "@/components/ui/badge";
 import { CardCostUi } from "@/features/card-preview/components/card-details/CardCost";
 import { DETAILS_ROOT_ID } from "@/features/card-preview/contants";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
+import { CardDetailsDto } from "@/src/lib/cards/card-details-dto";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import type { ComponentProps } from "react";
 import SearchForm from "@/app/components/SearchForm";
-import type { Card } from "@/app/types/card";
+import { Card } from "@/app/types/card.schemas";
 import { trackEvent } from "@/lib/analytics";
 import { useSession } from "next-auth/react";
+import type { ComponentProps } from "react";
+import { useEffect, useRef } from "react";
 
 const DEBOUNCE_MS = 700;
 const SEARCH_SOURCE = "search_bar";
@@ -39,11 +39,15 @@ export default function SearchFormWithAnalytics(
       }
       if (value.trim().length < 3) return;
       debounceRef.current = setTimeout(() => {
-        trackEvent("search_started", {
-          query: value.trim(),
-          input_method: inputMethodRef.current,
-          source: SEARCH_SOURCE,
-        }, { user_id: userId });
+        trackEvent(
+          "search_started",
+          {
+            query: value.trim(),
+            input_method: inputMethodRef.current,
+            source: SEARCH_SOURCE,
+          },
+          { user_id: userId }
+        );
       }, DEBOUNCE_MS);
     };
 
@@ -85,7 +89,7 @@ export default function SearchFormWithAnalytics(
       if (!list) return;
       const activeItem =
         list.querySelector("li[aria-selected='true']") ??
-        list.querySelector("li[aria-selected=\"true\"]");
+        list.querySelector('li[aria-selected="true"]');
       if (!activeItem) return;
       const index = Array.from(list.children).indexOf(activeItem);
       if (index < 0) return;
@@ -115,13 +119,17 @@ export default function SearchFormWithAnalytics(
     };
     selectionRef.current = null;
     const analyticsCardId = card.riftbound_id ?? card.id;
-    trackEvent("card_selected", {
-      query: inputValueRef.current.trim(),
-      card_id: analyticsCardId,
-      card_name: card.name,
-      selection_method: selection.method,
-      position: selection.position,
-    }, { user_id: userId });
+    trackEvent(
+      "card_selected",
+      {
+        query: inputValueRef.current.trim(),
+        card_id: analyticsCardId,
+        card_name: card.name,
+        selection_method: selection.method,
+        position: selection.position,
+      },
+      { user_id: userId }
+    );
     await Promise.resolve(props.onCardSelect?.(card));
   };
 

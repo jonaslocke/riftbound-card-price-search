@@ -16,7 +16,7 @@ import {
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
-import type { Card } from "../types/card";
+import { Card } from "../types/card.schemas";
 import CardSuggestionItem from "./CardSuggestionItem";
 
 const DEBOUNCED_SEARCH_TIMER = 700;
@@ -344,7 +344,7 @@ export default function SearchForm({
       });
     } else if (event.key === "Enter") {
       event.preventDefault();
-    if (
+      if (
         isOpen &&
         highlightedIndex >= 0 &&
         highlightedIndex < suggestions.length

@@ -1,4 +1,4 @@
-import type { CardKeyword } from "@/app/types/card";
+import type { CardKeyword } from "@/app/types/card.schemas";
 
 import accelerate64 from "@/assets/keywords/accelerate-64.webp";
 import accelerate128 from "@/assets/keywords/accelerate-128.webp";

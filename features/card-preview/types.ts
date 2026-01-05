@@ -1,4 +1,4 @@
-import { CardDomain } from "@/app/types/card";
+import { CardDomain } from "@/app/types/card.schemas";
 
 export type Size = "sm" | "md" | "lg";
 

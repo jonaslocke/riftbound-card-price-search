@@ -6,13 +6,9 @@ import { useCardDetails } from "../../state/context";
 export default function CardDescription() {
   const { descriptionPlain } = useCardDetails();
 
-  if (!descriptionPlain) {
-    return null;
-  }
-
   return (
     <div className="flex-1 min-h-32 text-sm leading-6">
-      {transpileCardDescription(descriptionPlain)}
+      {descriptionPlain && transpileCardDescription(descriptionPlain)}
     </div>
   );
 }

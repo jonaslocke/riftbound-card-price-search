@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-import type { Card } from "../../../types/card";
+import { Card } from "@/app/types/card.schemas";
 import { getSetOrderIndex } from "@/lib/set-order";
+import { promises as fs } from "fs";
+import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
 let cachedAllCards: Card[] | null = null;
@@ -30,7 +30,12 @@ export async function GET(req: NextRequest) {
   }
 
   const setId = set.toUpperCase();
-  const filePath = path.join(process.cwd(), "data", "sets", `${setId.toLowerCase()}.json`);
+  const filePath = path.join(
+    process.cwd(),
+    "data",
+    "sets",
+    `${setId.toLowerCase()}.json`
+  );
 
   let cards: Card[];
   try {
@@ -126,11 +131,11 @@ function normalizeKey(value: string) {
 }
 
 function compareCards(a: Card, b: Card) {
-  const setOrder = getSetOrderIndex(a.set?.set_id) - getSetOrderIndex(b.set?.set_id);
+  const setOrder =
+    getSetOrderIndex(a.set?.set_id) - getSetOrderIndex(b.set?.set_id);
   if (setOrder !== 0) return setOrder;
 
-  const primaryOrder =
-    Number(!isPrimaryPrint(a)) - Number(!isPrimaryPrint(b));
+  const primaryOrder = Number(!isPrimaryPrint(a)) - Number(!isPrimaryPrint(b));
   if (primaryOrder !== 0) return primaryOrder;
 
   const collectorA = Number.isFinite(a.collector_number)
@@ -152,15 +157,18 @@ function pickCardByPriority(cards: Card[]) {
 
 function compareCollectorVariants(a: Card, b: Card) {
   const signatureOrder =
-    Number(Boolean(a.metadata?.signature)) - Number(Boolean(b.metadata?.signature));
+    Number(Boolean(a.metadata?.signature)) -
+    Number(Boolean(b.metadata?.signature));
   if (signatureOrder !== 0) return signatureOrder;
 
   const overnumberedOrder =
-    Number(Boolean(a.metadata?.overnumbered)) - Number(Boolean(b.metadata?.overnumbered));
+    Number(Boolean(a.metadata?.overnumbered)) -
+    Number(Boolean(b.metadata?.overnumbered));
   if (overnumberedOrder !== 0) return overnumberedOrder;
 
   const altArtOrder =
-    Number(Boolean(a.metadata?.alternate_art)) - Number(Boolean(b.metadata?.alternate_art));
+    Number(Boolean(a.metadata?.alternate_art)) -
+    Number(Boolean(b.metadata?.alternate_art));
   if (altArtOrder !== 0) return altArtOrder;
 
   return compareCards(a, b);

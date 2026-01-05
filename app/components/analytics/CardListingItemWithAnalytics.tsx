@@ -1,10 +1,10 @@
 "use client";
 
 import CardListingItem from "@/app/components/card-listing/CardListingItem";
-import type { CardPriceStoreDto } from "@/app/types/card";
 import { trackEvent } from "@/lib/analytics";
 import { useSession } from "next-auth/react";
 import { useCallback, type MouseEvent } from "react";
+import { CardPriceStoreDto } from "./CardDetailAnalytics";
 
 type CardListingItemWithAnalyticsProps = Omit<CardPriceStoreDto, "currency"> & {
   cardId: string;

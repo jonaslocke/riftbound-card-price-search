@@ -92,6 +92,7 @@ input[type="search"] {
   --color-rare: #d3a43f;
   --color-uncommon: #989898;
   --color-common: #965a1f;
+  --color-colorless: #000000;
 }
 
 :root {

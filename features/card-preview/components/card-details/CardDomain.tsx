@@ -1,6 +1,6 @@
 "use client";
 
-import type { CardDomain as Domain } from "@/app/types/card";
+import type { CardDomain as Domain } from "@/app/types/card.schemas";
 import { Badge } from "@/components/ui/badge";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import Image from "next/image";

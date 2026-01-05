@@ -1,4 +1,4 @@
-import { Card } from "@/app/types/card";
+import { Card } from "@/app/types/card.schemas";
 import type { Metadata } from "next";
 
 type CreateCardMetadataParams = {

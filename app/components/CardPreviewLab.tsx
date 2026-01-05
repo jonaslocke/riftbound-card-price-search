@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import type { Card } from "@/app/types/card";
-import CardPreview from "@/features/card-preview";
-import { cardPreviewGroups } from "@/lib/cardPreviewGroups";
+import {
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Card as CardUi,
+} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -11,12 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  CardContent,
-  CardHeader,
-  Card as CardUi,
-  CardTitle,
-} from "@/components/ui/card";
+import CardPreview from "@/features/card-preview";
+import { cardPreviewGroups } from "@/lib/cardPreviewGroups";
+import { useState } from "react";
+import { Card } from "../types/card.schemas";
 
 type Props = {
   cardsByCode: Record<string, Card>;

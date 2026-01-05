@@ -1,8 +1,8 @@
 "use client";
 
-import type { Card } from "@/app/types/card";
-import { toCardDetailsDto } from "@/lib/card-details-dto";
+import { Card } from "@/app/types/card.schemas";
 import { cn } from "@/lib/utils";
+import { toCardDetailsDto } from "@/src/lib/cards/card-details-dto";
 import { PropsWithChildren } from "react";
 import { CardDetailsProvider } from "../state/context";
 

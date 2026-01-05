@@ -1,5 +1,5 @@
 import CardPreviewLab from "@/app/components/CardPreviewLab";
-import type { Card } from "@/app/types/card";
+import { Card } from "@/app/types/card.schemas";
 import { authOptions } from "@/features/authentication/auth";
 import { requireRole } from "@/features/authentication/authorization";
 import { cardPreviewGroups } from "@/lib/cardPreviewGroups";

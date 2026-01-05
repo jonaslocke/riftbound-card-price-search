@@ -1,4 +1,4 @@
-import type { Card } from "@/app/types/card";
+import type { Card } from "@/app/types/card.schemas";
 import stores from "@/data/stores.json";
 import type { CardPriceDoc } from "@/lib/mongodb/collections";
 import { getCollections } from "@/lib/mongodb/collections";

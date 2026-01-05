@@ -1,6 +1,6 @@
 import React from "react";
 import { getKeywordImage } from "@/lib/getKeywordImage";
-import type { CardKeyword } from "@/app/types/card";
+import type { CardKeyword } from "@/app/types/card.schemas";
 import exhaustIcon from "@/assets/icons/exhaust-24.webp";
 import mightIcon from "@/assets/icons/might-24.webp";
 import bodyRune from "@/assets/domains/body-16.webp";
@@ -556,7 +556,7 @@ export function transpileCardDescription(
               pushBreak();
             }
             parts.push(
-              <ul className="list-disc pl-4" key={`list-${parts.length}`}>
+              <ul className="pl-4 list-disc" key={`list-${parts.length}`}>
                 {sentenceListData.items.map((item, index) => (
                   <li key={`list-item-${parts.length}-${index}`}>
                     {renderInlineNodes(item.trim())}

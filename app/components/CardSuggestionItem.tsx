@@ -1,9 +1,9 @@
 "use client";
 
-import type { Card } from "../types/card";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Card } from "../types/card.schemas";
 
 type CardSuggestionItemProps = {
   card: Card;

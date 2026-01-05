@@ -1,20 +1,34 @@
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { cn } from "@/lib/utils";
-
+import { CardDetailsDto } from "@/src/lib/cards/card-details-dto";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 import { HEIGHT, OFF_SET, WIDTH } from "./constants";
 import OtherPrintIndicator from "./OtherPrintIndicator";
 import type { OtherPrintTile } from "./types";
-import Link from "next/link";
 
-const OtherPrintTile: FC<OtherPrintTile> = ({
+interface Props
+  extends Pick<
+    CardDetailsDto,
+    | "name"
+    | "normalizedCardNumber"
+    | "imageUrl"
+    | "isAlteredArt"
+    | "isSignature"
+    | "isOverNumbered"
+  > {
+  href: string;
+  isSelected?: boolean;
+}
+
+const OtherPrintTile: FC<Props> = ({
   href,
-  image_url,
-  name,
-  public_code,
   isSelected = false,
+  name,
+  normalizedCardNumber,
+  imageUrl,
   isAlteredArt,
   isSignature,
   isOverNumbered,
@@ -44,9 +58,9 @@ const OtherPrintTile: FC<OtherPrintTile> = ({
           isOverNumbered={isOverNumbered}
           isSignature={isSignature}
         />
-        {image_url && (
+        {imageUrl && (
           <Image
-            src={image_url}
+            src={imageUrl}
             alt={t("card.art_alt", { name })}
             width={WIDTH}
             height={HEIGHT}
@@ -59,7 +73,7 @@ const OtherPrintTile: FC<OtherPrintTile> = ({
             height: OFF_SET,
           }}
         >
-          <span className="pb-px">{public_code}</span>
+          <span className="pb-px">{normalizedCardNumber}</span>
         </div>
       </motion.div>
     </Link>

@@ -1,4 +1,4 @@
-import type { CardDomain } from "@/app/types/card";
+import type { CardDomain } from "@/app/types/card.schemas";
 
 import body16 from "@/assets/domains/body-16.webp";
 import body32 from "@/assets/domains/body-32.webp";
