@@ -28,6 +28,13 @@ const boolFromString = (v: unknown) => {
   return undefined;
 };
 
+const numberFromParam = (v: unknown) => {
+  if (v === undefined || v === null || v === "") return undefined;
+  if (typeof v === "number") return v;
+  if (typeof v === "string") return Number(v);
+  return undefined;
+};
+
 export const advancedSearchQuerySchema = z.object({
   // multi-select filters
   domains: z.preprocess(splitCsv, z.array(CardDomainSchema).optional()),
@@ -46,9 +53,9 @@ export const advancedSearchQuerySchema = z.object({
   signature: z.preprocess(boolFromString, z.boolean().optional()),
 
   // pagination
-  page: z.preprocess((v) => Number(v), z.number().int().min(1).default(1)),
+  page: z.preprocess(numberFromParam, z.number().int().min(1).default(1)),
   limit: z.preprocess(
-    (v) => Number(v),
+    numberFromParam,
     z.number().int().min(1).max(100).default(24)
   ),
 
