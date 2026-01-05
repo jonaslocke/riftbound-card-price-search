@@ -1,11 +1,10 @@
 "use client";
 
-import type { CardDomain } from "@/app/types/card";
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { cn } from "@/lib/utils";
 import { Brush } from "lucide-react";
-import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
-import { useCardDetails } from "../../state/context";
 import { backgroundColorMap, domainColorVars } from "../../contants";
+import { useCardDetails } from "../../state/context";
 
 export default function CardIllustrator() {
   const { t } = useI18nHelpers();

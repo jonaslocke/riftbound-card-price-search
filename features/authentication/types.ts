@@ -1,4 +1,4 @@
-import { UserRole } from "@/lib/users/schema";
+import { UserRole } from "@/features/authentication/schema";
 import { ReactNode } from "react";
 
 export type AllowedUsers = {
@@ -23,3 +23,4 @@ export type RoleGuardProps = (AllowedUsers | DeniedUsers | LoggedUsers) & {
   children: ReactNode;
   fallback?: ReactNode;
 };
+

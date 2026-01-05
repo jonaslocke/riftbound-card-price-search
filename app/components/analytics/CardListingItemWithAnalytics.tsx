@@ -60,6 +60,7 @@ export default function CardListingItemWithAnalytics({
     },
     [
       cardId,
+      cardName,
       storeName,
       displayTitle,
       currentPrice,
@@ -67,6 +68,7 @@ export default function CardListingItemWithAnalytics({
       quantity,
       position,
       cardUrl,
+      userId,
     ]
   );
 

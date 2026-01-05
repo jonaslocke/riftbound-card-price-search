@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import { getCollections } from "@/lib/mongodb/collections";
-import { UserSchema } from "@/lib/users/schema";
+import { UserSchema } from "@/features/authentication/schema";
 
 export const userAuthCallbacks: NextAuthOptions["callbacks"] = {
   async signIn({ user, account }) {
@@ -63,3 +63,4 @@ export const userAuthCallbacks: NextAuthOptions["callbacks"] = {
     return session;
   },
 };
+

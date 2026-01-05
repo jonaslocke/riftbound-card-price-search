@@ -1,6 +1,6 @@
 "use client";
 
-import { RoleGuardProps } from "@/lib/users/types";
+import { RoleGuardProps } from "@/features/authentication/types";
 import { useSession } from "next-auth/react";
 
 export default function RoleGuard({
@@ -31,3 +31,4 @@ export default function RoleGuard({
   }
   return <>{fallback ?? null}</>;
 }
+

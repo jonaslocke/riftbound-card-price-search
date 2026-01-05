@@ -1,10 +1,9 @@
 "use client";
 
-import type { CardDomain } from "@/app/types/card";
 import { cn } from "@/lib/utils";
-import { useCardDetails } from "../../state/context";
 import { PropsWithChildren } from "react";
 import { domainBorderColors, domainColorVars } from "../../contants";
+import { useCardDetails } from "../../state/context";
 
 interface Props extends PropsWithChildren {
   className?: string;
@@ -23,6 +22,7 @@ export default function CardWrapper({ children, className }: Props) {
   return (
     <div
       className={cn(
+        className,
         "relative flex flex-col flex-1 order-3 bg-white/75 border-t-3 border-b-0 w-full text-black",
         "*:py-2 *:pr-3 sm:*:pl-8 *:pl-3 *:border-b *:border-b-black/10",
         !hasGradient && primaryDomain

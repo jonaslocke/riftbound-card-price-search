@@ -1,8 +1,8 @@
 import CardPreviewLab from "@/app/components/CardPreviewLab";
 import type { Card } from "@/app/types/card";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/features/authentication/auth";
+import { requireRole } from "@/features/authentication/authorization";
 import { cardPreviewGroups } from "@/lib/cardPreviewGroups";
-import { requireRole } from "@/lib/users/authorization";
 import { fetchCard } from "@/services/fetchCard";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";

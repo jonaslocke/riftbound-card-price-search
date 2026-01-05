@@ -66,7 +66,7 @@ export default function CardListingItem({
 
   const priceFormatter = useCallback(
     (price: number) => (price > 0 ? numberFormatter().format(price) : "-"),
-    []
+    [numberFormatter]
   );
 
   const value =

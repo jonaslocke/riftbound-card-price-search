@@ -1,8 +1,8 @@
-import type { Collection } from "mongodb";
-import { getDb } from "@/lib/mongodb";
+import type { User } from "@/features/authentication/schema";
 import type { AnalyticsEvent } from "@/lib/analytics/schema";
+import { getDb } from "@/lib/mongodb";
 import type { CardPricesResponse } from "@/lib/prices/schema";
-import type { User } from "@/lib/users/schema";
+import type { Collection } from "mongodb";
 
 export interface CardPriceDoc extends CardPricesResponse {
   cachedAt: Date;
@@ -32,7 +32,9 @@ export async function getCollections(): Promise<Collections> {
   const db = await getDb();
   return {
     cardPrices: db.collection<CardPriceDoc>(COLLECTIONS.cardPrices),
-    analyticsEvents: db.collection<AnalyticsEventDoc>(COLLECTIONS.analyticsEvents),
+    analyticsEvents: db.collection<AnalyticsEventDoc>(
+      COLLECTIONS.analyticsEvents
+    ),
     users: db.collection<UserDoc>(COLLECTIONS.users),
   };
 }

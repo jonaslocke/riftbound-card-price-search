@@ -37,6 +37,7 @@ export default function CardSuggestionItem({
     >
       <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
         {image ? (
+          // TODO update with next Image
           <img src={image} alt="" loading="lazy" />
         ) : (
           <span className="text-xs text-(--text-muted)">
@@ -44,7 +45,7 @@ export default function CardSuggestionItem({
           </span>
         )}
       </span>
-      <span className="flex flex-1 flex-col gap-0.5">
+      <span className="flex flex-col flex-1 gap-0.5">
         <span className="font-semibold text-(--text-primary)">{card.name}</span>
         {meta ? (
           <span className="text-sm text-(--text-muted)">{meta}</span>

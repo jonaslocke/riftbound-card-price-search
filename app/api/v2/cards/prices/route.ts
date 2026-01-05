@@ -1,4 +1,5 @@
-import { authOptions } from "@/lib/auth";
+import type { Card } from "@/app/types/card";
+import { authOptions } from "@/features/authentication/auth";
 import { getCollections } from "@/lib/mongodb/collections";
 import {
   fetchLivePrices,
@@ -12,7 +13,6 @@ import { promises as fs } from "fs";
 import { getServerSession, type Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-import type { Card } from "../../../../types/card";
 
 const DATA_DIR = path.join(process.cwd(), "data", "sets");
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;

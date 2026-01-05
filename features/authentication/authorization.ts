@@ -1,5 +1,5 @@
 import type { Session } from "next-auth";
-import type { User, UserRole } from "@/lib/users/schema";
+import type { User, UserRole } from "@/features/authentication/schema";
 
 export type RoleGuard = readonly UserRole[];
 
@@ -29,3 +29,4 @@ export function requireRole(
   }
   return role;
 }
+

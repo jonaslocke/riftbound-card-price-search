@@ -1,6 +1,5 @@
 "use client";
 
-import type { CardDomain } from "@/app/types/card";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
@@ -41,6 +40,7 @@ export const CardCostUi: FC<ICardCost> = ({
                 variant === "default" ? "bg-black/10" : "bg-white/30"
               )}
             >
+              {/* TODO update with next Image */}
               <img src={domainImg} alt={`${domains[0]} power image`} />
             </div>
           ))}

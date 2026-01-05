@@ -1,7 +1,6 @@
 "use client";
-import { createContext, useContext } from "react";
 import type { Card, CardDetailsDto } from "@/app/types/card";
-import { Size } from "../types";
+import { createContext, useContext } from "react";
 
 export type CardDetailsContextValue = CardDetailsDto & {
   otherPrintings: Card[];

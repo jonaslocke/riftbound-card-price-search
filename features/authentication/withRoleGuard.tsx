@@ -1,4 +1,4 @@
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/features/authentication/auth";
 import { getServerSession } from "next-auth";
 import type { ComponentType } from "react";
 import { RoleGuardProps } from "./types";
