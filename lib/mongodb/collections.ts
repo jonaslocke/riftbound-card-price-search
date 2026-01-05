@@ -1,3 +1,4 @@
+import { Card } from "@/app/types/card.schemas";
 import type { User } from "@/features/authentication/schema";
 import type { AnalyticsEvent } from "@/lib/analytics/schema";
 import { getDb } from "@/lib/mongodb";
@@ -16,16 +17,20 @@ export type AnalyticsEventDoc = AnalyticsEvent & {
 
 export type UserDoc = User;
 
+export type CardsDoc = Card;
+
 const COLLECTIONS = {
   cardPrices: "card_price_cache",
   analyticsEvents: "analytics_events",
   users: "users",
+  cards: "cards",
 } as const;
 
 type Collections = {
   cardPrices: Collection<CardPriceDoc>;
   analyticsEvents: Collection<AnalyticsEventDoc>;
   users: Collection<UserDoc>;
+  cards: Collection<CardsDoc>;
 };
 
 export async function getCollections(): Promise<Collections> {
@@ -36,5 +41,6 @@ export async function getCollections(): Promise<Collections> {
       COLLECTIONS.analyticsEvents
     ),
     users: db.collection<UserDoc>(COLLECTIONS.users),
+    cards: db.collection<CardsDoc>(COLLECTIONS.cards),
   };
 }
