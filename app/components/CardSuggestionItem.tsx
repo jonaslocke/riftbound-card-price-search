@@ -2,9 +2,9 @@
 
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { Button } from "@/components/ui/button";
+import { HextechImage } from "@/components/ui/hextech-image";
 import { cn } from "@/lib/utils";
 import { Card } from "../types/card.schemas";
-import Image from "next/image";
 
 type CardSuggestionItemProps = {
   card: Card;
@@ -39,7 +39,7 @@ export default function CardSuggestionItem({
     >
       <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
         {image ? (
-          <img
+          <HextechImage
             src={imgUrl}
             alt={`${card.name} art`}
             width={35}

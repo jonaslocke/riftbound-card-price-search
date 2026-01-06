@@ -8,6 +8,7 @@ import { FC } from "react";
 import { HEIGHT, OFF_SET, WIDTH } from "./constants";
 import OtherPrintIndicator from "./OtherPrintIndicator";
 import type { OtherPrintTile } from "./types";
+import { HextechImage } from "@/components/ui/hextech-image";
 
 interface Props
   extends Pick<
@@ -59,12 +60,11 @@ const OtherPrintTile: FC<Props> = ({
           isSignature={isSignature}
         />
         {imageUrl && (
-          <Image
+          <HextechImage
             src={imageUrl}
             alt={t("card.art_alt", { name })}
             width={WIDTH}
             height={HEIGHT}
-            unoptimized
           />
         )}
         <div

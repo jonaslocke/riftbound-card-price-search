@@ -1,13 +1,13 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { HextechImage } from "@/components/ui/hextech-image";
 import { CardCostUi } from "@/features/card-preview/components/card-details/CardCost";
 import { DETAILS_ROOT_ID } from "@/features/card-preview/contants";
 import { getCardInfoAssets } from "@/lib/getCardInfoAssets";
 import { cn } from "@/lib/utils";
 import { CardDetailsDto } from "@/src/lib/cards/card-details-dto";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -78,7 +78,7 @@ export default function CardSummary({ details }: Props) {
     >
       <div className="flex items-center gap-3 mx-auto py-2 w-full max-w-5xl">
         {imageThumbnailUrl && (
-          <Image
+          <HextechImage
             src={imageThumbnailUrl}
             alt={"brand.name"}
             width={48}
@@ -86,7 +86,6 @@ export default function CardSummary({ details }: Props) {
             className={cn(
               type === "battlefield" ? "aspect-88/63" : "aspect-63/88"
             )}
-            unoptimized
           />
         )}
         <div className="flex flex-col flex-1 justify-center gap-1">

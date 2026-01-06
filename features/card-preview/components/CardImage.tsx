@@ -1,9 +1,10 @@
 ﻿"use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
-import { useCardDetails } from "../state/context";
+import { HextechImage } from "@/components/ui/hextech-image";
 import { cn } from "@/lib/utils";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { DETAILS_ROOT_ID } from "../contants";
+import { useCardDetails } from "../state/context";
 
 export default function CardImage() {
   const { imageUrl, name, type } = useCardDetails();
@@ -41,9 +42,7 @@ export default function CardImage() {
       id={DETAILS_ROOT_ID}
     >
       <div className="hidden sm:block w-80 h-[392] sm:h-[446]" />
-      <motion.img
-        src={imageUrl}
-        alt={name}
+      <motion.div
         className="sm:-top-5 sm:left-5 sm:absolute w-full"
         style={{
           rotateX: smoothTiltX,
@@ -51,8 +50,15 @@ export default function CardImage() {
           transformStyle: "preserve-3d",
           filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
         }}
-        loading="lazy"
-      />
+      >
+        <HextechImage
+          width={320}
+          height={446}
+          src={imageUrl}
+          alt={name}
+          className="rounded"
+        />
+      </motion.div>
     </div>
   );
 }

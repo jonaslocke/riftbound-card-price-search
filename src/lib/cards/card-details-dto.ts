@@ -58,7 +58,7 @@ export function toCardDetailsDto(card: Card): CardDetailsDto {
   const dto: CardDetailsDto = {
     riftboundId: card.riftbound_id,
     name: card.name,
-    imageUrl: `/api/images/cards/${card.riftbound_id}.webp?size=x446`,
+    imageUrl: card.media.image_url,
     imageThumbnailUrl: `/api/images/cards/${card.riftbound_id}.jpg?size=x67`,
     type: buildTypeDisplay(
       card.classification.type,
