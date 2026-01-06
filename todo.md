@@ -68,13 +68,13 @@
 [x] persit users data on mongodb
 [x] grab list of OG users
 
-[ ] advanced search
+[x] advanced search
     [x] setup zod schemas
     [x] setup mongodb collection
-    [ ] create endpoint
-        [ ] pagination
-        [ ] facet
-        [ ] filters
+    [x] create endpoint
+        [x] pagination
+        [x] facet
+        [x] filters
     [x] create ingestion strategy
         [x] create tag extraction based on keywords
     [x] ingest data
@@ -92,3 +92,4 @@
 [ ] analytics analysis
 [ ] deck builder
 [ ] tcgplayer price fetches prefer foil version, change it to regular one
+[ ] fix image loading issue
