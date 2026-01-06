@@ -176,15 +176,12 @@ async function transformImage(
         .toBuffer();
     }
     case "jpg":
-      console.log(2);
       return pipeline().jpeg({ quality: 70, mozjpeg: true }).toBuffer();
 
     case "webp":
-      console.log(3);
       return pipeline().webp().toBuffer();
 
     case "png":
-      console.log(4);
       return pipeline().png().toBuffer();
   }
 }
