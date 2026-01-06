@@ -1,13 +1,15 @@
-import { NextResponse } from "next/server";
-import sharp from "sharp";
-import fs from "fs/promises";
-import path from "path";
-import crypto from "crypto";
 import { fetchCard } from "@/services/fetchCard";
+import crypto from "crypto";
+import fs from "fs/promises";
+import { NextResponse } from "next/server";
+import path from "path";
+import sharp from "sharp";
 
 const TIMEOUT_MS = 3000;
 
 type Ext = "jpg" | "webp" | "png";
+
+type Mode = "jpg" | "webp" | "png" | "og";
 
 type ParsedFile = {
   riftboundId: string;
@@ -77,10 +79,24 @@ function cacheHeaders(etag: string, contentType: string): HeadersInit {
   };
 }
 
+const convertStringIntoNormalizedNumber = (s: string) =>
+  s.split("x").map((size) => {
+    const n = Math.abs(Number(size));
+    return isNaN(n) ? undefined : n;
+  });
+
 export async function GET(
   req: Request,
   ctx: { params: Promise<{ file: string }> }
 ) {
+  const { searchParams } = new URL(req.url);
+  const size = searchParams.get("size")?.trim();
+  const isOg = searchParams.get("og")?.trim() === "1";
+
+  const [width, height] = size ? convertStringIntoNormalizedNumber(size) : [];
+
+  console.log({ width, height });
+
   const { file } = await ctx.params;
   const parsed = parseFile(file);
 
@@ -89,6 +105,8 @@ export async function GET(
   }
 
   const { riftboundId, ext, contentType } = parsed;
+
+  const mode: Mode = isOg ? "og" : ext;
 
   const setId = riftboundId.slice(0, 3);
 
@@ -114,24 +132,26 @@ export async function GET(
 
     const input = Buffer.from(await upstream.arrayBuffer());
 
-    switch (ext) {
-      case "png": {
+    switch (mode) {
+      case "jpg":
         outputBuffer = await sharp(input)
-          .resize({ height: 1039 })
+          .resize({ width, height })
+          .jpeg({ quality: 70, mozjpeg: true })
+          .toBuffer();
+        break;
+      case "webp":
+        outputBuffer = await sharp(input)
+          .resize({ width, height })
+          .webp({ quality: 100 })
+          .toBuffer();
+        break;
+      case "png":
+        outputBuffer = await sharp(input)
+          .resize({ width, height })
           .png()
           .toBuffer();
         break;
-      }
-
-      case "webp": {
-        outputBuffer = await sharp(input)
-          .resize({ height: 67 })
-          .webp({ quality: 45 })
-          .toBuffer();
-        break;
-      }
-
-      case "jpg": {
+      case "og": {
         const cardBuf = await sharp(input).resize({ height: 546 }).toBuffer();
 
         outputBuffer = await sharp({
