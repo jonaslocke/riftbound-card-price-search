@@ -4,6 +4,7 @@ import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card } from "../types/card.schemas";
+import Image from "next/image";
 
 type CardSuggestionItemProps = {
   card: Card;
@@ -22,6 +23,7 @@ export default function CardSuggestionItem({
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
   const collector = card.collector_number ?? "";
+  const imgUrl = `/api/images/cards/${card.riftbound_id}.jpg?size=x48`;
 
   return (
     <Button
@@ -37,8 +39,13 @@ export default function CardSuggestionItem({
     >
       <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
         {image ? (
-          // TODO update with next Image
-          <img src={image} alt="" loading="lazy" />
+          <img
+            src={imgUrl}
+            alt={`${card.name} art`}
+            width={35}
+            height={48}
+            loading="lazy"
+          />
         ) : (
           <span className="text-xs text-(--text-muted)">
             {t("search.no_image")}

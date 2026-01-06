@@ -17,7 +17,7 @@ export default function CardMight() {
     <div
       className={cn(
         "right-0 bottom-0 absolute p-0! select-none",
-        "-translate-x-[30%] translate-y-[40%] sm:translate-x-[30%]"
+        "sm:translate-y-[40%] translate-y-[50%] translate-x-[20%] sm:translate-x-[30%]"
       )}
       style={{
         filter: "drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35))",
