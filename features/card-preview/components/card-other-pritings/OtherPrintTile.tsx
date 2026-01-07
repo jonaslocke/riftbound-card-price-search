@@ -63,8 +63,8 @@ const OtherPrintTile: FC<Props> = ({
           <HextechImage
             src={imageUrl}
             alt={t("card.art_alt", { name })}
-            width={WIDTH}
-            height={HEIGHT}
+            width={WIDTH - 4}
+            height={HEIGHT - 4}
           />
         )}
         <div
