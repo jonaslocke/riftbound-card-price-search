@@ -23,7 +23,6 @@ export default function CardSuggestionItem({
   const image = card.media?.image_url;
   const meta = card.set?.set_id ?? "";
   const collector = card.collector_number ?? "";
-  const imgUrl = `/api/images/cards/${card.riftbound_id}.jpg?size=x48`;
 
   return (
     <Button
@@ -38,25 +37,18 @@ export default function CardSuggestionItem({
       )}
     >
       <span className="flex h-14 w-10 items-center justify-center overflow-hidden rounded-md bg-(--panel-strong)">
-        {image ? (
+        {image && (
           <HextechImage
-            src={imgUrl}
-            alt={`${card.name} art`}
+            src={image}
+            alt={t("card.art_alt", { name: card.name })}
             width={35}
             height={48}
-            loading="lazy"
           />
-        ) : (
-          <span className="text-xs text-(--text-muted)">
-            {t("search.no_image")}
-          </span>
         )}
       </span>
       <span className="flex flex-col flex-1 gap-0.5">
         <span className="font-semibold text-(--text-primary)">{card.name}</span>
-        {meta ? (
-          <span className="text-sm text-(--text-muted)">{meta}</span>
-        ) : null}
+        {meta && <span className="text-sm text-(--text-muted)">{meta}</span>}
       </span>
       <span className="text-sm text-(--text-muted) tabular-nums">
         {collector}
