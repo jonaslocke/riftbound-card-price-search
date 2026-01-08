@@ -52,11 +52,27 @@ export default function CardImage() {
         }}
       >
         <HextechImage
+          width={280}
+          height={392}
+          src={imageUrl}
+          alt={name}
+          className="rounded"
+          options={{
+            wrapperClass: {
+              className: "block sm:hidden",
+            },
+          }}
+        />
+        <HextechImage
           width={320}
           height={446}
           src={imageUrl}
           alt={name}
-          className="rounded"
+          options={{
+            wrapperClass: {
+              className: "sm:block hidden",
+            },
+          }}
         />
       </motion.div>
     </div>

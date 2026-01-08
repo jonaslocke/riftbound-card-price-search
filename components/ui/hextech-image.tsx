@@ -1,6 +1,6 @@
 import fallback from "@/assets/cardback.jpg";
 import { cn } from "@/lib/utils";
-import { FC, ImgHTMLAttributes } from "react";
+import { FC, HTMLAttributes, ImgHTMLAttributes } from "react";
 
 export type Props = Omit<
   ImgHTMLAttributes<HTMLImageElement>,
@@ -13,6 +13,9 @@ export type Props = Omit<
   fallbackSrc?: string;
   loading?: NonNullable<ImgHTMLAttributes<HTMLImageElement>["loading"]>;
   decoding?: NonNullable<ImgHTMLAttributes<HTMLImageElement>["decoding"]>;
+  options?: {
+    wrapperClass?: HTMLAttributes<HTMLSpanElement>;
+  };
 };
 
 export const HextechImage: FC<Props> = ({
@@ -22,18 +25,27 @@ export const HextechImage: FC<Props> = ({
   decoding = "async",
   width,
   height,
+  options,
   ...imgProps
 }) => {
+  const {
+    className: wrapperClassName,
+    style,
+    ...wrapperProps
+  } = options?.wrapperClass ?? {};
+
   return (
     <span
-      className="block bg-cover bg-no-repeat bg-center"
+      className={cn("block bg-cover bg-no-repeat bg-center", wrapperClassName)}
       style={{
+        ...style,
         backgroundColor: "#033651",
         backgroundImage: `url(${fallbackSrc})`,
         width: width,
         height: height,
         borderRadius: Math.max(...[2, 0.047 * width]),
       }}
+      {...wrapperProps}
     >
       <img
         {...imgProps}
