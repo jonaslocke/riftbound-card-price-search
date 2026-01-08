@@ -31,7 +31,7 @@ export function createCardMetadata({
   const description = buildDescription(card);
 
   const canonicalUrl = `${SITE_URL}/${locale}/cards/${riftboundId}`;
-  const ogImageUrl = `${SITE_URL}/api/images/cards/${riftboundId}.jpg?og=1`;
+  const ogImageUrl = `${SITE_URL}/api/images/og/${riftboundId}.jpg`;
 
   return {
     title,
