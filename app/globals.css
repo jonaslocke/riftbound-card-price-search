@@ -113,7 +113,7 @@ input[type="search"] {
   --font-display: "Arpona", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   --font-ui: "Open Sans", "Segoe UI", Tahoma, sans-serif;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.1706 0.0284 267.36);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -239,35 +239,6 @@ input[type="search"] {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  main {
-    width: min(95vw, 720px);
-  }
-  .card-listings-grid {
-    @apply grid grid-cols-[minmax(0,2fr)_minmax(0,5ch)_minmax(80px,1fr)_minmax(0,1fr)] items-center gap-4 *:text-center *:first:text-start *:last:text-end px-3 py-2;
-  }
-  .tiny-font {
-    @apply font-mono text-[8px] leading-[100%] tracking-[0.01em] font-medium antialiased;
-  }
-  .container-padding {
-    @apply px-[clamp(16px,4vw,32px)];
-  }
-}
-
 @layer utilities {
   .scrollbar-compact {
     scrollbar-width: thin;
@@ -287,5 +258,44 @@ input[type="search"] {
   }
   .scrollbar-compact::-webkit-scrollbar-thumb:hover {
     background: rgba(251, 191, 36, 0.9);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground bg-no-repeat bg-center bg-fixed bg-cover;
+    @apply after:top-0 after:left-0 after:-z-1 after:fixed after:bg-linear-to-t after:from-background after:to-70% after:to-background/95 after:w-screen after:h-screen;
+    /* background-image: var(--background-image); */
+  }
+
+  main {
+    width: min(95vw, 720px);
+  }
+  .card-listings-grid {
+    @apply grid grid-cols-[minmax(0,2fr)_minmax(0,5ch)_minmax(80px,1fr)_minmax(0,1fr)] items-center gap-4 *:text-center *:first:text-start *:last:text-end px-3 py-2;
+  }
+  .tiny-font {
+    @apply font-mono text-[8px] leading-[100%] tracking-[0.01em] font-medium antialiased;
+  }
+  .container-padding {
+    @apply px-[clamp(16px,4vw,32px)];
   }
 }
