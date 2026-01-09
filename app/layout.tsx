@@ -1,12 +1,17 @@
 import { getLanguageTag } from "@/lib/getLanguageTag";
 import { createHextechMetadata } from "@/lib/metadata/create-hextech-metadata";
 import type { Metadata } from "next";
-import type { CSSProperties, PropsWithChildren } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import AppProviders from "./components/AppProviders";
+import GlobalHeader from "./components/GlobalHeader";
+import LayoutChrome from "./components/LayoutChrome";
+import SiteFooter from "./components/SiteFooter";
 import "./globals.css";
-import arrowSmall from "@/assets/arrow-small.svg";
-import arrowMedium from "@/assets/arrow-medium.svg";
-import arrowLarge from "@/assets/arrow-large.svg";
-import Image from "next/image";
+import {
+  defaultLocale,
+  isLocaleSegment,
+  type LocaleSegment,
+} from "./i18n/settings";
 
 export const viewport = {
   themeColor: "#0A0F1C",
@@ -16,8 +21,19 @@ export async function generateMetadata(): Promise<Metadata> {
   return createHextechMetadata();
 }
 
-export default async function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale?: string }> | { locale?: string };
+}) {
   const languageTag = await getLanguageTag();
+  const resolvedParams = await Promise.resolve(params);
+  const localeParam = resolvedParams?.locale;
+  const locale: LocaleSegment = isLocaleSegment(localeParam)
+    ? localeParam
+    : defaultLocale;
 
   return (
     <html lang={languageTag}>
@@ -28,12 +44,16 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           } as CSSProperties
         }
       >
-        <div className="top-[calc(calc(100%-439px)/2)] absolute flex sm:*:-ml-39">
-          <Image className="opacity-10" src={arrowSmall} alt="arrow-small" />
-          <Image className="opacity-20" src={arrowMedium} alt="arrow-small" />
-          <Image className="opacity-30" src={arrowLarge} alt="arrow-small" />
-        </div>
-        {children}
+        <AppProviders locale={locale}>
+          <LayoutChrome
+            header={<GlobalHeader />}
+            footer={<SiteFooter locale={locale} />}
+          >
+            <main>
+              <span>1</span>
+              {children}</main>
+          </LayoutChrome>
+        </AppProviders>
       </body>
     </html>
   );

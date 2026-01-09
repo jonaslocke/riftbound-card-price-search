@@ -33,7 +33,7 @@ export default function GlobalHeader() {
   };
 
   return (
-    <header className="z-50 fixed items-center bg-slate-900/85 backdrop-blur-lg border-slate-400/20 border-b w-full container-padding">
+    <header className="top-0 z-50 fixed items-center bg-slate-900/85 backdrop-blur-lg border-slate-400/20 border-b w-full h-[72] container-padding">
       <div className="flex justify-between items-center gap-8 sm:gap-20 mx-auto py-3 w-full max-w-5xl">
         <Link href={`/${locale}`}>
           <Image
