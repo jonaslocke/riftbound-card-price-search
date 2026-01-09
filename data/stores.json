@@ -138,9 +138,15 @@
     "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/home/g/694454083f182-psoi8-zs30y-1740717138694454083f18e.png"
   },
   {
-    "storeName": "Calm Mind",
+    "storeName": "calm-mind",
     "url": "https://www.calmmind.com.br",
-    "storeTitle": null,
-    "storeImage": null
+    "storeTitle": "Calm Mind - Geek Store",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/687e729c2eafe-1l9e2-gx4ju-1864193425687e729c2eb43.jpg"
+  },
+  {
+    "storeName": "loja-tbx",
+    "url": "https://www.lojatbx.com.br",
+    "storeTitle": "The Box - Game Store",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/651221ef19642-t6f0j-s7mxp-994130833651221ef19681.jpg"
   }
 ]
