@@ -37,8 +37,6 @@ export async function GET(req: Request) {
   const pipeline: Document[] = [
     { $match: filter },
 
-    ...(query.q ? [{ $addFields: { score: { $meta: "textScore" } } }] : []),
-
     {
       $facet: {
         items: [

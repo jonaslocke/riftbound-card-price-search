@@ -42,6 +42,10 @@ export const CardSuggestionInput: FC<Props> = ({
           className="flex flex-1 bg-transparent disabled:opacity-50 py-3 rounded-md outline-hidden w-full h-10 placeholder:text-muted-foreground text-sm disabled:cursor-not-allowed"
           name="search"
           ref={inputRef}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
         />
         {shouldShowClear && (
           <Button
