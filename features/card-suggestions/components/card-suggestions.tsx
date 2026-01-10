@@ -6,10 +6,11 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { CardDetailsDto } from "@/features/card-search";
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { CardSuggestionItem } from "./card-suggestion-item";
 import { CircleX, LoaderCircle } from "lucide-react";
 import { CardSuggestionInput } from "./card-suggestion-input";
+import { CardSuggestionWarning, Warnings } from "./card-suggestion-warning";
 
 const SUGGESTIONS = [
   {
@@ -78,6 +79,39 @@ export const CardSuggestions: FC<Props> = ({
   const [query, setQuery] = useState("");
   const [selectedItem, setSelectedItem] =
     useState<CardDetailsDto["riftboundId"]>("");
+  const [warning, setWarning] = useState<Warnings>(null);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(
+    null
+  );
+
+  console.log(debounceTimer);
+
+  const clearDebounce = () => {
+    setDebouncedQuery("");
+    clearTimeout(debounceTimer as NodeJS.Timeout);
+    setDebounceTimer(null);
+    setWarning(null);
+  };
+
+  const validateQuery = (query: string) => {
+    if (query.length < 3) {
+      setWarning("min-char");
+      return false;
+    }
+    return true;
+  };
+
+  const onInput = (query: string) => {
+    setQuery(query);
+    clearDebounce();
+
+    setDebounceTimer(
+      setTimeout(() => {
+        setDebouncedQuery(query);
+      }, 700)
+    );
+  };
 
   const onSelectItem = (id: CardDetailsDto["riftboundId"]) => {
     setDisabled(true);
@@ -89,15 +123,30 @@ export const CardSuggestions: FC<Props> = ({
     console.log(id);
   };
 
+  const onClear = () => {
+    setQuery("");
+    clearDebounce();
+    setWarning(null);
+  };
+
+  useEffect(() => {
+    if (!debouncedQuery) return;
+    const validQuery = validateQuery(debouncedQuery);
+
+    if (validQuery) console.log("valid");
+  }, [debouncedQuery]);
+
   return (
-    <>
-      <div className="flex gap-3 bg-white p-4">
+    <div className="mx-auto w-120">
+      <div className="flex gap-3 bg-white mb-12 p-4 h-[150]">
         <span>{open ? "input is focused" : "input on blur"}</span>
         <span>{query !== "" && `Search: ${query}`}</span>
         <span>{selectedItem !== "" && `Command value: ${selectedItem}`}</span>
+        <pre>{debounceTimer && `debounced timer:${debounceTimer}`}</pre>
       </div>
+      <CardSuggestionWarning warning={warning} />
       <Command
-        className="shadow-md mx-auto border rounded-lg max-w-120"
+        className="shadow-md border rounded-lg"
         onFocus={() => setOpen(true)}
         onBlur={(e) => {
           const next = e.relatedTarget as HTMLElement | null;
@@ -114,8 +163,8 @@ export const CardSuggestions: FC<Props> = ({
           isDisabled={disabled}
           isLoading={disabled}
           query={query}
-          setQuery={setQuery}
-          clearFn={() => setQuery("")}
+          setQuery={onInput}
+          onClear={onClear}
         />
         {open && suggestions.length > 0 && (
           <CommandList>
@@ -134,6 +183,6 @@ export const CardSuggestions: FC<Props> = ({
           </CommandList>
         )}
       </Command>
-    </>
+    </div>
   );
 };

@@ -8,7 +8,7 @@ type Props = {
   setQuery: (query: string) => void;
   isDisabled: boolean;
   isLoading: boolean;
-  clearFn?: () => void;
+  onClear?: () => void;
 };
 
 export const CardSuggestionInput: FC<Props> = ({
@@ -16,8 +16,10 @@ export const CardSuggestionInput: FC<Props> = ({
   isLoading,
   query,
   setQuery,
-  clearFn,
+  onClear,
 }) => {
+  const shouldShowClear = !!onClear && !isDisabled && !isLoading && query;
+
   return (
     <CommandInput asChild>
       <div className="flex items-center">
@@ -30,12 +32,12 @@ export const CardSuggestionInput: FC<Props> = ({
           name="search"
           disabled={isDisabled}
         />
-        {!!clearFn && !isDisabled && !isLoading && query && (
+        {shouldShowClear && (
           <Button
             variant="ghost"
             size="icon-sm"
             className="hover:bg-black/10"
-            onClick={() => clearFn()}
+            onClick={() => onClear()}
           >
             <CircleX className="size-4.5 text-black/60" />
           </Button>
