@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import I18nClientProvider from "../i18n/ClientProvider";
 import { I18nHelpersProvider } from "../i18n/HelpersProvider";
 import type { LocaleSegment } from "../i18n/settings";
+import { QueryProvider } from "../providers/query-provider";
 
 export default function AppProviders({
   locale,
@@ -14,10 +15,12 @@ export default function AppProviders({
   children: ReactNode;
 }) {
   return (
-    <SessionProvider>
-      <I18nClientProvider locale={locale}>
-        <I18nHelpersProvider>{children}</I18nHelpersProvider>
-      </I18nClientProvider>
-    </SessionProvider>
+    <QueryProvider>
+      <SessionProvider>
+        <I18nClientProvider locale={locale}>
+          <I18nHelpersProvider>{children}</I18nHelpersProvider>
+        </I18nClientProvider>
+      </SessionProvider>
+    </QueryProvider>
   );
 }
