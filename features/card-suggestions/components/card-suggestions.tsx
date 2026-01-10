@@ -2,78 +2,22 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandList,
 } from "@/components/ui/command";
 import { CardDetailsDto } from "@/features/card-search";
-import { FC, useEffect, useRef, useState } from "react";
-import { CardSuggestionItem } from "./card-suggestion-item";
-import { CircleX, LoaderCircle } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { FC, useEffect, useMemo, useState } from "react";
+import { fetchCardSuggestions } from "../services/fetchCardSuggestions";
 import { CardSuggestionInput } from "./card-suggestion-input";
+import { CardSuggestionItem } from "./card-suggestion-item";
 import { CardSuggestionWarning, Warnings } from "./card-suggestion-warning";
-
-const SUGGESTIONS = [
-  {
-    riftboundId: "ogn-268-298",
-    name: "Bullet Time",
-    imageUrl: "/api/images/cards/ogn-268-298.png",
-    imageThumbnailUrl: "/api/images/cards/ogn-268-298.webp",
-    type: "signature spell",
-    rarity: "epic",
-    domains: ["body", "chaos"],
-    setLabel: "Origins",
-    normalizedCardNumber: "OGN-268",
-    energy: 1,
-    power: null,
-    might: null,
-    descriptionPlain:
-      "[Action] (Play on your turn or in showdowns.)Pay any amount of :rb_rune_rainbow: to deal that much damage to all enemy units at a battlefield.",
-    description:
-      "[Action] (Play on your turn or in showdowns.)Pay any amount of :rb_rune_rainbow: to deal that much damage to all enemy units at a battlefield.",
-    artistLabel: "Kudos Productions",
-    artist: "Kudos Productions",
-    tags: ["Miss Fortune"],
-    keywords: ["action"],
-    isAlteredArt: false,
-    isOverNumbered: false,
-    isSignature: false,
-    cardNumber: 268,
-  },
-  {
-    riftboundId: "ogn-122-298",
-    name: "Time Warp",
-    imageUrl: "/api/images/cards/ogn-122-298.png",
-    imageThumbnailUrl: "/api/images/cards/ogn-122-298.webp",
-    type: "spell",
-    rarity: "epic",
-    domains: ["mind"],
-    setLabel: "Origins",
-    normalizedCardNumber: "OGN-122",
-    energy: 10,
-    power: 4,
-    might: null,
-    descriptionPlain: "Take a turn after this one. Banish this.",
-    description: "Take a turn after this one. Banish this.",
-    artistLabel: "Kudos Productions",
-    artist: "Kudos Productions",
-    tags: [],
-    keywords: [],
-    isAlteredArt: false,
-    isOverNumbered: false,
-    isSignature: false,
-    cardNumber: 122,
-  },
-];
-
-// http://localhost:3000/api/v2/cards/search?q=time
+import { queryClient } from "@/app/providers/query-provider";
 
 type Props = {
-  suggestions: CardDetailsDto[];
+  suggestions?: CardDetailsDto[];
 };
 
-export const CardSuggestions: FC<Props> = ({
-  suggestions = SUGGESTIONS as CardDetailsDto[],
-}) => {
+export const CardSuggestions: FC<Props> = ({ suggestions = [] }) => {
   const [open, setOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [query, setQuery] = useState("");
@@ -85,17 +29,34 @@ export const CardSuggestions: FC<Props> = ({
     null
   );
 
-  console.log(debounceTimer);
+  const validQuery = useMemo(() => {
+    const hasMinimumChars = debouncedQuery.length > 2;
+
+    if (!hasMinimumChars && debouncedQuery !== "") setWarning("min-char");
+
+    return [hasMinimumChars].every(Boolean);
+  }, [debouncedQuery]);
+
+  const { data, isFetching: isLoading } = useQuery({
+    queryKey: ["card-suggestions"],
+    queryFn: ({ signal }) => fetchCardSuggestions(debouncedQuery, signal),
+    enabled: validQuery,
+  });
+
+  const isBusy = useMemo(() => {
+    return disabled || isLoading;
+  }, [disabled, isLoading]);
 
   const clearDebounce = () => {
     setDebouncedQuery("");
     clearTimeout(debounceTimer as NodeJS.Timeout);
     setDebounceTimer(null);
     setWarning(null);
+    queryClient.cancelQueries({ queryKey: ["card-suggestions"] });
   };
 
   const validateQuery = (query: string) => {
-    if (query.length < 3) {
+    if (query.length < 3 && query !== "") {
       setWarning("min-char");
       return false;
     }
@@ -131,9 +92,10 @@ export const CardSuggestions: FC<Props> = ({
 
   useEffect(() => {
     if (!debouncedQuery) return;
+
     const validQuery = validateQuery(debouncedQuery);
 
-    if (validQuery) console.log("valid");
+    if (!validQuery) return;
   }, [debouncedQuery]);
 
   return (
@@ -160,8 +122,8 @@ export const CardSuggestions: FC<Props> = ({
         onValueChange={setSelectedItem}
       >
         <CardSuggestionInput
-          isDisabled={disabled}
-          isLoading={disabled}
+          isDisabled={isBusy}
+          isLoading={isLoading}
           query={query}
           setQuery={onInput}
           onClear={onClear}
@@ -174,7 +136,7 @@ export const CardSuggestions: FC<Props> = ({
                 <CardSuggestionItem
                   key={suggestion.riftboundId}
                   {...suggestion}
-                  disabled={disabled}
+                  disabled={isBusy}
                   onSelect={onSelectItem}
                   isSelected={suggestion.riftboundId === selectedItem}
                 />
