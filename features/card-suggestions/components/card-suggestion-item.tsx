@@ -25,16 +25,19 @@ export const CardSuggestionItem: FC<Props> = ({
       key={riftboundId}
       value={riftboundId}
       onSelect={() => onSelect(riftboundId)}
-      className="gap-8 cursor-pointer"
+      className="justify-between gap-4 pr-3 data-[selected=true]:ring ring-black/30 cursor-pointer"
       disabled={disabled}
       asChild
     >
       <Link href={`/cards/${riftboundId}`}>
-        <HextechImage src={imageUrl} alt={name} width={59} height={59} />
-        <div className="flex flex-1 justify-between items-center pr-3 font-medium text-lg">
-          <span>{`${name} | ${normalizedCardNumber}`}</span>
-          {isSelected && !disabled && <ExternalLink />}
+        <div className="h-10 overflow-hidden">
+          <HextechImage src={imageUrl} alt={name} width={40} height={56} />
         </div>
+        <div className={"flex flex-col flex-1 *:leading-5"}>
+          <span className="font-medium text-base">{name}</span>
+          <span className="text-black/70 text-xs">{normalizedCardNumber}</span>
+        </div>
+        {isSelected && !disabled ? <ExternalLink /> : <div />}
       </Link>
     </CommandItem>
   );

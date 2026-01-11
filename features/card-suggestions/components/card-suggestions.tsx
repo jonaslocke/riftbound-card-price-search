@@ -164,13 +164,13 @@ export const CardSuggestions: FC<Props> = ({
       <Command
         className="shadow-md border rounded-lg"
         onFocus={() => setOpen(true)}
-        onBlur={(e) => {
-          const next = e.relatedTarget as HTMLElement | null;
-          if ((!next || !e.currentTarget.contains(next)) && !disabled) {
-            setOpen(false);
-            setSelectedItem("");
-          }
-        }}
+        // onBlur={(e) => {
+        //   const next = e.relatedTarget as HTMLElement | null;
+        //   if ((!next || !e.currentTarget.contains(next)) && !disabled) {
+        //     setOpen(false);
+        //     setSelectedItem("");
+        //   }
+        // }}
         shouldFilter={false}
         value={selectedItem}
         onValueChange={setSelectedItem}
