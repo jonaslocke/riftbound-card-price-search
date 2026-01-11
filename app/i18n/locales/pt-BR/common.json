@@ -14,6 +14,7 @@
     "placeholder_mobile": "Busque pelo nome da carta",
     "label": "Buscar",
     "clear": "Limpar busca",
+    "suggestions": "Sugestões",
     "suggestions_aria": "Sugestões de cartas",
     "error_default": "Não foi possível pesquisar agora.",
     "min_chars": "Digite pelo menos 3 caracteres para buscar.",

@@ -8,10 +8,12 @@ import {
 import { CardDetailsDto } from "@/features/card-search";
 import { useQuery } from "@tanstack/react-query";
 import { FC, useMemo, useState } from "react";
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { fetchCardSuggestions } from "../services/fetchCardSuggestions";
 import { CardSuggestionInput } from "./card-suggestion-input";
 import { CardSuggestionItem } from "./card-suggestion-item";
 import { CardSuggestionWarning, Warnings } from "./card-suggestion-warning";
+import { useRouter } from "next/navigation";
 
 const MOCK = [
   {
@@ -73,6 +75,8 @@ type Props = {
 export const CardSuggestions: FC<Props> = ({
   suggestions = MOCK as CardDetailsDto[],
 }) => {
+  const router = useRouter();
+  const { t } = useI18nHelpers();
   const [open, setOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [query, setQuery] = useState("");
@@ -137,7 +141,7 @@ export const CardSuggestions: FC<Props> = ({
   const onSelectItem = (id: CardDetailsDto["riftboundId"]) => {
     setDisabled(true);
 
-    console.log(id);
+    router.push(`/cards/${id}`);
   };
 
   const onClear = () => {
@@ -148,12 +152,6 @@ export const CardSuggestions: FC<Props> = ({
 
   return (
     <div className="mx-auto w-120">
-      <div className="flex gap-3 bg-white mb-12 p-4 h-[150]">
-        <span>{open ? "input is focused" : "input on blur"}</span>
-        <span>{query !== "" && `Search: ${query}`}</span>
-        <span>{selectedItem !== "" && `Command value: ${selectedItem}`}</span>
-        <pre>{debounceTimer && `debounced timer:${debounceTimer}`}</pre>
-      </div>
       <CardSuggestionWarning warning={warning} />
       <Command
         className="shadow-md border rounded-lg"
@@ -180,7 +178,9 @@ export const CardSuggestions: FC<Props> = ({
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup
-              heading={filteredSuggestions.length > 0 && "Suggestions"}
+              heading={
+                filteredSuggestions.length > 0 && t("search.suggestions")
+              }
             >
               {filteredSuggestions.map((suggestion) => (
                 <CardSuggestionItem
