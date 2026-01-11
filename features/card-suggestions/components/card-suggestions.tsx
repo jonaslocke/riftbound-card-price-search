@@ -137,9 +137,11 @@ export const CardSuggestions: FC<Props> = ({
   const onSelectItem = (id: CardDetailsDto["riftboundId"]) => {
     setDisabled(true);
 
-    setTimeout(() => {
-      setDisabled(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setDisabled(false);
+    // }, 1000);
+
+    // http://localhost:3000/pt-br/cards/ogn-105-298
 
     console.log(id);
   };
