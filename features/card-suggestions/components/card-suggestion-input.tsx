@@ -1,7 +1,8 @@
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { Button } from "@/components/ui/button";
 import { CommandInput } from "@/components/ui/command";
 import { CircleX, LoaderCircle } from "lucide-react";
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 
 type Props = {
   query: string;
@@ -18,6 +19,8 @@ export const CardSuggestionInput: FC<Props> = ({
   setQuery,
   onClear,
 }) => {
+  const { t } = useI18nHelpers();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const shouldShowClear = !!onClear && !isDisabled && !isLoading && query;
 
@@ -31,6 +34,24 @@ export const CardSuggestionInput: FC<Props> = ({
     onClear();
   };
 
+  useEffect(() => {
+    function handleSlashShortcut(event: KeyboardEvent) {
+      if (event.key !== "/") return;
+      const target = event.target as HTMLElement | null;
+      if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA") {
+        return;
+      }
+      if (event.defaultPrevented) return;
+      event.preventDefault();
+      inputRef.current?.focus();
+    }
+
+    document.addEventListener("keydown", handleSlashShortcut);
+    return () => {
+      document.removeEventListener("keydown", handleSlashShortcut);
+    };
+  }, []);
+
   return (
     <CommandInput asChild>
       <div className="flex items-center">
@@ -38,7 +59,7 @@ export const CardSuggestionInput: FC<Props> = ({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search"
+          placeholder={t("search.placeholder")}
           className="flex flex-1 bg-transparent disabled:opacity-50 py-3 rounded-md outline-hidden w-full h-10 placeholder:text-muted-foreground text-sm disabled:cursor-not-allowed"
           name="search"
           ref={inputRef}

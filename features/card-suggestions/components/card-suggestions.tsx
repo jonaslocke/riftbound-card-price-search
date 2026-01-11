@@ -137,12 +137,6 @@ export const CardSuggestions: FC<Props> = ({
   const onSelectItem = (id: CardDetailsDto["riftboundId"]) => {
     setDisabled(true);
 
-    // setTimeout(() => {
-    //   setDisabled(false);
-    // }, 1000);
-
-    // http://localhost:3000/pt-br/cards/ogn-105-298
-
     console.log(id);
   };
 
@@ -164,13 +158,13 @@ export const CardSuggestions: FC<Props> = ({
       <Command
         className="shadow-md border rounded-lg"
         onFocus={() => setOpen(true)}
-        // onBlur={(e) => {
-        //   const next = e.relatedTarget as HTMLElement | null;
-        //   if ((!next || !e.currentTarget.contains(next)) && !disabled) {
-        //     setOpen(false);
-        //     setSelectedItem("");
-        //   }
-        // }}
+        onBlur={(e) => {
+          const next = e.relatedTarget as HTMLElement | null;
+          if ((!next || !e.currentTarget.contains(next)) && !disabled) {
+            setOpen(false);
+            setSelectedItem("");
+          }
+        }}
         shouldFilter={false}
         value={selectedItem}
         onValueChange={setSelectedItem}
