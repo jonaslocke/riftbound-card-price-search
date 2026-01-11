@@ -1,7 +1,7 @@
 "use client";
 
-import SearchForm from "@/app/components/SearchForm";
-import { Card } from "@/app/types/card.schemas";
+import type { CardDetailsDto } from "@/features/card-search";
+import { CardSuggestions } from "@/features/card-suggestions/components/card-suggestions";
 import { trackEvent } from "@/lib/analytics";
 import { useSession } from "next-auth/react";
 import type { ComponentProps } from "react";
@@ -10,7 +10,12 @@ import { useEffect, useRef } from "react";
 const DEBOUNCE_MS = 700;
 const SEARCH_SOURCE = "search_bar";
 
-type SearchFormWithAnalyticsProps = ComponentProps<typeof SearchForm>;
+type SearchFormWithAnalyticsProps = ComponentProps<typeof CardSuggestions> & {
+  placeholder?: string;
+  mobilePlaceholder?: string;
+  name?: string;
+  variant?: "default" | "header";
+};
 
 type SelectionInfo = {
   method: "click" | "keyboard";
@@ -20,6 +25,7 @@ type SelectionInfo = {
 export default function SearchFormWithAnalytics(
   props: SearchFormWithAnalyticsProps
 ) {
+  const { onCardSelect, ...cardSuggestionsProps } = props;
   const { data: session } = useSession();
   const userId = session?.user?.email ?? null;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -32,6 +38,19 @@ export default function SearchFormWithAnalytics(
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
+
+    const getList = () =>
+      wrapper.querySelector<HTMLElement>(
+        "[data-slot='command-list'], [cmdk-list]"
+      );
+    const getItems = (list: Element | null) =>
+      list
+        ? Array.from(
+            list.querySelectorAll<HTMLElement>(
+              "[data-slot='command-item'], [cmdk-item]"
+            )
+          )
+        : [];
 
     const scheduleSearchStart = (value: string) => {
       if (debounceRef.current) {
@@ -71,11 +90,14 @@ export default function SearchFormWithAnalytics(
     const handleClickCapture = (event: Event) => {
       const target = event.target as Element | null;
       if (!target) return;
-      const list = wrapper.querySelector("#card-suggestions");
+      const list = getList();
       if (!list) return;
-      const item = target.closest("li");
+      const item = target.closest(
+        "[data-slot='command-item'], [cmdk-item]"
+      ) as HTMLElement | null;
       if (!item || !list.contains(item)) return;
-      const index = Array.from(list.children).indexOf(item);
+      const items = getItems(list);
+      const index = items.indexOf(item);
       if (index < 0) return;
       selectionRef.current = { method: "click", position: index };
     };
@@ -85,13 +107,14 @@ export default function SearchFormWithAnalytics(
       if (keyboardEvent.key !== "Enter") return;
       const target = keyboardEvent.target as Element | null;
       if (!target || target.tagName !== "INPUT") return;
-      const list = wrapper.querySelector("#card-suggestions");
+      const list = getList();
       if (!list) return;
       const activeItem =
-        list.querySelector("li[aria-selected='true']") ??
-        list.querySelector('li[aria-selected="true"]');
+        list.querySelector("[data-selected='true']") ??
+        list.querySelector("[aria-selected='true']");
       if (!activeItem) return;
-      const index = Array.from(list.children).indexOf(activeItem);
+      const items = getItems(list);
+      const index = items.indexOf(activeItem as HTMLElement);
       if (index < 0) return;
       selectionRef.current = { method: "keyboard", position: index };
     };
@@ -112,30 +135,32 @@ export default function SearchFormWithAnalytics(
     };
   }, []);
 
-  const handleCardSelect = async (card: Card) => {
+  const handleCardSelect = async (card: CardDetailsDto) => {
     const selection = selectionRef.current ?? {
       method: "click",
       position: 0,
     };
     selectionRef.current = null;
-    const analyticsCardId = card.riftbound_id ?? card.id;
     trackEvent(
       "card_selected",
       {
         query: inputValueRef.current.trim(),
-        card_id: analyticsCardId,
+        card_id: card.riftboundId,
         card_name: card.name,
         selection_method: selection.method,
         position: selection.position,
       },
       { user_id: userId }
     );
-    await Promise.resolve(props.onCardSelect?.(card));
+    await Promise.resolve(onCardSelect?.(card));
   };
 
   return (
     <div ref={wrapperRef} className="w-full">
-      <SearchForm {...props} onCardSelect={handleCardSelect} />
+      <CardSuggestions
+        {...cardSuggestionsProps}
+        onCardSelect={handleCardSelect}
+      />
     </div>
   );
 }

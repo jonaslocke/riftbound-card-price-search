@@ -1,3 +1,4 @@
+import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { queryClient } from "@/app/providers/query-provider";
 import {
   Command,
@@ -7,13 +8,12 @@ import {
 } from "@/components/ui/command";
 import { CardDetailsDto } from "@/features/card-search";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { FC, useMemo, useState } from "react";
-import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import { fetchCardSuggestions } from "../services/fetchCardSuggestions";
 import { CardSuggestionInput } from "./card-suggestion-input";
 import { CardSuggestionItem } from "./card-suggestion-item";
 import { CardSuggestionWarning, Warnings } from "./card-suggestion-warning";
-import { useRouter } from "next/navigation";
 
 const MOCK = [
   {
@@ -70,10 +70,12 @@ const MOCK = [
 
 type Props = {
   suggestions?: CardDetailsDto[];
+  onCardSelect?: (card: CardDetailsDto) => void | Promise<void>;
 };
 
 export const CardSuggestions: FC<Props> = ({
   suggestions = MOCK as CardDetailsDto[],
+  onCardSelect,
 }) => {
   const router = useRouter();
   const { t } = useI18nHelpers();
@@ -140,6 +142,13 @@ export const CardSuggestions: FC<Props> = ({
 
   const onSelectItem = (id: CardDetailsDto["riftboundId"]) => {
     setDisabled(true);
+
+    const selectedCard = filteredSuggestions.find(
+      (card) => card.riftboundId === id
+    );
+    if (selectedCard) {
+      Promise.resolve(onCardSelect?.(selectedCard)).catch(() => undefined);
+    }
 
     router.push(`/cards/${id}`);
   };
