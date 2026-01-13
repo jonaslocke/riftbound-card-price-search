@@ -3,6 +3,18 @@
     "name": "Hextech Index"
   },
   "home": {
+    "brand_title": "Portal de TCG",
+    "hero_subtitle": "Seu hub de TCG Riftbound. Busque por cartas e compare preços. O seu lugar para Riftbound TCG.",
+    "nav": {
+      "prices": "Preços",
+      "gallery": "Galeria",
+      "about": "Sobre"
+    },
+    "cta": {
+      "get_started": "Começar",
+      "browse_prices": "Ver preços",
+      "view_gallery": "Ver galeria de cartas"
+    },
     "tagline": "Encontre e compare preços de cartas de Riftbound em várias lojas"
   },
   "theme": {
@@ -15,7 +27,7 @@
     "label": "Buscar",
     "clear": "Limpar busca",
     "suggestions_aria": "Sugestões de cartas",
-    "error_default": "Não foi possível pesquisar agora.",
+    "error_default": "Não foi possível realizar a pesquisa agora.",
     "min_chars": "Digite pelo menos 3 caracteres para buscar.",
     "no_image": "Sem imagem"
   },
@@ -24,10 +36,10 @@
     "in_stock_one": "{{count}} loja vendendo esta carta",
     "in_stock_other": "{{count}} lojas vendendo esta carta",
     "store_name": "Loja",
-    "quantity": "Qtd",
+    "quantity": "Qtd.",
     "value": "Valor",
     "go_to": "Ir para",
-    "empty": "Nenhuma listagem disponível ainda.",
+    "empty": "Nenhuma listagem disponível no momento.",
     "lastUpdated": "Atualizado em {{date, DD/MM/YY HH:mm}}",
     "lastKnownUpdate": "Última atualização em {{date, DD/MM/YY HH:mm}}",
     "visit_store": "Visitar",
@@ -43,10 +55,10 @@
     "might_symbol": "Símbolo de poder",
     "illustrated_by": "Ilustrado por: {{artist}}",
     "domain_image_alt": "Imagem do domínio: {{domain}}",
-    "other_printings": "Impressões",
+    "other_printings": "Outras impressões",
     "print_indicator": {
       "altered": "Alterada",
-      "overnumbered": "Overnumber",
+      "overnumbered": "Sobrenumerada",
       "signature": "Assinada"
     },
     "art_alt": "Arte de {{name}}"
@@ -64,19 +76,19 @@
     "sign_in_google": "Continuar com Google",
     "sign_in_disclaimer_prefix": "Ao entrar, você concorda com as",
     "sign_in_disclaimer_link": "políticas legais da Riot Games",
-    "sign_in_promo": "Preços atualizados diariamente. Mantenha a sessão ativa para ver listagens.",
-    "sign_in_hero_alt": "Pouty Poro"
+    "sign_in_promo": "Preços atualizados diariamente. Mantenha a sessão ativa para ver as listagens.",
+    "sign_in_hero_alt": "Poro emburrado"
   },
   "footer": {
     "social_label": "Social",
     "social_discord": "Discord",
     "social_community": "Comunidade",
     "social_youtube": "YouTube",
-    "legal_jibber_jabber": "Legal Jibber Jabber",
-    "disclaimer_riot_prefix": "© 2025 Hextech Index. O Hextech Index foi criado com base na política ",
+    "legal_jibber_jabber": "Avisos legais",
+    "disclaimer_riot_prefix": "© 2025 Hextech Index. O Hextech Index foi criado de acordo com a política ",
     "disclaimer_riot_suffix": " da Riot Games, utilizando ativos pertencentes à Riot Games. A Riot Games não endossa nem patrocina este projeto.",
-    "disclaimer_assets": "Riftbound é um jogo de cartas colecionáveis feito pela Riot Games. As imagens de cartas, símbolos e elementos do jogo exibidos aqui são propriedade da Riot Games.",
-    "disclaimer_prices": "Os preços das cartas e as ofertas promocionais representam estimativas diárias e/ou valores de mercado fornecidos por afiliados. Não há garantia sobre qualquer informação de preço. Consulte as lojas para preços e detalhes finais.",
+    "disclaimer_assets": "Riftbound é um jogo de cartas colecionáveis desenvolvido pela Riot Games. As imagens de cartas, símbolos e elementos do jogo exibidos aqui são propriedade da Riot Games.",
+    "disclaimer_prices": "Os preços das cartas e as ofertas promocionais representam estimativas diárias e/ou valores de mercado fornecidos por afiliados. Não há garantia quanto à exatidão das informações de preço. Consulte as lojas para valores e detalhes finais.",
     "disclaimer_other": "Todo o restante do conteúdo © 2025 Hextech Index."
   }
 }

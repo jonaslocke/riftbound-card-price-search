@@ -45,14 +45,7 @@ export default async function RootLayout({
         }
       >
         <AppProviders locale={locale}>
-          <LayoutChrome
-            header={<GlobalHeader />}
-            footer={<SiteFooter locale={locale} />}
-          >
-            <main>
-              <span>1</span>
-              {children}</main>
-          </LayoutChrome>
+          {children}
         </AppProviders>
       </body>
     </html>

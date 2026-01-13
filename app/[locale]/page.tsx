@@ -2,6 +2,7 @@
 
 import { useI18nHelpers } from "@/app/i18n/HelpersProvider";
 import logo from "@/assets/brand/hextech-index-gradient.svg";
+import hammer from "@/assets/brand/hextech-index-hammer-gradient.svg";
 import { Button } from "@/components/ui/button";
 import { readLastKnownPath } from "@/lib/lastKnownPath";
 import { cn } from "@/lib/utils";
@@ -19,15 +20,90 @@ import arrowSmall from "@/assets/arrow-small.svg";
 import arrowMedium from "@/assets/arrow-medium.svg";
 import arrowLarge from "@/assets/arrow-large.svg";
 
+import poster from "@/assets/hero-poster.jpg";
+import { Navigation } from "@/features/main-header/components/navigation";
+
 export default function Home() {
+  const { t } = useI18nHelpers();
+  const { data: session, status } = useSession();
+
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname) ?? defaultLocale;
+  const isAuthenticated = status === "authenticated";
+
+  const signInCallbackUrl = pathname || `/${locale}`;
+  const getCallbackUrl = () =>
+    readLastKnownPath(signInCallbackUrl) ?? signInCallbackUrl;
+  const handleSignIn = () => {
+    signIn("google", { callbackUrl: getCallbackUrl() });
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: getCallbackUrl() });
+  };
   return (
-    <>
-      <div className="hidden top-[calc(50vh-220px)] -z-1 absolute sm:flex *:-ml-39">
-        <Image className="opacity-10" src={arrowSmall} alt="arrow-small" />
-        <Image className="opacity-20" src={arrowMedium} alt="arrow-small" />
-        <Image className="opacity-30" src={arrowLarge} alt="arrow-small" />
+    <div className="relative w-full min-h-screen overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-screen h-screen object-cover"
+        poster={poster.src}
+      >
+        <source src="/gears.mp4" type="video/mp4" />
+      </video>
+
+      <div className="absolute inset-0 bg-linear-to-t from-background to-black/40 backdrop-blur-lg" />
+
+      <div className="z-10 relative flex flex-col min-h-screen">
+        <header className="flex justify-between items-center bg-white/10 backdrop-blur-lg border-white/30 border-b h-[72]">
+          <Image src={hammer} alt={t("brand.name")} height={40} />
+          <nav className="">
+            <Navigation />
+          </nav>
+          <SignInSignOut
+            isAuthenticated={isAuthenticated}
+            displayName={session?.user?.name ?? ""}
+            displayEmail={session?.user?.email ?? ""}
+            imageUrl={session?.user?.image ?? ""}
+            onSignIn={handleSignIn}
+            onSignOut={handleSignOut}
+            className="cursor-pointer"
+            options={{
+              avatar: {
+                className: "size-10",
+              },
+            }}
+          />
+        </header>
+
+        <main className="flex flex-col justify-center">
+          <div className="flex flex-col gap-4 max-w-3xl">
+            <div className="flex gap-6">
+              <Image src={hammer} alt={t("brand.name")} />
+              <Image
+                src={logo}
+                alt={t("brand.name")}
+                height={100}
+                width={436}
+              />
+            </div>
+            <p className="text-white/80 text-xl sm:text-2xl text-balance">
+              {t("home.hero_subtitle")}
+            </p>
+            <div className="flex flex-wrap gap-4 mt-6">
+              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-lg font-semibold text-white text-base transition">
+                {t("home.cta.browse_prices")}
+              </button>
+              <button className="bg-white/10 hover:bg-white/20 backdrop-blur-lg px-8 py-4 rounded-lg font-semibold text-white text-base transition">
+                {t("home.cta.view_gallery")}
+              </button>
+            </div>
+          </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 

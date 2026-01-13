@@ -280,14 +280,11 @@ input[type="search"] {
   }
 
   body {
-    @apply bg-background text-foreground bg-no-repeat bg-center bg-fixed bg-cover relative flex flex-col;
-    @apply after:top-0 after:left-0 after:-z-2 after:fixed after:bg-linear-to-t after:from-background after:to-70% after:to-background/95 after:w-screen after:h-screen;
-    background-image: var(--background-image);
+    @apply bg-background text-foreground flex flex-col;
   }
 
   main {
-    min-height: calc(100vh - 72px);
-    margin-top: 72px;
+    @apply flex-1
   }
 
   main,

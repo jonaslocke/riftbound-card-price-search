@@ -3,7 +3,19 @@
     "name": "Hextech Index"
   },
   "home": {
-    "tagline": "Find and compare Riftbound card prices across multiple stores"
+    "tagline": "Find and compare Riftbound card prices across multiple stores",
+    "brand_title": "TCG Portal",
+    "hero_subtitle": "Your Riftbound TCG Hub, browse cards, compare prices. Your place for Riftbound TCG.",
+    "nav": {
+      "prices": "Prices",
+      "gallery": "Gallery",
+      "about": "About"
+    },
+    "cta": {
+      "get_started": "Get started",
+      "browse_prices": "Browse Prices",
+      "view_gallery": "View Card Gallery"
+    }
   },
   "theme": {
     "switch_to_light": "Switch to light mode",
