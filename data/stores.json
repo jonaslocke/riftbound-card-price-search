@@ -154,5 +154,35 @@
     "url": "https://www.tier1tcg.com.br",
     "storeTitle": "Tier1 Tcg",
     "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/64e5fb0741ead-agswl-fmzs5-167085419564e5fb0741eee.jpg"
+  },
+  {
+    "storeName": "epiclevel",
+    "url": "https://www.epiclevel.com.br",
+    "storeTitle": "EpicLevel",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/628ef9132c2c0-d90lt-gsj7v-858986475628ef9132c35a.jpg"
+  },
+  {
+    "storeName": "kirin-games",
+    "url": "https://www.kirinstudio.com.br",
+    "storeTitle": "Kirin Games",
+    "storeImage": ""
+  },
+  {
+    "storeName": "cafofo-tcg",
+    "url": "https://www.cafofotcg.com.br",
+    "storeTitle": "Cafofo TCG",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/65d87549ae51a-0w851-vs9io-107123379065d87549ae55e.jpg"
+  },
+  {
+    "storeName": "supernova",
+    "url": "https://www.supernovahobbystore.com.br",
+    "storeTitle": "Supernova Hobby Store",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/62fd3c3d423db-1cv7e-9hgc8-74259648762fd3c3d4243c.jpg"
+  },
+  {
+    "storeName": "banzai",
+    "url": "https://www.banzaicards.com.br",
+    "storeTitle": "Banzai Cards",
+    "storeImage": "https://repositorio.sbrauble.com/arquivos/up/ecom/logo/6567ae504cadd-evdzs-j7abu-11956322196567ae504cb5f.jpg"
   }
 ]
