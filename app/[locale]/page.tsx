@@ -57,11 +57,11 @@ export default function Home() {
       <div className="absolute inset-0 bg-linear-to-t from-background to-black/40 backdrop-blur-lg" />
 
       <div className="z-10 relative flex flex-col min-h-screen">
-        <header className="flex justify-between items-center bg-white/10 backdrop-blur-lg border-white/30 border-b h-[72]">
+        <header className="flex items-center gap-12 bg-white/10 backdrop-blur-lg border-white/30 border-b h-[72]">
           <Image src={hammer} alt={t("brand.name")} height={40} />
-          <nav className="">
+          <div className="flex-1">
             <Navigation />
-          </nav>
+          </div>
           <SignInSignOut
             isAuthenticated={isAuthenticated}
             displayName={session?.user?.name ?? ""}
@@ -93,12 +93,12 @@ export default function Home() {
               {t("home.hero_subtitle")}
             </p>
             <div className="flex flex-wrap gap-4 mt-6">
-              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-lg font-semibold text-white text-base transition">
+              <Button className="px-8 py-4 hover:ring-2 h-auto font-display font-semibold text-base transition">
                 {t("home.cta.browse_prices")}
-              </button>
-              <button className="bg-white/10 hover:bg-white/20 backdrop-blur-lg px-8 py-4 rounded-lg font-semibold text-white text-base transition">
-                {t("home.cta.view_gallery")}
-              </button>
+              </Button>
+              <Button className="bg-white/10 hover:bg-white/20 backdrop-blur-lg px-8 py-4 hover:ring-2 h-auto font-display font-semibold text-base transition">
+                {t("home.cta.view_gallery")}{" "}
+              </Button>
             </div>
           </div>
         </main>
